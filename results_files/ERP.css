@@ -1,0 +1,1593 @@
+﻿#cssmenu ul,
+#cssmenu li,
+#cssmenu span,
+#cssmenu a {
+  margin: 0;
+  padding: 0;
+  position: relative;
+ 
+}
+/*#cssmenu {
+  line-height: 1;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  background: #e1e1e1;
+  background: -moz-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e1e1e1), color-stop(100%, #e1e1e1));
+  background: -webkit-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -o-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -ms-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: #e1e1e1;
+  border-bottom: 2px solid #db000b;
+  width: auto;
+  height: 30px;
+}*/
+#cssmenu:after,
+#cssmenu ul:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#cssmenu a {
+  background: #e1e1e1; /*#f2f2f2;*/
+  background: -moz-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e1e1e1), color-stop(100%, #e1e1e1));
+  background: -webkit-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -o-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -ms-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #ffffff 100%);
+  /*background: linear-gradient(to bottom, #e1e1e1 0%, #e1e1e1 100%);*/
+  color: #e1e1e1; /*#f2f2f2;*/
+  display: block;
+  font-family :Arial ,Arial ,Arial ,Arial ;
+  padding: 8px 10px;
+  text-decoration: none;
+  
+}
+#cssmenu ul {
+  list-style: none;
+    top: 0px;
+    left: 0px;
+    height: 35px;
+	
+}
+#cssmenu > ul > li {
+  display: inline-block;
+  float: left;
+  margin: 0;
+  
+}
+#cssmenu.align-center {
+  text-align: center;
+}
+#cssmenu.align-center > ul > li {
+  float: none;
+}
+#cssmenu.align-center ul ul {
+  text-align: left;
+}
+#cssmenu.align-right > ul {
+  float: right;
+}
+#cssmenu.align-right ul ul {
+  text-align: right;
+}
+#cssmenu > ul > li > a {
+  color: #000000;
+  font-size: 12px;
+}
+#cssmenu > ul > li:hover:after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #9a007b;
+  margin-left: -10px;
+}
+#cssmenu > ul > li:first-child > a {
+  border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
+  -webkit-border-radius: 5px 0 0 0;
+}
+#cssmenu.align-right > ul > li:first-child > a,
+#cssmenu.align-center > ul > li:first-child > a {
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+}
+#cssmenu.align-right > ul > li:last-child > a {
+  border-radius: 0 5px 0 0;
+  -moz-border-radius: 0 5px 0 0;
+  -webkit-border-radius: 0 5px 0 0;
+}
+#cssmenu > ul > li.active > a,
+#cssmenu > ul > li:hover > a {
+  color: #000000;
+  /*box-shadow: inset 0 0 3px #0b2e06;*/
+  /*-moz-box-shadow: inset 0 0 3px #0b2e06;*/
+  /*-webkit-box-shadow: inset 0 0 3px #0b2e06;*/
+  background: #f2f2f2;
+  background: -moz-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e1e1e1), color-stop(100%, #e1e1e1));
+  background: -webkit-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -o-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -ms-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: linear-gradient(to bottom, #e1e1e1 0%, #e1e1e1 100%);
+}
+#cssmenu > ul > li.has-sub > a,
+#cssmenu > ul > li:hover > a {
+  color: #000000;
+  font-weight:bold;
+  font-family :arial;
+  font-size :13px;
+  /*box-shadow: inset 0 0 3px #0b2e06;*/
+  /*-moz-box-shadow: inset 0 0 3px #0b2e06;*/
+  /*-webkit-box-shadow: inset 0 0 3px #0b2e06;*/
+  background: #f2f2f2;
+  background: -moz-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e1e1e1), color-stop(100%, #e1e1e1));
+  background: -webkit-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -o-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -ms-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: linear-gradient(to bottom, #e1e1e1 0%, #e1e1e1 100%);
+}
+#cssmenu .has-sub {
+  z-index: 2;
+}
+#cssmenu .has-sub:hover > ul {
+  display: block;
+}
+#cssmenu .has-sub ul {
+  display: none;
+  position: absolute;
+  width: 200px;
+  top: 100%;
+  left: 0;
+}
+#cssmenu.align-right .has-sub ul {
+  left: auto;
+  right: 0;
+}
+#cssmenu .has-sub ul li {
+  *margin-bottom: -1px;
+
+}
+#cssmenu .has-sub ul li a {
+  background-color: #e1e1e1;
+ font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  filter: none;
+  display: block;
+  line-height: 120%;
+   color: black;
+  padding: 6px;
+  text-decoration: none;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  animation: growDown 300ms ease-in-out forwards;
+    transform-origin: top center;
+}
+/*done by nirmal 23-08-2021*/
+@keyframes growDown {
+    0% {
+        transform: scaleY(0)
+    }
+    80% {
+        transform: scaleY(1.1)
+    }
+    100% {
+        transform: scaleY(1)
+    }
+}
+#cssmenu .has-sub ul li:hover a {
+   /*background: #00649a;
+  color:white;*/ 
+}
+#cssmenu ul ul li:hover > a {
+  color: white;
+  /* background: #00649a; */
+   background:#2c8bff;  /*by nirmal*/
+}
+#cssmenu .has-sub .has-sub:hover > ul {
+  display: block;
+}
+#cssmenu .has-sub .has-sub ul {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+#cssmenu.align-right .has-sub .has-sub ul,
+#cssmenu.align-right ul ul ul {
+  left: auto;
+  right: 100%;
+}
+
+#cssmenu .has-sub .has-sub ul li a:hover {
+  /* background: #00649a; */
+  background:#2c8bff;
+  color:white;
+}
+#cssmenu ul ul li.last > a,
+#cssmenu ul ul li:last-child > a,
+#cssmenu ul ul ul li.last > a,
+#cssmenu ul ul ul li:last-child > a,
+#cssmenu .has-sub ul li:last-child > a,
+#cssmenu .has-sub ul li.last > a {
+  border-bottom: 0;
+  
+}
+
+ .tablemodules {
+            width: 180px;
+            height: 500px;
+            margin-left:10px;
+        }          
+       
+        .beesbannerright {
+            width: 130px;
+            vertical-align:top;
+            padding-left:0px;
+            text-align:left;
+            height:508px;
+            /*margin-left:-30px;*/
+          
+        }
+        .module2ndImage {
+            width: 114px;
+            height:65px;
+        }
+        .module1stImage {
+            width: 117px;
+            height:65px;
+        }
+
+        .modulesheading {
+            height: 40px;
+        }
+                        
+        .header-secondpart {
+            width: 150px;
+            /*text-align:left;*/
+        }
+        .header-firstpart {
+            width: 590px;
+        }
+        .header-thirdpart {
+            width: 100px;
+            /*vertical-align:top;
+            text-align:center;*/
+        }
+        
+        .menustyle
+        {
+            /* height: 30px; */
+            /* width:1160px; */
+			width:100%;
+            /* margin-top:15px; */
+            /*background-color:#08246F;*/
+			
+        }
+
+         .menustyleButtons
+        {
+            height: 30px;
+            width:1160px;
+            margin-top: 14px;
+            /*background-color:#08246F;*/
+        }
+
+        .menuHome
+        {
+            height: 30px;
+            width:90px;
+            /*background-color:#08246F;*/
+            text-align:center;
+        }
+
+        .menuLogout
+        {
+            height: 30px;
+            width:90px;
+            /*background-color:#08246F;*/
+            text-align:center;
+        }
+
+         .lnkExras
+        {
+            height: 30px;
+            width:90px;
+            background-color:#e1e1e1;
+            text-align:center;
+        }
+
+         .menustylewithpadding
+        {
+            height: 30px;
+            width:1000px;
+            background-color:#e1e1e1;
+            padding-right:10px;
+        }
+
+        /*.ChildFormStyle
+        {
+              height: 475px;
+              vertical-align:top;
+              text-align:left;  
+              /*margin-top:10px;*/    
+              width:1000px;    
+        }*/
+
+        .ChildFormDiv
+        {
+              margin-top:0px; 
+              /*margin-left:0px;
+              width: 990px;   
+              height:475px;*/
+        }
+
+        .ChildFormPanelStyle
+        {
+            height:470px;
+            vertical-align:bottom;
+            text-align:left;
+            width: 971px;   
+        }
+
+        .ChildFormSuccessStyle
+        {
+            height:470px;
+            vertical-align:central;
+            text-align:center;
+            width: 971px;
+            margin-top: -760px;
+            margin-left: 140px;   
+        }        
+
+        .BottomLine
+        {
+            Height:18px;
+            background-color:#e1e1e1;
+            color:black;
+            vertical-align:central;;
+            color:black;
+            vertical-align:central;
+            text-align:center;
+            width:1320px;
+            margin-bottom:-40px;
+            margin-top:-5px;
+            padding:4px 10px 0px 0px;
+            font-weight:bold;
+        }
+
+         .Footer
+        {
+	        height:25px;
+	        width:100%;	       
+            text-align:center;
+            padding-top: 0px;
+            padding-bottom:0px;
+            font-family :Arial ,Arial ;
+            font-size:13px;
+            font-weight:bold;
+            background-image:url(../Images/Main_Login/header.jpg);
+        }
+        .FooterWhite
+        {
+	        height:25px;
+	        width:100%;	       
+            text-align:center;
+            padding-top: 0px;
+            padding-bottom:0px;
+            font-family :Arial ,Arial ;
+            font-size:13px;
+            font-weight:bold;
+            background-color:transparent;
+        }
+
+        .BottomLineWhite
+        {
+            Height:18px;
+            background-color:transparent;
+            color:White;
+            vertical-align:central;
+            text-align:center;
+            width:1335px;
+            margin-bottom:-40px;
+            margin-top:-5px;
+            padding:4px 10px 0px 0px;
+        }
+
+      .contentdisplay
+        {
+        float: left;
+        width: 695px;
+        height: 600px;
+        border:1px solid red;
+        margin:15px 0px 0px 3px;
+        background-color:#000000;
+        overflow:hidden;
+        }
+
+.formHeadertd
+{
+    width:100%;
+    /*background-color:lightblue;*/
+    
+}
+.formHeader  
+{
+    color:#000;
+    font-weight:400;
+    font-size:15px;
+    font-family :Arial ,Arial;
+    font-weight:bold;
+    /*margin-left: 40px;*/
+}
+.formHeaderHometd
+{
+    width:1200px;
+    text-align:center;
+}
+.formHeaderHome
+{
+     font:15px arial;
+    color:#000;
+    font-weight:400;   
+    width:1200px;
+}
+.formTranstd
+{
+    width:100px;
+    text-align:center;
+    /*background-color:#9a007b;*/
+    vertical-align:central;
+    /*height:10px;*/
+}
+.formTransMode
+{
+    
+    color:#fff;
+    background-color:blue;
+    font-weight:400;
+    height:10px;
+    width:100px;
+     font-family:Arial,arial;  
+    font-size:15px;
+    margin-right:500px;
+    border-radius:10px;
+    padding-top:5px;    
+}
+.formButtons
+{
+    width:400px;
+    text-align:right;
+}
+.formlabel
+{
+	width: 400px;
+	height: 18px;
+	font: 400 12px Arial;
+	color: #000;
+	padding: 3px 0px 0px 5px;	
+	
+}
+.header-secondpartuser{
+    padding:2px;
+}
+.total-header{
+    margin-top:-10px;
+    width:900px;
+}
+.arrow{
+    width:5px;
+    height:5px;
+    /*margin-left:30px;*/
+    margin-top:5px;
+   align-items:flex-start;
+}
+.list{
+    background:url(../images/arrow.png) right no-repeat !important;
+    padding-right:10px;
+    background-color:#e1e1e1 !important;
+    height:16px;
+    
+}
+
+.list:hover
+{
+    background:url(../images/arrow.png) right no-repeat !important;
+    padding-right:10px;
+    background-color:#9a007b !important;
+    height:16px;
+}
+.RecordMessage
+{
+    color:red;
+    font:bold 15px arial;
+}
+.BtnMessage
+{
+    width:70px;
+    color:#000000;
+    background-color:#e1e1e1;
+    text-align:center;
+    font:bold 13px arial;
+
+}
+
+.circle-mask {
+      display: block;
+      height: 70px;
+      width: 70px;
+      overflow: hidden;
+      border-radius: 50%;
+      margin-left: auto;
+      margin-right: auto;
+      z-index: 100;
+      margin-bottom: 10px;
+      background-size: 70px;
+      background-repeat: no-repeat;
+  
+      background-image:url(../Images/avatar_2x.png);
+      -webkit-transition: opacity 0.055s;
+      -moz-transition: opacity 0.055s;
+      -ms-transition: opacity 0.055s;
+      -o-transition: opacity 0.055s;
+      transition: opacity 0.055s;
+    }
+    .circle {
+      -webkit-transition-property: -webkit-transform;
+      -moz-transition-property: -moz-transform;
+      -ms-transition-property: -ms-transform;
+      -o-transition-property: -o-transform;
+      transition-property: transform;
+      -webkit-transition-timing-function: cubic-bezier(.645,.045,.355,1);
+      -moz-transition-timing-function: cubic-bezier(.645,.045,.355,1);
+      -ms-transition-timing-function: cubic-bezier(.645,.045,.355,1);
+      -o-transition-timing-function: cubic-bezier(.645,.045,.355,1);
+      transition-timing-function: cubic-bezier(.645,.045,.355,1);
+    }
+    .circle {
+      position: absolute;
+      z-index: 101;
+      height: 70px;
+      width: 70px;
+      border-radius: 50%;
+      opacity: 0.99;
+      overflow: hidden;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+.img:hover { 
+  border: 3px solid black; 
+} 
+
+
+
+
+
+
+
+
+
+
+/* changes for employee login 12/07/2021*/
+@charset "utf-8";
+#cssmenuemp ul,
+#cssmenuemp li,
+#cssmenuemp span,
+#cssmenuemp a {
+  margin: 0;
+  padding: 0;
+  position: relative;
+ 
+}
+#cssmenuemp{
+	background-color:#fc791e;
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0, rgb(255,147,38)), color-stop(1, rgb(217,109,0)));
+	width:100%;
+	height:40px;
+	
+}
+/*#cssmenuemp {
+  line-height: 1;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  background: #e1e1e1;
+  background: -moz-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e1e1e1), color-stop(100%, #e1e1e1));
+  background: -webkit-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -o-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -ms-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: #e1e1e1;
+  border-bottom: 2px solid #db000b;
+  width: auto;
+  height: 30px;#036
+}*/
+#cssmenuemp:after,
+#cssmenuemp ul:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#cssmenuemp a {
+  background: #e1e1e1; /*#f2f2f2;*/
+  background: -moz-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e1e1e1), color-stop(100%, #e1e1e1));
+  background: -webkit-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -o-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -ms-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  /* background: linear-gradient(to bottom, #ffffff 0%, #ffffff 100%); */
+  background: linear-gradient(to bottom, #036 0%, #036 100%);/* by nirmal for vardhaman 08072021*/
+  /*background: linear-gradient(to bottom, #e1e1e1 0%, #e1e1e1 100%);*/
+  color: #e1e1e1; /*#f2f2f2;*/
+  display: block;
+  font-family :Arial ,Arial ,Arial ,Arial ;
+  padding: 8px 10px;
+  text-decoration: none;
+  
+  
+}
+#cssmenuemp ul {
+  list-style: none;
+    top: 0px;
+    left: 0px;
+    height: 35px;
+	margin-left:0px; /* BY NIRMAL 09072021 FOR VARDHAMAN*/
+	
+}
+
+#cssmenuemp > ul > li {
+  display: inline-block;
+  float: left;
+  margin: 0;
+  border:1px solid white;
+  width:170px;
+  text-align:center;
+  
+}
+
+#cssmenuemp.align-center {
+  text-align: center;
+}
+#cssmenuemp.align-center > ul > li {
+  float: none;
+}
+#cssmenuemp.align-center ul ul {
+  text-align: left;
+}
+#cssmenuemp.align-right > ul {
+  float: right;
+}
+#cssmenuemp.align-right ul ul {
+  text-align: right;
+}
+#cssmenuemp > ul > li > a {
+  color: #000000;
+  font-size: 12px;
+}
+#cssmenuemp > ul > li:hover:after {
+  content: '';
+  display: block;
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  /* border-bottom: 10px solid #9a007b; */
+  border-bottom: 10px solid #036;
+  margin-left: -10px;
+ 
+
+}
+#cssmenuemp > ul > li:first-child > a {
+  border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
+  -webkit-border-radius: 5px 0 0 0;
+}
+#cssmenuemp.align-right > ul > li:first-child > a,
+#cssmenuemp.align-center > ul > li:first-child > a {
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+}
+#cssmenuemp.align-right > ul > li:last-child > a {
+  border-radius: 0 5px 0 0;
+  -moz-border-radius: 0 5px 0 0;
+  -webkit-border-radius: 0 5px 0 0;
+}
+#cssmenuemp > ul > li.active > a,
+#cssmenuemp > ul > li:hover > a {
+  color: #000000;
+  /*box-shadow: inset 0 0 3px #0b2e06;*/
+  /*-moz-box-shadow: inset 0 0 3px #0b2e06;*/
+  /*-webkit-box-shadow: inset 0 0 3px #0b2e06;*/
+  background: #f2f2f2;
+  background: -moz-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e1e1e1), color-stop(100%, #e1e1e1));
+  background: -webkit-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -o-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -ms-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: linear-gradient(to bottom, #e1e1e1 0%, #e1e1e1 100%);
+  
+   
+}
+#cssmenuemp > ul > li.has-subemp > a,
+#cssmenuemp > ul > li:hover > a {
+  color: #000000;
+  font-weight:bold;
+  font-family :arial;
+  font-size :13px;
+  /*box-shadow: inset 0 0 3px #0b2e06;*/
+  /*-moz-box-shadow: inset 0 0 3px #0b2e06;*/
+  /*-webkit-box-shadow: inset 0 0 3px #0b2e06;*/
+  background: #f2f2f2;
+  background: -moz-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e1e1e1), color-stop(100%, #e1e1e1));
+  background: -webkit-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -o-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -ms-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: linear-gradient(to bottom, #e1e1e1 0%, #e1e1e1 100%);
+  
+  
+}
+#cssmenuemp .has-subemp {
+  z-index: 2;
+}
+#cssmenuemp .has-subemp:hover > ul {
+  display: block;
+}
+#cssmenuemp .has-subemp ul {
+  display: none;
+  position: absolute;
+  width: 200px;
+  top: 100%;
+  left: 0;
+  margin-left:0px;
+  
+}
+#cssmenuemp.align-right .has-subemp ul {
+  left: auto;
+  right: 0;
+}
+#cssmenuemp .has-subemp ul li {
+  *margin-bottom: -1px;
+
+}
+#cssmenuemp .has-subemp ul li a {
+  background-color: #e1e1e1;
+ font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  filter: none;
+  display: block;
+  line-height: 120%;
+   /* color: black; by nirmal 08072021*/
+   color: white;
+   border:1px solid white;
+   font-weight:bold;
+   text-align:left;
+   
+   
+   /*---*/
+  padding: 6px;
+  text-decoration: none;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  animation: growDown 300ms ease-in-out forwards;
+    transform-origin: top center;
+  
+}
+#cssmenuemp .has-subemp ul li:hover a {
+   /*background: #00649a;
+  color:white;*/ 
+}
+#cssmenuemp ul ul li:hover > a {
+  color: white;
+  /* background: #00649a; */
+   background:#fc791e;  /*by nirmal 08072021*/
+   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0, rgb(255,147,38)), color-stop(1, rgb(217,109,0)));
+
+}
+#cssmenuemp .has-subemp .has-subemp:hover > ul {
+  display: block;
+  
+}
+#cssmenuemp .has-subemp .has-subemp ul {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  
+}
+#cssmenuemp.align-right .has-subemp .has-subemp ul,
+#cssmenuemp.align-right ul ul ul {
+  left: auto;
+  right: 100%;
+  
+}
+
+#cssmenuemp .has-subemp .has-subemp ul li a:hover {
+  /* background: #00649a; */
+  background:#2c8bff;
+  color:white;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0, rgb(255,147,38)), color-stop(1, rgb(217,109,0)));
+  
+  
+}
+#cssmenuemp ul ul li.last > a,
+#cssmenuemp ul ul li:last-child > a,
+#cssmenuemp ul ul ul li.last > a,
+#cssmenuemp ul ul ul li:last-child > a,
+#cssmenuemp .has-subemp ul li:last-child > a,
+#cssmenuemp .has-subemp ul li.last > a {
+  border-bottom: 0;
+   
+}
+
+
+
+
+
+
+
+/* changes for student login 12/07/2021*/
+#cssmenustu ul,
+#cssmenustu li,
+#cssmenustu span,
+#cssmenustu a {
+  margin: 0;
+  padding: 0;
+  position: relative;
+ 
+}
+#cssmenustu{
+	background-color:#fc791e;
+	background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0, rgb(255,147,38)), color-stop(1, rgb(217,109,0)));
+	width:100%;
+	height:40px;
+	
+}
+/*#cssmenustu {
+  line-height: 1;
+  border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  background: #e1e1e1;
+  background: -moz-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e1e1e1), color-stop(100%, #e1e1e1));
+  background: -webkit-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -o-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -ms-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: #e1e1e1;
+  border-bottom: 2px solid #db000b;
+  width: auto;
+  height: 30px;#036
+}*/
+#cssmenustu:after,
+#cssmenustu ul:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#cssmenustu a {
+  background: #e1e1e1; /*#f2f2f2;*/
+  background: -moz-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e1e1e1), color-stop(100%, #e1e1e1));
+  background: -webkit-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -o-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -ms-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  /* background: linear-gradient(to bottom, #ffffff 0%, #ffffff 100%); */
+  background: linear-gradient(to bottom, #036 0%, #036 100%);/* by nirmal for vardhaman 08072021*/
+  /*background: linear-gradient(to bottom, #e1e1e1 0%, #e1e1e1 100%);*/
+  color: #e1e1e1; /*#f2f2f2;*/
+  display: block;
+  font-family :Arial ,Arial ,Arial ,Arial ;
+  padding: 8px 10px;
+  text-decoration: none;
+  
+  
+}
+#cssmenustu ul {
+  list-style: none;
+    top: 0px;
+    left: 0px;
+    height: 35px;
+	margin-left:0px; /* BY NIRMAL 09072021 FOR VARDHAMAN*/
+	
+}
+#cssmenustu > ul > li {
+  display: inline-block;
+  float: left;
+  margin: 0;
+  border:1px solid white;
+  width:170px;
+  text-align:center;
+  
+}
+@media screen and (max-width:1024px){
+	#cssmenustu > ul > li {
+  display: inline-block;
+  float: left;
+  margin: 0;
+  border:1px solid white;
+  width:120px;
+  text-align:center;
+  font-size:11px;
+  font-weight:bold;
+  
+}
+	
+}
+#cssmenustu.align-center {
+  text-align: center;
+}
+#cssmenustu.align-center > ul > li {
+  float: none;
+}
+#cssmenustu.align-center ul ul {
+  text-align: left;
+}
+#cssmenustu.align-right > ul {
+  float: right;
+}
+#cssmenustu.align-right ul ul {
+  text-align: right;
+}
+#cssmenustu > ul > li > a {
+  color: #000000;
+  font-size: 12px;
+}
+#cssmenustu > ul > li:hover:after {
+  content: '';
+  display: block;
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  /* border-bottom: 10px solid #9a007b; */
+  border-bottom: 10px solid #036;
+  margin-left: -10px;
+ 
+
+}
+#cssmenustu > ul > li:first-child > a {
+  border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
+  -webkit-border-radius: 5px 0 0 0;
+}
+#cssmenustu.align-right > ul > li:first-child > a,
+#cssmenustu.align-center > ul > li:first-child > a {
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+}
+#cssmenustu.align-right > ul > li:last-child > a {
+  border-radius: 0 5px 0 0;
+  -moz-border-radius: 0 5px 0 0;
+  -webkit-border-radius: 0 5px 0 0;
+}
+#cssmenustu > ul > li.active > a,
+#cssmenustu > ul > li:hover > a {
+  color: #000000;
+  /*box-shadow: inset 0 0 3px #0b2e06;*/
+  /*-moz-box-shadow: inset 0 0 3px #0b2e06;*/
+  /*-webkit-box-shadow: inset 0 0 3px #0b2e06;*/
+  background: #f2f2f2;
+  background: -moz-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e1e1e1), color-stop(100%, #e1e1e1));
+  background: -webkit-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -o-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -ms-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: linear-gradient(to bottom, #e1e1e1 0%, #e1e1e1 100%);
+  
+   
+}
+#cssmenustu > ul > li.has-substu > a,
+#cssmenustu > ul > li:hover > a {
+  color: #000000;
+  font-weight:bold;
+  font-family :arial;
+  font-size :13px;
+  /*box-shadow: inset 0 0 3px #0b2e06;*/
+  /*-moz-box-shadow: inset 0 0 3px #0b2e06;*/
+  /*-webkit-box-shadow: inset 0 0 3px #0b2e06;*/
+  background: #f2f2f2;
+  background: -moz-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e1e1e1), color-stop(100%, #e1e1e1));
+  background: -webkit-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -o-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: -ms-linear-gradient(top, #e1e1e1 0%, #e1e1e1 100%);
+  background: linear-gradient(to bottom, #e1e1e1 0%, #e1e1e1 100%);
+  
+  
+}
+#cssmenustu .has-substu {
+  z-index: 2;
+}
+#cssmenustu .has-substu:hover > ul {
+  display: block;
+}
+#cssmenustu .has-substu ul {
+  display: none;
+  position: absolute;
+  width: 200px;
+  top: 100%;
+  left: 0;
+  margin-left:0px;
+  
+}
+#cssmenustu.align-right .has-substu ul {
+  left: auto;
+  right: 0;
+}
+#cssmenustu .has-substu ul li {
+  *margin-bottom: -1px;
+
+}
+#cssmenustu .has-substu ul li a {
+  background-color: #e1e1e1;
+ font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  filter: none;
+  display: block;
+  line-height: 120%;
+   /* color: black; by nirmal 08072021*/
+   color: white;
+   border:1px solid white;
+   font-weight:bold;
+   text-align:left;
+   
+   
+   /*---*/
+  padding: 6px;
+  text-decoration: none;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  
+  animation: growDown 300ms ease-in-out forwards;
+    transform-origin: top center;
+}
+#cssmenustu .has-substu ul li:hover a {
+   /*background: #00649a;
+  color:white;*/ 
+}
+#cssmenustu ul ul li:hover > a {
+  color: white;
+  /* background: #00649a; */
+   background:#fc791e;  /*by nirmal 08072021*/
+   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0, rgb(255,147,38)), color-stop(1, rgb(217,109,0)));
+}
+#cssmenustu .has-substu .has-substu:hover > ul {
+  display: block;
+  
+}
+#cssmenustu .has-substu .has-substu ul {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+#cssmenustu.align-right .has-substu .has-substu ul,
+#cssmenustu.align-right ul ul ul {
+  left: auto;
+  right: 100%;
+}
+
+#cssmenustu .has-substu .has-substu ul li a:hover {
+  /* background: #00649a; */
+  background:#2c8bff;
+  color:white;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0, rgb(255,147,38)), color-stop(1, rgb(217,109,0)));
+  
+}
+#cssmenustu ul ul li.last > a,
+#cssmenustu ul ul li:last-child > a,
+#cssmenustu ul ul ul li.last > a,
+#cssmenustu ul ul ul li:last-child > a,
+#cssmenustu .has-substu ul li:last-child > a,
+#cssmenustu .has-substu ul li.last > a {
+  border-bottom: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* changes for employee login for vardhaman 16/09/2021 by Bees Software Solutions*/
+#cssmenuempvar ul,
+#cssmenuempvar li,
+#cssmenuempvar span,
+#cssmenuempvar a {
+  margin: 0;
+  padding: 0;
+  position: relative;
+ 
+}
+#cssmenuempvar{
+	background-color:#00142b;
+	
+	width:100%;
+
+	
+}
+
+#cssmenuempvar:after,
+#cssmenuempvar ul:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#cssmenuempvar a {
+ 
+  background: #fff;
+  
+  color: #00142b; /*#f2f2f2;*/
+  display: block;
+  font-family :Arial ,Arial ,Arial ,Arial ;
+  padding: 8px 10px;
+  text-decoration: none;
+  
+  
+}
+#cssmenuempvar ul {
+  list-style: none;
+    top: 0px;
+    left: 0px;
+    
+	margin-left:200px; /* BY NIRMAL 09072021 FOR VARDHAMAN*/
+	
+}
+#cssmenuempvar > ul > li {
+  display: inline-block;
+  float: left;
+  margin: 0;
+  /* border:1px solid white; */
+  border-right: 2px solid white;
+  width:170px;
+  text-align:center;
+  
+}
+#cssmenuempvar.align-center {
+  text-align: center;
+}
+#cssmenuempvar.align-center > ul > li {
+  float: none;
+}
+#cssmenuempvar.align-center ul ul {
+  text-align: left;
+}
+#cssmenuempvar.align-right > ul {
+  float: right;
+}
+#cssmenuempvar.align-right ul ul {
+  text-align: right;
+}
+#cssmenuempvar > ul > li > a {
+  color: #000000;
+  font-size: 12px;
+}
+#cssmenuempvar > ul > li:hover:after {
+  content: '';
+  display: block;
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+ 
+  margin-left: -10px;
+ 
+
+}
+#cssmenuempvar > ul > li:first-child > a {
+  border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
+  -webkit-border-radius: 5px 0 0 0;
+}
+#cssmenuempvar.align-right > ul > li:first-child > a,
+#cssmenuempvar.align-center > ul > li:first-child > a {
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+}
+#cssmenuempvar.align-right > ul > li:last-child > a {
+  border-radius: 0 5px 0 0;
+  -moz-border-radius: 0 5px 0 0;
+  -webkit-border-radius: 0 5px 0 0;
+}
+#cssmenuempvar > ul > li.active > a,
+#cssmenuempvar > ul > li:hover > a {
+  color: #000000;
+  
+  background: #fff;
+
+  
+   
+}
+#cssmenuempvar > ul > li.has-subempvar > a,
+#cssmenuempvar > ul > li:hover > a {
+  color: #000000;
+  font-weight:bold;
+  font-family :arial;
+  font-size :13px;
+  
+  background: #fff;
+ 
+  
+}
+#cssmenuempvar .has-subempvar {
+  z-index: 2;
+}
+#cssmenuempvar .has-subempvar:hover > ul {
+  display: block;
+}
+#cssmenuempvar .has-subempvar ul {
+  display: none;
+  position: absolute;
+  width: 200px;
+  top: 100%;
+  left: 0;
+  margin-left:0px;
+  
+}
+#cssmenuempvar.align-right .has-subempvar ul {
+  left: auto;
+  right: 0;
+}
+#cssmenuempvar .has-subempvar ul li {
+  *margin-bottom: -1px;
+
+}
+#cssmenuempvar .has-subempvar ul li a {
+  background-color: #fff;
+ font-family: Arial, Helvetica, sans-serif,Roboto Condensed;
+  font-size: 14px;
+  filter: none;
+  display: block;
+  line-height: 120%;
+   /* color: black; by nirmal 08072021*/
+   color: #00142b;
+   border:1px solid white;
+   font-weight:light;
+   text-align:left;
+   
+   
+   /*---*/
+  padding: 10px;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+   /* animation: growDown 300ms ease-in-out forwards; */
+    /* transform-origin: top center; */
+  top:12px;
+}
+@keyframes growDown {
+    0% {
+        transform: scaleY(0)
+    }
+    80% {
+        transform: scaleY(1.1)
+    }
+    100% {
+        transform: scaleY(1)
+    }
+}
+#cssmenuempvar .has-subempvar ul li:hover a {
+   /*background: #00649a;
+  color:white;*/ 
+}
+#cssmenuempvar ul ul li:hover > a {
+  color: #f48126;
+  
+
+}
+#cssmenuempvar .has-subempvar .has-subempvar:hover > ul {
+  display: block;
+  
+}
+#cssmenuempvar .has-subempvar .has-subempvar ul {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+#cssmenuempvar .has-subempvar .has-subempvar ul:after {
+   font-family: 'FontAwesome';
+    content: '\f067';
+    margin:0 5px 0 -15px;
+}
+#cssmenuempvar.align-right .has-subempvar .has-subempvar ul,
+#cssmenuempvar.align-right ul ul ul {
+  left: auto;
+  right: 100%;
+}
+
+#cssmenuempvar .has-subempvar .has-subempvar ul li a:hover {
+  
+    color:#f48126;
+}
+#cssmenuempvar ul ul li.last > a,
+#cssmenuempvar ul ul li:last-child > a,
+#cssmenuempvar ul ul ul li.last > a,
+#cssmenuempvar ul ul ul li:last-child > a,
+#cssmenuempvar .has-subempvar ul li:last-child > a,
+#cssmenuempvar .has-subempvar ul li.last > a {
+  border-bottom: 0;
+}
+
+.custombtnback{
+     border:none;
+     box-shadow:none;
+     color:white;
+        background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+	
+     
+ }
+		 .custombtnback:hover {
+            background-color: #fff;
+            border-color: #00142b;
+            border-radius:5px;
+			color:#f48126;
+			
+			
+          
+        }
+		
+		
+
+
+
+
+
+
+
+
+/* changes for student login for vardhaman 16/09/2021 by Bees Software Solutions*/
+#cssmenustuvar ul,
+#cssmenustuvar li,
+#cssmenustuvar span,
+#cssmenustuvar a {
+  margin: 0;
+  padding: 0;
+  position: relative;
+ 
+}
+#cssmenustuvar{
+	background-color:#00142b;
+	
+	width:100%;
+
+	
+}
+
+#cssmenustuvar:after,
+#cssmenustuvar ul:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+#cssmenustuvar a {
+ 
+  background: #fff;
+  
+  color: #00142b; /*#f2f2f2;*/
+  display: block;
+  font-family :Arial ,Arial ,Arial ,Arial ;
+  padding: 8px 10px;
+  text-decoration: none;
+  
+  
+}
+#cssmenustuvar ul {
+  list-style: none;
+    top: 0px;
+    left: 0px;
+    
+	margin-left:200px; /* BY NIRMAL 09072021 FOR VARDHAMAN*/
+	
+}
+#cssmenustuvar > ul > li {
+  display: inline-block;
+  float: left;
+  margin: 0;
+  /* border:1px solid white; */
+  border-right: 2px solid white;
+  width:170px;
+  text-align:center;
+  
+}
+#cssmenustuvar.align-center {
+  text-align: center;
+}
+#cssmenustuvar.align-center > ul > li {
+  float: none;
+}
+#cssmenustuvar.align-center ul ul {
+  text-align: left;
+}
+#cssmenustuvar.align-right > ul {
+  float: right;
+}
+#cssmenustuvar.align-right ul ul {
+  text-align: right;
+}
+#cssmenustuvar > ul > li > a {
+  color: #000000;
+  font-size: 12px;
+}
+#cssmenustuvar > ul > li:hover:after {
+  content: '';
+  display: block;
+  width: auto;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+ 
+  margin-left: -10px;
+ 
+
+}
+#cssmenustuvar > ul > li:first-child > a {
+  border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
+  -webkit-border-radius: 5px 0 0 0;
+}
+#cssmenustuvar.align-right > ul > li:first-child > a,
+#cssmenustuvar.align-center > ul > li:first-child > a {
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+}
+#cssmenustuvar.align-right > ul > li:last-child > a {
+  border-radius: 0 5px 0 0;
+  -moz-border-radius: 0 5px 0 0;
+  -webkit-border-radius: 0 5px 0 0;
+}
+#cssmenustuvar > ul > li.active > a,
+#cssmenustuvar > ul > li:hover > a {
+  color: #000000;
+  
+  background: #fff;
+
+  
+   
+}
+#cssmenustuvar > ul > li.has-substuvar > a,
+#cssmenustuvar > ul > li:hover > a {
+  color: #000000;
+  font-weight:bold;
+  font-family :arial;
+  font-size :13px;
+  
+  background: #fff;
+ 
+  
+}
+#cssmenustuvar .has-substuvar {
+  z-index: 2;
+}
+#cssmenustuvar .has-substuvar:hover > ul {
+  display: block;
+}
+#cssmenustuvar .has-substuvar ul {
+  display: none;
+  position: absolute;
+  width: 200px;
+  top: 100%;
+  left: 0;
+  margin-left:0px;
+  
+}
+#cssmenustuvar.align-right .has-substuvar ul {
+  left: auto;
+  right: 0;
+}
+#cssmenustuvar .has-substuvar ul li {
+  *margin-bottom: -1px;
+
+}
+#cssmenustuvar .has-substuvar ul li a {
+  background-color: #fff;
+ font-family: Arial, Helvetica, sans-serif,Roboto Condensed;
+  font-size: 14px;
+  filter: none;
+  display: block;
+  line-height: 120%;
+   /* color: black; by nirmal 08072021*/
+   color: #00142b;
+   border:1px solid white;
+   font-weight:light;
+   text-align:left;
+   
+   
+   /*---*/
+  padding: 10px;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+   /* animation: growDown 300ms ease-in-out forwards; */
+    /* transform-origin: top center; */
+  top:12px;
+}
+@keyframes growDown {
+    0% {
+        transform: scaleY(0)
+    }
+    80% {
+        transform: scaleY(1.1)
+    }
+    100% {
+        transform: scaleY(1)
+    }
+}
+#cssmenustuvar .has-substuvar ul li:hover a {
+   /*background: #00649a;
+  color:white;*/ 
+}
+#cssmenustuvar ul ul li:hover > a {
+  color: #f48126;
+  
+
+}
+#cssmenustuvar .has-substuvar .has-substuvar:hover > ul {
+  display: block;
+  
+}
+#cssmenustuvar .has-substuvar .has-substuvar ul {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+#cssmenustuvar .has-substuvar .has-substuvar ul:after {
+   font-family: 'FontAwesome';
+    content: '\f067';
+    margin:0 5px 0 -15px;
+}
+#cssmenustuvar.align-right .has-substuvar .has-substuvar ul,
+#cssmenustuvar.align-right ul ul ul {
+  left: auto;
+  right: 100%;
+}
+
+#cssmenustuvar .has-substuvar .has-substuvar ul li a:hover {
+  
+    color:#f48126;
+}
+#cssmenustuvar ul ul li.last > a,
+#cssmenustuvar ul ul li:last-child > a,
+#cssmenustuvar ul ul ul li.last > a,
+#cssmenustuvar ul ul ul li:last-child > a,
+#cssmenustuvar .has-substuvar ul li:last-child > a,
+#cssmenustuvar .has-substuvar ul li.last > a {
+  border-bottom: 0;
+}
+
+	

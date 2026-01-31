@@ -1,112 +1,359 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useTheme } from '@/context/ThemeContext';
+import { useRouter } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { ActivityIndicator, FlatList, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AttendanceService, DailyAttendance } from '../../services/attendance';
+import { AuthService } from '../../services/auth';
 
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
+export default function DateWiseScreen() {
+  const [days, setDays] = useState<DailyAttendance[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState<string>('All');
+  const router = useRouter();
+  const insets = useSafeAreaInsets();
+  const { colors, isDark } = useTheme();
 
-export default function TabTwoScreen() {
+  const fetchData = useCallback(async () => {
+    try {
+      const isLoggedIn = await AuthService.isLoggedIn();
+      if (!isLoggedIn) {
+        router.replace('/login');
+        return;
+      }
+
+      const data = await AttendanceService.getDateWiseAttendance();
+      // Sort in descending order (newest first)
+      const sortedDays = data.days.sort((a, b) => {
+        const [dayA, monthA, yearA] = a.date.split('-').map(Number);
+        const [dayB, monthB, yearB] = b.date.split('-').map(Number);
+        const dateA = new Date(yearA, monthA - 1, dayA);
+        const dateB = new Date(yearB, monthB - 1, dayB);
+        return dateB.getTime() - dateA.getTime();
+      });
+      setDays(sortedDays);
+    } catch (error) {
+      console.error('Date-wise attendance fetch error:', error);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  }, [router]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    fetchData();
+  }, [fetchData]);
+
+  // Extract unique months from the data
+  const months = useMemo(() => {
+    const monthSet = new Set<string>();
+    days.forEach(day => {
+      // Normalize split to handle -, /, ., or spaces
+      const parts = day.date.split(/[-./\s]/);
+      if (parts.length >= 3) {
+        const monthNum = parseInt(parts[1], 10);
+        const year = parts[2];
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const monthName = monthNames[monthNum - 1] || 'Unknown';
+        monthSet.add(`${monthName} ${year}`);
+      }
+    });
+    return ['All', ...Array.from(monthSet)];
+  }, [days]);
+
+  // Filter days by selected month
+  const filteredDays = useMemo(() => {
+    if (selectedMonth === 'All') return days;
+
+    return days.filter(day => {
+      const parts = day.date.split(/[-./\s]/);
+      if (parts.length >= 3) {
+        const monthNum = parseInt(parts[1], 10);
+        const year = parts[2];
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const monthName = monthNames[monthNum - 1] || 'Unknown';
+        return selectedMonth === `${monthName} ${year}`;
+      }
+      return false;
+    });
+  }, [days, selectedMonth]);
+
+  if (loading) {
+    return (
+      <View style={[styles.centerContainer, { backgroundColor: colors.background }]}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
+
+  const renderPeriodCell = (status: string, index: number) => {
+    let bgColor = isDark ? '#3a3a5e' : '#E5E5EA';
+    let textColor = colors.textSecondary;
+
+    if (status === 'P') {
+      bgColor = colors.successBg;
+      textColor = colors.success;
+    } else if (status === 'A') {
+      bgColor = colors.errorBg;
+      textColor = colors.error;
+    }
+
+    return (
+      <View key={index} style={[styles.periodCell, { backgroundColor: bgColor }]}>
+        <Text style={[styles.periodText, { color: textColor }]}>{status === 'null' ? '⁃' : status}</Text>
+      </View>
+    );
+  };
+
+  const renderDayItem = ({ item }: { item: DailyAttendance }) => {
+    const absentCount = item.periods.filter(p => p === 'A').length;
+    const presentCount = item.periods.filter(p => p === 'P').length;
+    // const isGood = absentCount === 0;
+
+    return (
+      <View style={[styles.dayCard, { backgroundColor: colors.card, shadowColor: isDark ? '#000' : '#888' }]}>
+        <View style={[styles.dayAccent, { backgroundColor: absentCount === 0 ? colors.success : colors.error }]} />
+        <View style={styles.dayContent}>
+          <View style={styles.dayHeader}>
+            <View>
+              <Text style={[styles.dateText, { color: colors.text }]}>{item.date}</Text>
+              <Text style={[styles.dayText, { color: colors.textSecondary }]}>{item.day}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', gap: 6 }}>
+              {presentCount > 0 && (
+                <View style={[styles.statusBadge, { backgroundColor: colors.success + '20' }]}>
+                  <Text style={{ color: colors.success, fontSize: 12, fontWeight: 'bold' }}>P: {presentCount}</Text>
+                </View>
+              )}
+              {absentCount > 0 && (
+                <View style={[styles.statusBadge, { backgroundColor: colors.error + '20' }]}>
+                  <Text style={{ color: colors.error, fontSize: 12, fontWeight: 'bold' }}>A: {absentCount}</Text>
+                </View>
+              )}
+              {presentCount === 0 && absentCount === 0 && (
+                <View style={[styles.statusBadge, { backgroundColor: colors.textSecondary + '20' }]}>
+                  <Text style={{ color: colors.textSecondary, fontSize: 12, fontWeight: 'bold' }}>-</Text>
+                </View>
+              )}
+            </View>
+          </View>
+          <View style={styles.periodsRow}>
+            {item.periods.map((status, index) => renderPeriodCell(status, index))}
+          </View>
+        </View>
+      </View>
+    );
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <View style={[styles.container, { paddingTop: insets.top, backgroundColor: colors.background }]}>
+      <StatusBar style={isDark ? "light" : "dark"} />
+
+      <FlatList
+        data={filteredDays}
+        keyExtractor={(item, index) => `${item.date}-${index}`}
+        renderItem={renderDayItem}
+        contentContainerStyle={styles.listContent}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.text} />}
+        ListHeaderComponent={() => (
+          <View>
+            {/* Title */}
+            <View style={styles.header}>
+              <Text style={[styles.headerTitle, { color: colors.text }]}>Date-wise Attendance</Text>
+              <Text style={[styles.headerCount, { color: colors.textSecondary }]}>{filteredDays.length} days</Text>
+            </View>
+
+            {/* Month Filter */}
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={styles.filterContainer}
+              contentContainerStyle={styles.filterScroll}
+            >
+              {months.map((month) => (
+                <TouchableOpacity
+                  key={month}
+                  style={[
+                    styles.filterChip,
+                    { backgroundColor: colors.badge },
+                    selectedMonth === month && { backgroundColor: colors.primary }
+                  ]}
+                  onPress={() => setSelectedMonth(month)}
+                >
+                  <Text style={[
+                    styles.filterChipText,
+                    { color: colors.textSecondary },
+                    selectedMonth === month && { color: '#fff' }
+                  ]}>
+                    {month}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+
+            {/* Period Legend */}
+            <View style={[styles.legendCard, { backgroundColor: colors.card }]}>
+              <Text style={[styles.legendTitle, { color: colors.textSecondary }]}>Periods</Text>
+              <View style={styles.legendRow}>
+                {['P1', 'P2', 'P3', 'P4', 'P5', 'P6'].map((p, i) => (
+                  <View key={i} style={[styles.legendItem, { backgroundColor: isDark ? '#3a3a5e' : '#E5E5EA' }]}>
+                    <Text style={[styles.legendText, { color: colors.text }]}>{p}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          </View>
+        )}
+        ListEmptyComponent={() => (
+          <View style={styles.emptyContainer}>
+            <Text style={[styles.emptyText, { color: colors.textSecondary }]}>No attendance records found</Text>
+          </View>
+        )}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
   },
-  titleContainer: {
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  listContent: {
+    padding: 16,
+    paddingBottom: 100,
+  },
+  header: {
     flexDirection: 'row',
-    gap: 8,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+  headerCount: {
+    fontSize: 14,
+  },
+  filterContainer: {
+    marginBottom: 20,
+  },
+  filterScroll: {
+    paddingRight: 16,
+  },
+  filterChip: {
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 20,
+    marginRight: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  filterChipText: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  legendCard: {
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 20,
+  },
+  legendTitle: {
+    fontSize: 14,
+    marginBottom: 12,
+  },
+  legendRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  legendItem: {
+    width: 40,
+    height: 32,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  legendText: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  dayCard: {
+    borderRadius: 24,
+    flexDirection: 'row',
+    marginBottom: 16,
+    overflow: 'hidden',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 4,
+  },
+  dayAccent: {
+    width: 5,
+  },
+  dayContent: {
+    flex: 1,
+    padding: 16,
+  },
+  dayHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  dateText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  dayText: {
+    fontSize: 14,
+  },
+  periodsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  periodCell: {
+    width: 44,
+    height: 36,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  periodText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  statusBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+  },
+  statsRow: {
+    alignItems: 'flex-end',
+  },
+  statText: {
+    fontSize: 12,
+  },
+  emptyContainer: {
+    padding: 40,
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 16,
   },
 });

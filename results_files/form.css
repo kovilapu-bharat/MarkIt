@@ -1,0 +1,5738 @@
+﻿  
+    /*<.................................FormTables.........................................>*/
+.formTableAuto
+{
+    width:1331PX;
+    align-self:flex-start;
+    height:auto;
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+    /*margin-top:-900px;*/
+}
+.formPanelAuto
+{   
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+}
+.formTablesetup_Stu
+{
+    width: 870px;
+    align-self:flex-start;
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+    margin-bottom:-50px;
+}
+.formTableRepAttend
+{
+    width: 750px;
+    align-self:flex-start;
+    font-family:Arial,arial;   
+    border:ridge;
+    border-color:#e1e1e1;
+    margin-bottom:-50px;
+}
+.formTableMedium
+{
+    width: 600px;
+    align-self:flex-start;
+    height: 293px;
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+    margin-bottom:-50px;
+}
+.formTableEntryTest
+{
+    width:600px;
+    align-self:flex-start;
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+}
+.formTableHostUser
+{
+    width: 550px;
+    align-self:flex-start;
+    height:auto;
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+    margin-bottom:0px;
+}
+.formTableAdmnLanguage
+{
+    width: 530px;
+    align-self:flex-start;
+    height:auto;
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+    margin-bottom:0px;
+}
+.formTable
+{
+    width: 500px;
+    align-self:flex-start;
+    height: 293px;
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+    margin-bottom:-50px;
+}
+.formTableStudy
+{
+    width: 400px;
+    align-self:flex-start;
+    height:auto ;
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+}
+.formTablesmall
+{
+    width: 300px;
+    align-self:flex-start;
+    height:auto;
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+    margin-bottom:-50px;
+}
+.formTable_Vacated
+{
+    width: 300px;
+    align-self:flex-start;
+    height: 150px;
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+    margin-bottom:-50px;
+}
+.formTableFineSlabs
+{
+    width: 280px;
+    align-self:flex-start;
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+    margin-bottom:-50px;
+}
+    .formTableEntryTest1
+{
+    width:620px;
+    align-self:flex-start;
+    font-family:Arial,arial;
+    border:ridge;
+    border-color:#e1e1e1;
+}
+
+        /* ...............   Tab Control ...................*/
+
+ .MyTabStyle .ajax__tab_header
+{
+     font-family: Arial;
+     font-size: 14px;
+     font-weight: bold;
+     display: block;
+     margin-left:0px;
+     z-index:-1000;
+     color:#000;
+}
+.MyTabStyle .ajax__tab_header .ajax__tab_outer
+{
+     border-color: #222;
+     /*color: #222;*/
+     padding-left: 10px; /*margin-right: 3px;*/
+     border: solid 1px #999;
+     border-bottom-color: #d7d7d7;
+    /*-webkit-margin-before: 1em;
+    -webkit-margin-after: -1px;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: -1px;*/
+    color:#000;
+}
+.MyTabStyle .ajax__tab_header .ajax__tab_inner
+ {
+     border-color: #666;
+     color: #000;
+     padding: 0px 5px 0px 5px;
+     color:#000;    
+ }
+ .MyTabStyle .ajax__tab_hover .ajax__tab_outer
+ {
+     border-color: #BBB; /*color #1*/
+     background: white;
+     color:#000;
+ }
+.MyTabStyle .ajax__tab_hover .ajax__tab_inner
+ {
+     /*color: Black;*/
+     cursor: pointer;
+     color:#000;
+ }
+ .MyTabStyle .ajax__tab_outer
+ {
+     padding: 0 16px; /* edit 16px for different tab width */
+     display: inline-block;
+     font: normal 12px Arial;
+     line-height: 25px; /* height #1 */
+     text-decoration: none;
+     /*color: #333;*/
+     border: 1px solid #999; /*This color can be different from color #2 */
+     border-bottom: none;
+     background: #d6d8d8;
+     outline: none;
+     border-radius: 5px 5px 0 0;
+     position: relative;
+     margin: 0 -1px -1px 0;
+     /*text-align: -webkit-match-parent;*/
+     color:#000;
+     
+  }
+  .MyTabStyle .ajax__tab_Inner
+ {
+
+     color:#000;
+     
+  }
+ .MyTabStyle .ajax__tab_active .ajax__tab_outer
+  {
+     /*color: white;*/
+     font-weight: bold;
+     border-color: #BBB; /*color #1*/
+     background: #e1e1e1; /*color #2*/
+     /*z-index: 3;*/
+     padding: 1px 10px 0px 10px;
+     border-bottom-width: 0px;
+     color:#000;
+  }
+  .MyTabStyle .ajax__tab_active .ajax__tab_inner
+  {
+     /*color: white;*/
+     border-color: #333;
+     padding: 0px 10px 0px 10px;
+     color:#000;
+  }
+ .MyTabStyle .ajax__tab_body
+ {
+     font-family: Arial;
+     font-size: 10pt;
+     /*background-color: #fff;*/ /*border-top-width: 0;*/
+     border: solid 1px #d7d7d7; /*border-top-color: #ffffff;*/
+     padding: 10px 10px;
+     border-radius: 4px;
+     /*box-shadow: 0 0 8px #CCC;*/
+     background-color: white;
+     color:#000;
+ }
+
+
+
+   /*<...........................formlabel.............................>*/
+
+   
+
+.combobox_feerefund
+
+{
+    width: 135px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;	
+    font-weight:normal;
+}
+
+.form_narration1
+{
+    width:475px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;    	
+    font-weight:normal;
+}
+.formlabeltxtnew
+{
+	width:60px;
+	height: 10px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+    font-weight:normal;
+}
+
+.formlabeltxtnew1
+{
+	width:75px;
+	height: 10px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+    font-weight:normal;
+}
+
+.form_narration2
+{
+    width:640px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;    	
+    font-weight:normal;
+}
+
+.formlabel6_td
+{
+	width: 60px;
+	height: 18px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+    font-weight:normal;
+}
+
+ .formlabelnew_td
+{
+	width: 500px;
+	height: 18px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;	
+    font-weight:normal;		
+}
+.formlabel10_td
+{
+	width: 250px;
+	height: 18px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;	
+    font-weight:normal;		
+}
+.formlabelCounter_td
+{
+	width: 220px;
+	height: 18px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+    font-weight:normal;	
+}
+
+.formlabelPayField
+{
+	width: 200px;
+	height: 18px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;	
+    font-weight:normal;		
+}
+.formlabel_td
+{
+	width: 180px;
+	height: 18px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+    font-weight:normal;	
+    margin-left: -58px;
+    margin-left:92px;
+}
+.formlabel_td1
+{
+	width: 180px;
+	height: 18px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+    font-weight:normal;	
+    margin-left: 191px;
+    margin-right: 116px;
+}
+.formlabelstudentmaster_td
+{
+	width: 150px;
+	height: 20px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+    font-weight:normal;  
+}
+.formAdmin_td
+{
+	width: 140px;
+	height: 18px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+    font-weight:normal;
+}
+.formStud_td
+{
+	width: 118px;
+	height: 18px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+    font-weight:normal;	
+}
+.formEducation_td
+{
+	width: 115px;
+	height: 18px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;	
+    font-weight:normal;		
+}
+
+.formStuRegHostel_td
+{
+	width: 103px;
+	height: 18px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;	
+    font-weight:normal;		
+}
+.formlabel1_td
+{
+	width: 100px;
+	height: 18px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;	
+    font-weight:normal;		
+    margin-left: -3px;
+}
+.formlabel1_td1
+{
+	width: 100px;
+	height: 18px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;	
+    font-weight:normal;		
+}
+.formlabel1amt_td
+{
+	width: 90px;
+	height: 18px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;	
+    font-weight:normal;		
+}
+.formlabelsmallright_td
+{
+	width:80px;
+	height: 10px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;	
+    font-weight:normal;	
+}
+.formlabel2_td
+{
+	width: 50px;
+	height: 18px;
+	font-family: calibri;
+    font-size: 16px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+    font-weight:normal;
+}
+.formlabelaca_td
+{
+	width: 60px;
+	height: 18px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+    font-weight:normal;
+}
+.formlabel4_td
+{
+	width: 35px;
+	height: 18px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;	
+    font-weight:normal;
+}
+
+.formlabel3_td
+{
+	width: 80px;
+	height: 18px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;	
+    font-weight:normal;
+}
+
+ /*<.........................datepicker...............................>*/
+
+  .datepicker
+{
+           margin-top:0px;
+}
+
+     /*<.........................text_box...............................>*/
+
+ .long_textbox_msg
+   {
+       width:900px;
+       color:#000;
+       Height:25px;
+       font-family:Arial,arial;
+       font-size: 12px;
+   }
+ .form_Narration
+{
+    width:680px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+  .form_ChangeCallNo
+{
+    width:470px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px; 
+    height:30px;   
+}
+.prog_styl{
+    width:30px;
+    border:1px solid red;
+}
+ .form_Course
+{
+    width:319px;
+    color:#2b08e8;
+   font-family: calibri;
+    font-size: 16px;
+    margin-top: 4px; 
+    border-radius: 8px;
+}
+  .form_Course1
+{
+    width:200px;
+    color:#2b08e8;
+   font-family: calibri;
+    font-size: 16px;
+    
+  
+}
+    .form_Course2
+{
+    width:200px;
+    color:#2b08e8;
+   font-family: calibri;
+    font-size: 16px;
+    
+  
+}
+ .form_SmallNarration
+{
+    width:630px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;    
+}
+  .form_txtLong
+{
+    width:365px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;    
+}
+  .form_CourseLong
+{
+    width:340px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;    
+}
+    .form_FatherName
+{
+    width:320px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;    
+}
+  .form_RouteMaster
+{
+    width:300px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.form_text
+{
+    width:265px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.form_textnew
+{
+    width:245px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.form_txt_Bank
+{
+    width:210px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.form_txt_Medium
+{
+    width:200px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+
+.form_txt_MediumSmall
+{
+    width:180px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.Medium_Box
+{
+    width:150px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.DailyAttendance
+{
+    width:115px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.Distance
+{
+    width:108px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.Medium_Txt_Box
+{
+    width:130px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.Stud_Txt_Box
+{
+    width:118px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.Medium_Drop
+{
+    width:130px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+
+.smalltxt_box
+{
+    width: 100px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.LeaveTextBox
+{
+    width: 90px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.smalltxt_box1
+{
+    width: 70px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.smalltxt_boxLoan
+{
+    width: 80px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.DueAmt
+{
+    width: 40px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.tosmalltxt_box
+{
+    width:40px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.tosmalltxt_Fee
+{
+    width:50px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.tosmalltxt_Fee1
+{
+    width:50px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+    margin-left:12px;
+}
+ .Text_Box_Address
+ {
+     width:122px;
+     height:50px;
+     font-family:Arial,arial;
+     font-size: 12px;
+ }
+  .text_Address
+ {
+     width:150px;
+     height:70px;
+     font-family:Arial,arial;
+     font-size: 12px;
+ }
+  .text_EmpAddress
+ {
+     width:300px;
+     height:80px;
+     font-family:Arial,arial;
+     font-size: 12px;
+ }
+ .image_box
+{
+    height:100px;
+    width:100px;
+    margin-left:35px;
+}
+  .EmpImage_box
+{
+    height:140px;
+    width:110px;
+    margin-left:35px;
+}
+ .CurrentPathMessage
+{
+    color:#129793;
+    font-family:arial;
+    font-size: 13px;
+    width:auto;
+    font-weight:bold;
+}
+ .MessageLabel
+{
+    color:#ff0000;
+    font-family:arial;
+    font-weight:normal;
+    font-size: 12px;
+}
+ .MessageLabelBlue
+{
+    color:#ff0000;
+    font-family:arial;
+    font-size: 12px;
+    width:450px;
+    font-weight:normal;
+}
+ .MessageLabelRed
+{
+    color:#ff0000;
+    font-family:arial;
+    font-size: 12px;
+    width:150px;
+    font-weight:normal;
+}
+ .MessageLabelHead
+{
+    color:#f605db;
+    font-family:arial;
+    font-size: 12px;
+    font-weight:normal;
+}
+ .MessageDisplayLabel
+{
+    color:#f605db;
+   font-family:arial ;
+    font-size:15px;
+    margin-left:150px;
+    font-weight:normal;
+
+}
+ .SubmitPassword 
+{
+    color: #fff;
+    background-color: #800080;
+    border: none;
+    border-radius: 5px;
+    width: 50px;
+    font-family:arial;
+}
+
+           /*<.......................................Combo...................................>*/
+
+.formcombo_controlnewlabel
+{
+    width: 260px;
+    height:30px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+   text-decoration-color :red;
+   background-color:#b5c79c;
+   border-top-left-radius:7px;
+   border-top-right-radius:7px;
+   border-bottom-left-radius:7px;
+   border-bottom-right-radius:7px;
+   border-color:none;
+}
+
+.formcombo_controlnew
+{
+    width: 300px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.formcombo_controlbig
+{
+    width: 350px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.formcombo_big_Big
+{
+    width: 370px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.formcombo_controlsmall
+{
+    width: 320px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.mediumcombo_box
+{
+    width: 250px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.mediumcombo_box2
+{
+    width: 200px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+
+.mediumcombo_box1
+{
+    width: 180px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.smallCombo_box
+{
+    width: 150px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.formcombo_control
+{
+    width: 150px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.formtext_control
+{
+    width: 150px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.formcombo_controlheight
+{
+    width: 150px;
+    color:#000;
+    height:50px;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.ssmallCombo_box
+
+{
+    width: 100px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.verysmallCombo_box
+{
+    width: 70px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.form_btn
+{
+    width:50px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.formcombo_Time
+{
+    width: 45px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+.MultiText
+{
+    width: 200px;
+    height:105px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+
+
+.MultiTextNarration
+{
+    width: 700px;
+    height:100px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+
+.MultiTextDisplay
+{
+    width: 800px;
+    height:100px;
+    color:#000;
+    font-family:Arial,arial;
+    font-size: 12px;
+}
+
+
+        /*<.....................Panels.......................................>*/
+.Panelpagging
+{
+            border: solid 1px #000000;            
+            width: 150px;
+            height: auto;
+            
+}
+
+  .PanelWords
+{
+            border: solid 1px #000000;            
+            width: 150px;
+            height: 200px;
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+   .PanelWordsSmall
+{
+            border: solid 1px #000000;            
+            width: 150px;
+            height: 160px;
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+   .PanelBranch
+    {
+                border: solid 1px #c3bbbf;
+                width:430px;
+                overflow-y:scroll;
+                background-color:#ffffff;
+                font-size: 12px;
+                font-family:Arial,arial;
+                color:#000000;
+
+    }
+  .PnlDesignation
+{
+            border: solid 1px #000000;
+            width: 150px;
+            height: 130px;            
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+ .PnlChechbox
+{
+            border: solid 1px #000000;
+            width: 150px;
+            height: 100px;            
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+  .PanelBox
+{
+            border: solid 1px #000000;            
+            width: 150px;
+            height: 70px;
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+ .PanelCheck
+{
+            border: solid 1px #000000;            
+            width: 200px;
+            height: 250px;
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+   .PnlFeeCard
+{
+            border: solid 1px #000000;
+            width: 200px;
+            height: 100px;            
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+     .PanelCheckList
+    {
+                border: solid 1px #c3bbbf;
+                width: 250px;
+                height: 100px; 
+                overflow-y:scroll;
+                background-color:#ffffff;
+                font-size: 12px;
+                font-family:Arial,arial;
+                color:#000000;
+                
+    }
+     .listExamDates
+    {
+                border: solid 1px #c3bbbf;
+                width: 250px;
+                height: 480px; 
+                overflow-y:scroll;
+                background-color:#ffffff;
+                font-size: 12px;
+                font-family:Arial,arial;
+                color:#000000;
+                
+    }
+      .PnlExamChklst
+    {
+                border: solid 1px #c3bbbf;
+                width: 200px;
+                height: 80px; 
+                overflow-y:scroll;
+                background-color:#ffffff;
+                font-size: 12px;
+                font-family:Arial,arial;
+                color:#000000;
+                
+    }
+      .PnlBranchChklst
+    {
+                border: solid 1px #c3bbbf;
+                width:300px;
+                height: 100px; 
+                overflow-y:scroll;
+                background-color:#ffffff;
+                font-size: 12px;
+                font-family:Arial,arial;
+                color:#000000;
+    }
+      .PnlMonthwise
+    {
+                border: solid 1px #c3bbbf;
+                width:200px;
+                height: 300px; 
+                overflow-y:scroll;
+                background-color:#ffffff;
+                font-size: 12px;
+                font-family:Arial,arial;
+                color:#000000;
+    }
+      .PnlMonthwisenew
+    {
+                border: solid 1px #c3bbbf;
+                 height: 100px; 
+                overflow-y:scroll;
+                background-color:#ffffff;
+                color:#000000;
+    }
+       .PanelCurriculum
+    {
+                border: solid 1px #c3bbbf;
+                width:200px;
+                height:70px; 
+                overflow-y:scroll;
+                background-color:#ffffff;
+                font-size: 12px;
+                font-family:Arial,arial;
+                color:#000000;
+
+    }
+    .PnlAllot
+{
+            border: solid 1px #000000;
+            width: 250px;
+            height: 150px; 
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+      .PanelPayField
+{
+            border: solid 1px #000000;            
+            width: 250px;
+            height: 200px;
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+   .PnlDueBook
+{
+            border: solid 0.5px #000000;
+            width: 270px;
+            height: auto; 
+            overflow-y:no-display;
+            background-color:none;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+ .PanelAutoSmall
+{
+            border: solid 1px #000000;
+            width:300px;
+            height: auto;            
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+  .PanelMastFee
+{
+            border: solid 1px #000000;            
+            width: 340px;
+            height: 400px;
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+      .PnlEnquiry
+{
+            border: solid 1px #000000;
+            width: 300px;
+            height: 100px; 
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+ .PnlExam
+{
+            border: solid 1px #000000;
+            width: 380px;
+            height: 50px; 
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+  .PnlPermissions
+{
+            border: solid 1px #000000;
+            width: 450px;
+            height: 100px; 
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+    .PnlTransport
+{
+            border: solid 1px #000000;
+            width: 510px;
+            height: 85px; 
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+ .PnlCDSFloppy
+{
+            border: solid 1px #000000;
+            width: 510px;
+            height: 85px; 
+            overflow-y:no-display;
+            background-color:#86ecf8;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+  .PanelAutoMedium
+{
+            border: solid 1px #000000;
+            width:535px;
+            height: auto;            
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+     .PanelBorder
+{
+            border: solid 0.5px #c3bbbf;
+            width: auto;
+            height: auto; 
+            overflow-y:no-display;
+            background-color:none;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+      .PanelChklstBranch
+    {
+        border: solid 1px #c3bbbf;
+        width:150px;
+        height: 100px; 
+        overflow-y:scroll;
+        background-color:#ffffff;
+        font-size: 12px;
+        font-family:Arial,arial;
+        color:#000000;
+    }
+
+.PanelBranchnew
+    {
+                border: solid 1px #c3bbbf;
+                width:200px;
+                height:80px;
+                overflow-x:scroll;
+                background-color:#ffffff;
+                font-size: 12px;
+                font-family:Arial,arial;
+                color:#000000;
+
+    }
+.PanelBranchnew1
+    {
+                border: solid 1px #c3bbbf;
+                width:300px;
+                height:100px;
+                background-color:#ffffff;
+                font-size: 12px;
+                font-family:Arial,arial;
+                color:#000000;                
+    }
+.PanelDepartment
+    {
+                border: solid 1px #c3bbbf;
+                width:270px;
+                height:80px;
+                overflow-x:scroll;
+                background-color:#ffffff;
+                font-size: 12px;
+                font-family:Arial,arial;
+                color:#000000;
+
+    }
+
+
+
+
+
+      /*<........................buttons..................................>*/
+  
+ .BiometricButtons
+{
+    width:200px;
+    color:#000;
+    background-color:#e1e1e1;
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+
+} 
+ .CreateLoginsNew
+{
+    width:100px;
+    height:auto;
+    color:#000;
+    background-color:#e1e1e1;
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+    white-space: normal;
+}
+ .CreateLogins
+{
+    color:#000;
+    background-color:#e1e1e1;
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+}
+ .buttonscenter
+{
+     width:100px;
+     color:#040404;
+     background-color:#e1e1e1;
+     text-align:center;
+     font-size: 12px;
+     font-family:Arial,arial;
+}
+  .buttonscenter1
+{
+     width:120px;
+     color:#040404;
+     background-color:#e1e1e1;
+     text-align:center;
+     font-size: 12px;
+     font-family:Arial,arial;
+}
+.buttonsShow
+{
+    width:50px;
+    color:#000;
+    background-color:#e1e1e1;
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+}
+.SerchImage
+{
+   
+  background-image:url(../images/Search.png);
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+    width:29px;
+    height:26px;
+}
+.SerchImage1
+{
+   
+  background-image:url(../images/Search.png);
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+    width:25px;
+    height:25px;
+}
+.ButtonDelete
+{
+    width:50px;
+    color:#040404;
+    background-color:#e1e1e1;
+    text-align:center;
+    font-size:10px;
+    font-family:Arial,arial;
+}
+.ButtonDel
+{
+    width:30px;
+    color:#040404;
+    background-color:#e1e1e1;
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+}
+.ShowGridData
+{
+    width:90px;
+    color:#000;
+    background-color:#e1e1e1;
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+}
+.ShowGridDataEmp
+{
+    width:120px;
+    color:#000;
+    background-color:#e1e1e1;
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+}
+.radiobutton
+{
+    width: 228px;    
+    font-family:Arial,arial;
+  	color: #040404;
+	padding: 3px 20px 0px 5px;
+    font-weight:normal;
+}
+.radiobuttonBig
+{
+    width: 350px;
+    height: 21px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;
+    font-weight:normal;
+}
+
+.rdobtnCounter
+{
+    width: 150px;
+    height: 21px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;
+    font-weight:normal;
+}
+.rdobtnCounter1
+{
+    width: 300px;
+    height: 50px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;
+
+}
+.radiobuttonFeeCard
+{
+    width: 350px;
+    height: 18px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;
+
+} 
+.radiobuttonFeeCardnew
+{
+    
+    height: 18px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;
+
+}
+
+  .btnRegFeeCollection
+{
+    width:100px;
+    height:23px;
+    color:#000;
+    background-color:#e1e1e1;
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+}
+.radiobuttonSort
+{
+    width: 80px;
+    height: 21px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;
+}
+.radiobuttonDueBook
+{
+    width: 500px;
+    height: 21px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 20px;
+
+}
+.NewRadio
+{
+    width:200px;
+    height: 5px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 0px 0px 0px 0px;
+}
+.RadioAccn
+{
+    width:100px;
+    height: 5px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 0px 0px 0px 0px;
+}
+.submit
+ {
+    color: #000;
+    /*background-color: #9B30FF;*/
+    background-color:#e1e1e1;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height:50px;
+    font-family:Arial,arial;
+    white-space :normal;
+    margin-top:10px;
+    /*margin-top:27px;
+    margin-bottom:27px;*/
+}
+.submit:hover
+ {
+	background-color:#FC0;  
+ }
+.CourseArrow
+{
+    width:10px;
+    height:40px;
+    margin-left:40px;
+}
+.TreeView
+{
+   font-family:Arial,arial;
+   font-size: 12px;
+   color:black;
+   font:bold;
+  
+}
+
+           /*<.............List_Box.........................>*/
+
+.listboxlong
+{
+    width:900px;
+    height:30px;
+    color:#000;
+    font-size: 12px;
+    font-family:Arial,arial;
+}
+.listFeedback
+{
+    width:600px;
+    height:30px;
+    color:#000;
+    font-size: 12px;
+    font-family:Arial,arial;
+}
+.listboxRegAcc
+{
+    width:350px;
+    height:25px;
+    color:#000;
+    font-size: 12px;
+    font-family:Arial,arial;
+}
+
+ .listVendor
+{
+            border: solid 1px #000000;
+            width: 200px;
+            height: 340px;            
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+  .listCatVendor
+{
+            border: solid 1px #000000;
+            width: 200px;
+            height: 130px;            
+            overflow-y:scroll;
+            background-color:#ffffff;
+            font-size: 12px;
+            font-family:Arial,arial;
+            color:#000000;
+}
+.listbox_Bus
+{
+    width:300px;
+    height:335px;
+    font-family:Arial,arial;
+    font-size: 12px;
+    padding-bottom:100px;
+    border:none;
+}
+
+.listbox_admin_Test1
+{
+    width:300px;
+    height:auto;
+    font-family:Arial,arial;
+    font-size: 12px;
+    padding-bottom:100px;
+    border:none;
+}
+
+.listbox_ClzMast
+{
+    width:300px;
+    height:450px;
+    font-family:Arial,arial;
+    font-size: 12px;
+    padding-bottom:100px;
+    border:none;
+}
+.listbox_admin_Test
+{
+    width:300px;
+    height:150px;
+    font-family:Arial,arial;
+    font-size: 12px;
+    padding-bottom:100px;
+    border:none;
+}
+.listbox_Admin_Course
+{
+    width:300px;
+    height:80px;
+    font-family:Arial,arial;
+    font-size: 12px;
+    border:solid 1px;
+}
+.listbox_admin_Type
+{
+    width:250px;
+    height:150px;
+    font-family:Arial,arial;
+    font-size: 12px;
+    padding-bottom:0px;
+    border:none;
+}
+.listbox_GroupUser
+{
+    width:250px;
+    height:auto ;
+    font-family:Arial,arial;
+    font-size: 12px;
+    padding-bottom:0px;
+    border:none;
+}
+.listbox_HostelUser
+{
+    width:250px;
+    height:100px ;
+    font-family:Arial,arial;
+    font-size: 12px;
+    padding-bottom:0px;
+    border:none;
+}
+.listAssets
+{
+    width:250px;
+    height:50px;
+    color:#000;
+    font-size: 12px;
+    font-family:Arial,arial;
+    text-wrap :normal ;
+}
+.listReg
+{
+    width:250px;
+    height:85px;
+    color:#000;
+    font-size: 12px;
+    font-family:Arial,arial;
+}
+.listbox3
+{
+    width:220px;
+    color:#000;
+    height:auto;
+    font-size: 12px;
+    font-family:Arial,arial;
+}
+.listboxAss
+{
+    width:180px;
+    color:#000;
+    height:40px;
+    font-size: 12px;
+    font-family:Arial,arial;
+}
+.listbox_Language
+{
+    width:200px;
+    height:150px;
+    font-family:Arial,arial;
+    font-size: 12px;
+    padding-bottom:100px;
+    border:none;
+}
+
+.listboxSearch
+{
+    width:1080px;
+    height:350px;
+    font-family:Arial,arial;
+    font-size: 12px;
+    border:#c3bbbf;
+    column-count:5;
+
+    
+}
+
+
+ .listbox_GroupAdmin_Listboxsmall
+{
+    width:300px;
+    height:350px;
+    font-family:Arial,arial;
+    font-size: 12px;
+    padding-bottom:100px;
+    border:none;
+}
+
+ .listbox_CounterMaster
+{
+    width:250px;
+    height:485px;
+    font-family:Arial,arial;
+    font-size: 12px;
+    padding-bottom:100px;
+    border:none;
+   
+
+}
+
+
+      /*<.........................Checkbox................................>*/
+.checkbox
+{
+    width:100px;
+    height:100px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 10px 0px 5px;
+    font-weight:normal;
+}
+.PreviousDuesCheck
+{
+    width:120px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;
+    font-weight:normal;
+}
+.checkboxatt
+{
+    width:100px;
+    height:auto;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;
+    font-weight:normal;
+}
+.CheckHostelUser
+{
+    width:80px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;
+    font-weight:normal;
+  
+}
+.checkboxBig
+{
+	width: 180px;
+	height: 18px;
+	font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+    white-space :normal;
+    font-weight:normal;
+}
+       /*<.........................Grid.........................>*/
+
+.FixedHeader {
+    position:static;
+    /*position:absolute;*/
+}  
+
+
+  .grid_BusRegStu
+{
+        margin-left: 15px;
+        width: 1090px;
+        height:1000px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+
+} 
+   .grid_AbsentsHost
+{
+        margin-left: 15px;
+        width: 800px;
+        height:1000px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}  
+   .grid_QualStud
+{
+        margin-left: 15px;
+        width: 1100px;
+        height:210px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+} 
+
+.grid_SubMast
+{
+        margin-left: 15px;
+        width: 1100px;
+        height:250px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridSub
+{
+        margin-left: 15px;
+        width:1090px;
+        height:300px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grid_PayrollEmpLogin
+{
+        margin-left: 15px;
+        width: 1080px;
+        height:1000px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grid_HostelRooms
+{
+        margin-left: 15px;
+        width: 1090px;
+        height:500px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grid_HostelRooms1
+{
+        margin-left: 15px;
+        width: 1090px;
+        height:300px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridWeeklyHour
+{
+        margin-left: 15px;
+        width:850px;
+        height:320px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grid_ColumnMerge
+{
+        margin-left: 15px;
+        width: 950px;
+        height:60px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grid_PayStructure
+{
+        margin-left: 15px;
+        width:1100px;
+        height:350px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grid_DamageGoods
+{
+        margin-left: 15px;
+        width: 900px;
+        height:400px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grid_Acces
+{
+        margin-left: 15px;
+        width: 900px;
+        height:350px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grid_Details
+{
+        margin-left: 15px;
+        width: 900px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grid_CourseSmall
+{
+        margin-left: 15px;
+        width: 860px;
+        height:210px;
+        margin-bottom: 0px;
+        vertical-align:top; 
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+ .grid_SubjectMaster
+{
+        margin-left: 15px;
+        width: 100%;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+} 
+ 
+.grid_CourseFees
+{
+        margin-left: 15px;
+        width: 850px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridBuilding1
+{
+        margin-left: 0px;
+        width: 700px;
+        height:200px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grd_HostelRmAbsent
+{
+        margin-left: 0px;
+        width: 300px;
+        height:1000px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 6px;
+        color:black;
+        font-weight: normal;
+}
+.grid_FeeCard
+{
+        margin-left: 15px;
+        width: 950px;
+        height:180px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grid_CourseFees1
+{
+        margin-left: 15px;
+        width: 910px;
+        height:150px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grid_Qualification1
+{
+        margin-left: 0px;
+        width:775px;
+        height:150px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grid_feerefunds1
+{
+        margin-left: 0px;
+        width:940px;
+        height:150px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+
+.gridChallan
+{
+        margin-left: 0px;
+        width: 480px;
+        height:170px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        overflow:auto;
+        color:black;
+   font-weight: normal;
+}
+
+.grid_AcYearAllot
+{
+        margin-left: 15px;
+        width: 900px;
+        height:245px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grid_Notifications
+{
+        margin-left: 15px;
+        width: 850px;
+        height:180px;
+        margin-bottom: 0px;
+        vertical-align:top; 
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+        margin-top:20px;
+}
+
+.grid_acaCalendar
+{
+        margin-left: 15px;
+        width: 1000px;
+        height:240px;
+        margin-bottom: 0px;
+        vertical-align:top; 
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grid_Notificationsdisplay
+{
+        /*margin-left: 15px;*/
+        width: 1300px;
+        height:335px;
+        margin-bottom: 0px;
+        vertical-align:top; 
+        align-content:center;
+        margin-left:-60px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        margin-top:750px;
+}
+
+  .gridAcaAtt
+{
+        margin-left: 0px;
+        width: 540px;
+        height:280px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+  .gridAutoMenus
+{
+        margin-left: 15px;
+        width:auto;
+        height:auto;
+        margin-bottom: 8px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+        align-items:center;
+        /*margin-left: 0px;
+        width: 540px;
+        height:280px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;*/
+}
+}
+  .gridAutoMenus1
+{
+        margin-left: 15px;
+        /*width:auto;*/
+        height:auto;
+        margin-bottom: 8px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+        WIDTH:1163PX;
+}
+
+.gridWeeklyHourProgSem
+{
+        margin-left: 15px;
+        width:200px;
+        height:320px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grid_Qualification
+{
+        margin-left: 0px;
+        width: 700px;
+        height:170px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .grdPromo2
+{
+        margin-left: 0px;
+        width: 430px;
+        height:280px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grid_BankBok
+{
+        margin-left: 15px;
+        width: 840px;
+        height:150px;
+        margin-bottom: 0px;
+        vertical-align:top; 
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grid_DamageAssets
+{
+        margin-left: 15px;
+        width: 830px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grid_ColUserMenus
+{
+        margin-left: 15px;
+        width: 800px;
+        height:600px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridIncomeExp
+{
+        margin-left: 0px;
+        width: 800px;
+        height:370px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.gridBalSheetHead
+{
+        margin-left: 0px;
+        width: 800px;
+        height:350px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grid_RegularFee
+{
+        margin-left: 15px;
+        width: 800px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top; 
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grid_Enquiry
+{
+        margin-left: 15px;
+        width: 800px;
+        height:200px;
+        margin-bottom: 0px;
+        vertical-align:top; 
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grid_AdminCourse
+{
+        margin-left: 0px;
+        width: 750px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grid_AcaAttPerm
+{
+        margin-left: 0px;
+        width: 700px;
+        height:270px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .grid_HosUser
+{
+        margin-left: 15px;
+        width: 700px;
+        height:600px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .gridEmpDialyAttendance
+{
+        margin-left: 0px;
+        width: 650px;
+        height:1000px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 6px;
+        color:black;
+        font-weight: normal;
+}
+.gridTransDetls
+{
+        margin-left: 0px;
+        width: 650px;
+        height:400px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.gridAcceReg
+{
+        margin-left: 0px;
+        width: 650px;
+        height:300px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridParentRep
+{
+        margin-left: 0px;
+        width: 630px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridQulMast
+{
+        margin-left: 0px;
+        width: 880px;
+        height:200px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridNominalFee
+{
+        margin-left: 0px;
+        width: 600px;
+        height:300px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.gridBuilding
+{
+        margin-left: 0px;
+        width: 600px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridtrans
+{
+        margin-left: 0px;
+        width: 600px;
+        height:225px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grd_BokBank
+{
+        margin-left: 0px;
+        width: 600px;
+        height:175px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 6px;
+        color:black;
+        font-weight: normal;
+}
+.gridStuRegTrans
+{
+        margin-left: 15px;
+        width: 620px;
+        height:150px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .grdBreakTiming
+ {
+        margin-left: 0px;
+        width: 500px;
+        height:210px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .grdBreakTimingCourse
+ {
+        margin-left: 0px;
+        width: 500px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+ .grdBreakMaster
+ {
+        margin-left: 0px;
+        width: 500px;
+        height:180px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.gridNotifAdmin
+{
+        margin-left: 0px;
+        width: 580px;
+        height:200px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridLay
+{
+        margin-left: 0px;
+        width: 560px;
+        height:800px;
+        margin-bottom: -12px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.gridPayLateDay
+{
+        margin-left: 0px;
+        width: 550px;
+        height:850px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.gridPayrollAllotment
+{
+        margin-left: 0px;
+        width: 550px;
+        height:380px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .gridFeeStructure
+{
+        margin-left: 15px;
+        width: 550px;
+        height:340px;
+        margin-bottom: 0px;
+        vertical-align:top; 
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .gridNotifAdminPayroll
+{
+        margin-left: 0px;
+        width: 550px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .grid_HosAttend
+{
+        margin-left: 0px;
+        width: 550px;
+        height:160px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .grid_HosStuReg
+{
+        margin-left: 0px;
+        width: 550px;
+        height:120px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+  
+ .grid_HosGpUser
+{
+        margin-left: 15px;
+        width: 520px;
+        height:190px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+ .grdHostelRm
+{
+        margin-left: 0px;
+        width: 520px;
+        height:100px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+
+}
+ 
+    .gridFineHostel
+{
+        margin-left: 15px;
+        width: 620px;
+        height:715px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+      .gridHostFee
+{
+        margin-left: 15px;
+        width: 620px;
+        height:650px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+   .gridPerErp
+{
+        margin-left: 15px;
+        width: 500px;
+        height:400px;
+        margin-bottom: -15px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+     .gridLIC
+{
+        margin-left: 15px;
+        width: 500px;
+        height:380px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+    
+
+   .gridFineAllot
+{
+        margin-left: 15px;
+        width: 500px;
+        height:350px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;  
+        color:black; 
+        font-weight: normal;
+}
+  .gridCounterFee
+{
+        margin-left: 15px;
+        width: 500px;
+        height:270px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+  .gridSubHandDet
+{
+        margin-left: 15px;
+        width: 570px;
+        height:270px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .grid
+{
+        margin-left: 15px;
+        width: 500px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .gridTransport
+{
+        margin-left: 0px;
+        width: 500px;
+        height:150px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .gridFineAll
+{
+        margin-left: 0px;
+        width: 480px;
+        height:200px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        overflow:auto;
+        color:black;
+        font-weight: normal;
+   
+}
+  .gridFeeTypeAll
+{
+        margin-left: 0px;
+        width: 480px;
+        height:210px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        overflow:auto;
+        color:black;
+        font-weight: normal;
+   
+}
+  
+    .gridHourMast
+{
+        margin-left: 15px;
+        width: 470px;
+        height:370px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+      
+    .gridCert
+{
+        margin-left: 15px;
+        width: 470px;
+        height:280px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+   .gridStuHostelReg
+{
+        margin-left: 0px;
+        width:470px;
+        height:230px;
+        margin-bottom:-10px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 6px;
+        color:black;
+        font-weight: normal;
+}
+ 
+   .grd_CD
+{
+        margin-left: 0px;
+        width: 450px;
+        height:135px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 6px;
+        color:black;
+        font-weight: normal;
+}
+  .grdexport_NewProm1
+{
+        margin-left: 0px;
+        width: 430px;
+        height:350px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+   .grdPromo2
+{
+        margin-left: 0px;
+        width: 430px;
+        height:280px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grdFacultyUser
+{
+        margin-left: 0px;
+        width: 430px;
+        height:185px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+    .grdUserCourse
+{
+        margin-left: 0px;
+        width: 430px;
+        height:180px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ .grdexport_New
+{
+        margin-left: 0px;
+        width: 430px;
+        height:200px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+ 
+ .grdBuildingDetailsBig
+{
+        margin-left: 0px;
+        width: 400px;
+        height:300px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ 
+
+ .grdIndividualFeeTable
+{
+        margin-left: 0px;
+        width: 400px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+  
+ .grdPayAllotPayroll
+{
+        margin-left: 0px;
+        width: 400px;
+        height:380px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+  .grdStuFeeHost
+{
+        margin-left: 0px;
+        width: 450px;
+        height:900px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+  .grdEmployeeMaster
+{
+        margin-left: 0px;
+        width: 430px;
+        height:1550px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+   .grdEmployeeMasterAllot
+{
+        margin-left: 0px;
+        width: 400px;
+        height:1550px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grdEmployeeLeaveAllot
+{
+        margin-left: 0px;
+        width: 500px;
+        height:1550px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+   .grdStuMaster
+{
+        margin-left: 0px;
+        width: 430px;
+        height:2410px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grid_HosFee
+{
+        margin-left: 15px;
+        width: 400px;
+        height:200px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grdBuildingDetailsSmall
+{
+        margin-left: 0px;
+        width: 400px;
+        height:133px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grd_CAdmn
+{
+        margin-left: 0px;
+        width: 400px;
+        height:150px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 6px;
+        color:black;
+        font-weight: normal;
+}
+ .gridPayLeaveAllot
+{
+        margin-left: 0px;
+        width: 400px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 6px;
+        color:black;
+        font-weight: normal;
+}
+ .grdSecAllotStu
+{
+        margin-left: 0px;
+        width: 400px;
+        height:900px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grdNotification
+{
+        margin-left: 0px;
+        width: 400px;
+        height:50px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+
+.HosRooms_grid
+{
+        margin-left: 15px;
+        width: 400px;
+        height:180px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.gridCollegeUser
+{
+        margin-left: 0px;
+        width: 400px;
+        height:365px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridHostel
+{
+        margin-left: 0px;
+        width: 400px;
+        height:300px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+        font-weight: normal;
+}
+ .grdFineBus
+{
+        margin-left: 0px;
+        width: 300px;
+        height:340px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        overflow:auto;
+        color:black;
+        font-weight: normal;
+}
+.grdStageBus
+{
+        margin-left: 0px;
+        width: 350px;
+        height:790px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grdExamDateFee
+{
+        margin-left: 0px;
+        width: 300px;
+        height:505px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+ 
+ 
+ .grdElectiveAllot
+{
+        margin-left: 0px;
+        width: 280px;
+        height:900px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grdRouteInd
+{
+        margin-left: 0px;
+        width: 300px;
+        height:650px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grdAccomodation2
+{
+        margin-left: 0px;
+        width: 300px;
+        height:200px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.grd_Accomod
+{
+        margin-left: 0px;
+        width: 300px;
+        height:150px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 6px;
+        color:black;
+        font-weight: normal;
+}
+.grd_HostelRm
+{
+        margin-left: 0px;
+        width: 300px;
+        height:100px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 6px;
+        color:black;
+        font-weight: normal;
+}
+.grd_EMast
+{
+        margin-left: 0px;
+        width: 260px;
+        height:360px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grd_Sales
+{
+        margin-left: 0px;
+        width: 260px;
+        height:335px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grd_Excel
+{
+        margin-left: 0px;
+        width: 260px;
+        height:300px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.gridMonth
+{
+        margin-left: 0px;
+        width: 250px;
+        height:500px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 6px;
+        color:black;
+        font-weight: normal;
+}
+
+.gridHourCourse
+{
+        margin-left: 0px;
+        width: 230px;
+        height:320px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+.gridPayLeaveReport
+{
+        margin-left: 0px;
+        width: 200px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grd_Routes
+{
+        margin-left: 0px;
+        width: 200px;
+        height:200px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridTransDel
+{
+        margin-left: 0px;
+        width: 200px;
+        height:100px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridLab
+{
+        margin-left: 0px;
+        width: 170px;
+        height:250px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.grdAccomodation22
+{
+        margin-left: 0px;
+        width:150px;
+        height:200px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridtransport_new
+{
+        margin-left: 15px;
+        width: 50px;
+        height:240px;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+.gridHeader
+{
+    font-size: 12px;
+    font-family:Arial,arial;
+    color:black;
+    font-weight: normal;
+}
+
+.grid_MonthCumAtt
+{
+        margin-left: 15px;
+        width: 2000px;
+        height:auto;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+} 
+
+.grid_WeeklyClassReg
+{
+        margin-left: 15px;
+        width: 1090px;
+        height:auto;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+} 
+
+.grid_SubjectRegister
+{
+        margin-left: 15px;
+        width: auto;
+        height:auto;
+        margin-bottom: 0px;
+        vertical-align:top;
+        align-content:center;
+        margin-left:-1px;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+} 
+
+.grdPagging
+{
+        margin-left: 0px;
+        width: 450px;
+        height:auto;
+        margin-bottom: 0px;
+        vertical-align:top;
+        font-family:Arial,arial;
+        font-size: 12px;
+        color:black;
+        font-weight: normal;
+}
+
+       /*<.......................FieldSet...........................................>*/
+
+ .fieldsetAutoUsers{
+	border: 1px solid #e1e1e1;
+	width: auto;
+	padding-top: 0px;
+	/*float: left;*/
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+    
+
+}
+  .fieldsetlegendAutoUsers
+  {
+    color:#cf059f;
+    font-weight:bold;
+
+    
+  }
+
+ .fieldsetAutoMenus
+{
+	border: 1px solid #e1e1e1;
+	width: auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :calibri;
+    color:#cf059f;
+    font-weight:bold;
+}
+  .fieldsetAutoMenus1
+{
+	border: 1px solid #e1e1e1;
+	width: auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}
+
+ .fieldsetSubMas
+{
+	border: 1px solid #e1e1e1;
+	width: 950px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:14px;
+    font-family:arial;
+    color:#cf059f;
+    font-weight:bold;
+
+} 
+
+.fieldsetclassSubject
+{
+	border: 1px solid #e1e1e1;
+	width: 900px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+} 
+        
+.fieldsetclassAccomodation
+{
+	border: 1px solid #e1e1e1;
+	width: 900px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}  
+       
+ .fieldsetclassHostFee
+{
+	border: 1px solid #e1e1e1;
+	width: 1090px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}  
+    
+.fieldsetclass6
+{
+	border: 1px solid #e1e1e1;
+	width: 890px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+     
+.fieldsetFeeMas
+{
+	border: 1px solid #e1e1e1;
+	width: 890px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+    
+.fieldsetclassCounter
+{
+	border: 1px solid #e1e1e1;
+	width: 850px;
+    height:auto;
+	padding-top:-1px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetclassStuct
+{
+	border: 1px solid #e1e1e1;
+	width: 850px;
+    height:auto;
+	padding-top:-1px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+    
+.fieldsetConFee
+{
+	border: 1px solid #e1e1e1;
+	width: 830px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetRollNo
+{
+	border: 1px solid #e1e1e1;
+	width: 800px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+.fieldsetIssues
+{
+	border: 1px solid #e1e1e1;
+	width: 800px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+     
+ .fieldsetExamMast
+{
+	border: 1px solid #e1e1e1;
+	width: 710px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px; 
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+  
+ .fieldsetStu
+{
+	border: 1px solid #e1e1e1;
+	width: 700px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px; 
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+     
+ .fieldsetmarks
+{
+	border: 1px solid #e1e1e1;
+	width: 700px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;  
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+ 
+.fieldsetclassRemainder1
+{
+	border: 1px solid #e1e1e1;
+	width: 690px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px; 
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+ .fieldsetStuRoute
+{
+	border: 1px solid #e1e1e1;
+	width: 680px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;  
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+     
+.fieldsetclassRemainder
+{
+	border: 1px solid #e1e1e1;
+	width: 650px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;  
+    color:#cf059f;
+    font-weight:bold;
+}	
+   
+ .fieldsetTrans
+{
+	border: 1px solid #e1e1e1;
+	width: 620px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;  
+    font-family :Arial; 
+    color:#cf059f;
+    font-weight:bold;
+}	
+    
+ .fieldsetPermissionSetUp
+ {
+	border: 1px solid #e1e1e1;
+	width: 630px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;  
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+ }	
+            
+.fieldsetAdminDelStu
+{
+	border: 1px solid #e1e1e1;
+	width:610px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}
+     
+.fieldsetAdminStuPerns
+{
+	border: 1px solid #e1e1e1;
+	width:580px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}
+  
+.fieldsetIdntity
+{
+	border: 1px solid #e1e1e1;
+	width:560px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}
+     
+.fieldsetStuDelAdmin
+{
+	border: 1px solid #e1e1e1;
+	width:550px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}
+      
+.fieldsetclassHosAttend
+{
+	border: 1px solid #e1e1e1;
+	width: 550px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+.fieldsetclassNominal1
+{
+	border: 1px solid #e1e1e1;
+	width: 550px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px; 
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+ .fieldsetTransLayout
+{
+	border: 1px solid #e1e1e1;
+	width: 550px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px; 
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetStuIndFee
+{
+	border: 1px solid #e1e1e1;
+	width: 550px;
+    height:360px;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+  .fieldsetGrades
+{
+	border: 1px solid #e1e1e1;
+	width: 550px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+ .fieldsetMarksSetup
+{
+	border: 1px solid #e1e1e1;
+	width:750px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetclassHosFee
+{
+	border: 1px solid #e1e1e1;
+	width: 550px;
+    height:200px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;   
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}
+       
+.fieldsetHostGpUser
+{
+	border: 1px solid #e1e1e1;
+	width: 540px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+.fieldsetCourseAdmin
+{
+	border: 1px solid #e1e1e1;
+	width: 520px;
+    height:230px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetRegistredStu
+{
+	border: 1px solid #e1e1e1;
+	width: 500px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+ .fieldsetRegistredStuGrid
+{
+	border: 1px solid #e1e1e1;
+	width: 450px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+.FieldsetBreakTiming
+{
+	border: 1px solid #e1e1e1;
+	width: 450px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+.fieldsetFeeDetGrid
+{
+	border: 1px solid #e1e1e1;
+	width: 620px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetRegularFeeDetGrid
+{
+	border: 1px solid #e1e1e1;
+	width: 570px;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+.fieldsetHost
+{
+	border: 1px solid #e1e1e1;
+	width: 520px;
+    height:230px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+.fieldsetclass
+{
+	border: 1px solid #e1e1e1;
+	width: 520px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+  
+.fieldsetclassFeeCard1
+{
+	border: 1px solid #e1e1e1;
+	width: 210px;
+    height:335px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px; 
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+
+.fieldsetclassFineSlabs1
+{
+	border: 1px solid #e1e1e1;
+	width: 400px;
+    height:350px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+.fieldsetPermAddress
+{
+	border: 1px solid #e1e1e1;
+	width:400px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}     
+  .fieldsetFeeStu
+{
+	border: 1px solid #e1e1e1;
+	width: 500px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+.fieldsetOutingHours
+{
+	border: 1px solid #e1e1e1;
+	width: 500px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+  .fieldsetStuMastAdmin
+{
+	border: 1px solid #e1e1e1;
+	width:480px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+  .fieldsetclassEmp
+{
+	border: 1px solid #e1e1e1;
+	width: 430px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+    .fieldsetExamDate
+{
+	border: 1px solid #e1e1e1;
+	width: 480px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px; 
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+ .fieldsetExamDateSupp
+{
+	border: 1px solid #e1e1e1;
+	width: 480px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;  
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+ .fieldsetStuHostelReg
+{
+	border: 1px solid #e1e1e1;
+	width: 470px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	     
+
+.fieldsetDel
+{
+	border: 1px solid #e1e1e1;
+	width:460px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+    
+ .fieldsetclasslectfeedback
+{
+	border: 1px solid #e1e1e1;
+	width: 440px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+ .fieldsetPermAddress
+{
+	border: 1px solid #e1e1e1;
+	width:430px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+ .fieldsetAddress
+{
+	border: 1px solid #e1e1e1;
+	width:500px;
+    height:auto;
+    padding-top: 0px;
+    float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+.fieldsetAddress1
+{
+	border: 1px solid #e1e1e1;
+	width:500px;
+    height:auto;
+    padding-top: 0px;
+    float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+
+.fieldsetclassFineSlabs
+{
+	border: 1px solid #e1e1e1;
+	width: 400px;
+    height:300px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+    .fieldsetclassFailedSMS
+{
+	border: 1px solid #e1e1e1;
+	width: 300px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+.fieldsetNewFine
+{
+	border: 1px solid #e1e1e1;
+	width: 400px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+.fieldsetNewFineStud
+{
+	border: 1px solid #e1e1e1;
+	width:240px;
+    height:auto;
+    padding-top: 0px;
+	float: left;
+	margin-bottom:-7px;
+    margin-left: 5px;
+    padding: 5px 0px 0px 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+.fieldsetBiometric
+{
+	border: 1px solid #e1e1e1;
+	width: 140px;
+    height:auto;
+    padding-top: 0px;
+	float: left;
+	margin-bottom:-7px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}
+.fieldsetNewFineIdentity
+{
+	border: 1px solid #e1e1e1;
+	width: auto;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+  
+.fieldsetIdStud
+{
+	border: 1px solid #e1e1e1;
+	width: 310px;
+    height:auto;
+    padding-top: 0px;
+    float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+   
+.fieldsetNewFineStudLib
+{	
+    border: 1px solid #e1e1e1;
+    width: 250px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+      color:#009300;
+}	
+
+.fieldsetNewFineStudLibId
+{
+	border: 1px solid #e1e1e1;
+	width: 170px;
+    height:auto;
+    padding-top: 0px;
+    float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+
+
+  .fieldsetStuFeeHostRoom
+{
+	border: 1px solid #e1e1e1;
+	width: 400px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+
+  .fieldsetStuFeeHost
+{
+	border: 1px solid #e1e1e1;
+	width: 400px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+
+ .fieldsetclassIndividualFee
+{
+	border: 1px solid #e1e1e1;
+	width: 400px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	  
+
+.fieldsetclass1
+{
+	border: 1px solid #e1e1e1;
+	width: 400px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+.fieldsetclass2
+{
+	border: 1px solid #e1e1e1;
+	width: 400px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+
+}	
+       
+.fieldsetclassStudent
+{
+	border: 1px solid #e1e1e1;
+	width: 365px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+.fieldsetRegAc
+{
+	border: 1px solid #e1e1e1;
+	width: 370px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+.fieldsetclassAdmin
+{
+	border: 1px solid #e1e1e1;
+	width: 200px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}
+
+.fieldsetclassNominal
+{
+	border: 1px solid #e1e1e1;
+	width: 350px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px; 
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+            
+.fieldsetIntExam
+{
+	border: 1px solid #e1e1e1;
+	width: 350px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+  .fieldsetIntExamType
+{
+	border: 1px solid #e1e1e1;
+	width: 350px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	       
+
+ .fieldsetclassCollege
+    {
+	border: 1px solid #e1e1e1;
+	width: 350px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+    }	
+   
+
+.fieldsetclassCollection
+{
+	border: 0.5px solid #e1e1e1;
+	width: 320px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+.fieldsetPermission
+{
+	border: 0.5px solid #e1e1e1;
+	width: 320px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+     
+
+.fieldsetclassCurriculum
+{
+	border: 0.5px solid #e1e1e1;
+	width: 320px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+.fieldsetclassDist
+{
+	border: 0.5px solid #e1e1e1;
+	width: 350px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+
+.fieldsetBusFine
+{
+	border: 0.5px solid #e1e1e1;
+	width: 300px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetAdminTest
+{
+	border: 1px solid #e1e1e1;
+	width: 300px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+.fieldsetQualfAdmin
+{
+	border: 1px solid #e1e1e1;
+	width:300px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+   
+}
+.fieldsetshiftgrid{
+    border: 1px solid #e1e1e1;
+	width:300px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+     margin-left: 329px;
+    margin-top: -448px;
+}
+       
+    .fieldsetCourseBranch
+{
+	border: 1px solid #e1e1e1;
+	width:300px;
+	padding-top: -1px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}
+    
+ .fieldsetMaster
+{
+	border: 1px solid #e1e1e1;
+	width: 300px;
+    height:160px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;  
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetclassExport
+{
+	border: 0.5px solid #e1e1e1;
+	width: 270px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+	margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+     
+.fieldsetAdminStuMast
+{
+	border: 1px solid #e1e1e1;
+	width: 270px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}
+     
+.fieldset
+{
+	border: 1px solid #e1e1e1;
+	width: 261px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+ 
+.fieldsetRGroupUser
+{
+	border: 1px solid #e1e1e1;
+	width: 250px;
+    height:auto ;
+	padding-top: -1px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+.fieldsetAdminPermAddrs
+{
+	border: 1px solid #e1e1e1;
+	width:250px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}
+      
+.fieldsetclassPenalty
+{
+	border: 1px solid #e1e1e1;
+	width: 250px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}
+.fieldsetAdmnCol
+{
+	border: 1px solid #e1e1e1;
+	width: 230px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetFeeSetupExam
+{
+	border: 1px solid #e1e1e1;
+	width: 200px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+.fieldsetAdminType
+{
+	border: 1px solid #e1e1e1;
+	width: 250px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetclassmaster
+{
+	border: 1px solid #e1e1e1;
+	width: 260px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px;
+    font-family :Arial;  
+    color:#cf059f;
+    font-weight:bold;
+}	
+   
+.fieldsetclassSub
+{
+	border: 1px solid #e1e1e1;
+	width: 220px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetAdminLanguage
+{
+	border: 1px solid #e1e1e1;
+	width: 200px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+   
+ .fieldsetFeeAdded
+{
+	border: 1px solid #e1e1e1;
+	width: 180px;
+    height:auto;
+	padding-top: -1px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+
+.fieldsetclassFeeCard
+{
+	border: 1px solid #e1e1e1;
+	width: 200px;
+    height:650px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+.fieldsetclassAdminAllottment
+{
+	border: 1px solid #e1e1e1;
+	width: 200px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px;  
+    font-size:12px; 
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+    
+.fieldsetclassFee
+{
+	border: 0.5px solid #e1e1e1;
+	width: 120px;
+    height:60px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+   
+.fieldsetclassAttendRem
+{
+	border: 0.5px solid #e1e1e1;
+	width: 150px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+ 
+.fieldsetclassRoutes
+{
+	border: 1px solid #e1e1e1;
+	width: 150px;
+    height:750px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;  
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}  
+  
+.fieldsetNomini
+{
+	border: 1px solid #e1e1e1;
+	width: 150px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px; 
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+     
+ .fieldsetEmpPayMode
+{
+	border: 1px solid #e1e1e1;
+	width: 90px;
+    height:90px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetEnq
+{
+	border: 1px solid #e1e1e1;
+	width: 110px;
+    height:90px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px; 
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+      
+.fieldsetNew
+{
+	border: 1px solid #e1e1e1;
+	width: 100px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+       
+.fieldsetclassAdmission
+{
+	border: 1px solid #e1e1e1;
+	width: 20px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px; 
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+        
+.fieldsetWeeklyClassReg
+{
+	border: 1px solid #e1e1e1;
+	width: 1090px;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}  
+      
+
+.fieldsetMonthwise
+{
+	border: 1px solid #e1e1e1;
+	width: auto;
+    height:auto;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+   
+.fieldsetclassimport
+{
+	border: 1px solid #e1e1e1;
+	width: 400px;
+    height:330px;
+	padding-top: 0px;
+	float: left;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    padding: 5px; 
+    font-size:12px;
+    font-family :Arial;
+    color:#cf059f;
+    font-weight:bold;
+}	
+
+ 
+.listbox_College
+{
+    width:230px;
+    height:255px;
+    font-family:Arial,arial;
+    font-size: 12px;
+    padding-bottom:100px;
+    border:none;
+   
+
+}
+
+ .listbox_GroupAdmin_Listboxnew
+{
+    width:300px;
+    height:390px;
+    font-family:Arial,arial;
+    font-size: 12px;
+    padding-bottom:100px;
+    border:none;
+}
+
+.formAdmnTypes
+{
+	width: 130px;
+	height: 18px;
+    font-family:Arial,arial;
+    font-size: 12px;
+  	color: #040404;
+	padding: 3px 0px 0px 5px;		
+}
+
+/*.listFeedback
+{
+    width:350px;
+    height:26px;
+    color:#000;
+    font-size: 12px;
+    font-family:Arial,arial;
+}*/
+
+
+.ExportExcelImage
+{
+   
+  background-image:url(../images/Excel.jpg);
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+      width:35px;
+    height:35px;
+}
+.ExportPDFImage
+{
+   
+  background-image:url(../images/pdf.jpg);
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+      width:35px;
+    height:35px;
+}
+.ExportWordImage
+{
+   
+  background-image:url(../images/word.jpg);
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+      width:35px;
+    height:35px;
+}
+
+.SerchClose
+{
+   
+    background-image:url(../images/Close.png);
+    text-align:center;
+    font-size: 12px;
+    font-family:Arial,arial;
+    width:25px;
+    height:25px;
+}
+
+ .UserTabStyle .ajax__tab_header
+{
+     font-family: Arial;
+     font-size: 16px;
+     font-weight: bold;
+     display: block;
+     margin-left:0px;
+     z-index:-1000;
+     color:#000;
+}
+.UserTabStyle .ajax__tab_header .ajax__tab_outer
+{
+     border-color: #222;
+     /*padding-left: 10px;*/ 
+     border: solid 1px #999;
+     border-bottom-color: #d7d7d7;   
+    color:#000;
+}
+.UserTabStyle .ajax__tab_header .ajax__tab_inner
+ {
+     border-color: #666;
+     color: #000;
+     padding: 0px 5px 0px 5px;
+     color:#000;    
+ }
+ .UserTabStyle .ajax__tab_hover .ajax__tab_outer
+ {
+     border-color: #BBB; 
+     background: white;
+     color:#000;
+ }
+.UserTabStyle .ajax__tab_hover .ajax__tab_inner
+ {
+     cursor: pointer;
+     color:#000;
+ }
+ .UserTabStyle .ajax__tab_outer
+ {
+     padding: 0 5px;
+     display: inline-block;
+     font: normal 12px Arial;
+     line-height: 25px; /* height #1 */
+     text-decoration: none;
+     border: 1px solid #999; /*This color can be different from color #2 */
+     border-bottom: none;
+     background: #d6d8d8;
+     outline: none;
+     border-radius: 5px 5px 0 0;
+     position: relative;
+     margin: 0 -1px -1px 0;
+     color:#000;
+     
+  }
+  .UserTabStyle .ajax__tab_Inner
+ {
+
+     color:#000;
+     
+  }
+ .UserTabStyle .ajax__tab_active .ajax__tab_outer
+  {
+
+     font-weight: bold;
+     border-color: #BBB; /*color #1*/
+     background: #e1e1e1; /*color #2*/
+     border-bottom-width: 0px;
+     color:#000;
+  }
+  .UserTabStyle .ajax__tab_active .ajax__tab_inner
+  {
+     border-color: #333;
+     padding: 0px 10px 0px 10px;
+     color:#000;
+  }
+ .UserTabStyle .ajax__tab_body
+ {
+     font-family: Arial;
+     font-size: 10pt;
+     border: solid 1px #d7d7d7; /*border-top-color: #ffffff;*/
+     padding: 10px 10px;
+     border-radius: 4px;
+
+     background-color: white;
+     color:#000;
+ }
+ .newtxt_box {
+    width: 200px;
+    color: #000;
+    font-family: Arial,arial;
+    font-size: 12px;
+    height: 30px;
+}
+  .newmidtxt_box {
+    width: 150px;
+    color: #000;
+    font-family: Arial,arial;
+    font-size: 12px;
+    height: 30px;
+}
+ .sub-head{
+     background-color: #FF7D33; 
+     padding: 8px;
+     text-align:center;
+     color:white;
+     font-weight: bold;
+     width:300px;
+	 border-radius:5px;
+ }
+ .newsmalltxt_box {
+    width: 150px;
+    color: #000;
+    font-family: Arial,arial;
+    font-size: 12px;
+    Height: 30px;
+}
+ .newMedium_Box {
+    width: 150px;
+    color: #000;
+    font-family: Arial,arial;
+    font-size: 12px;
+    height: 30px;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    margin: 20px 0;
+  padding: 10px;
+  color: #000;
+  flex-direction:row;
+}
+.tableresponsive{
+ border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.fieldsetlegend {
+    background: #E238EC;
+    color: #fff;
+    padding: 5px 10px ;
+    font-size: 16px;
+    border-radius: 5px;
+	font-weight:bold;
+	width:auto;
+ 
+}
+.linkbuttonnew{
+              font-size:  18px;
+  text-decoration: none;
+  background-color: #0275d8;
+  color:#ffffff;
+  padding: 2px 6px 2px 6px;
+  text-align:center;
+  margin:auto;
+ 
+  border-radius:5px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          }
+          .linkbuttonnew:hover{
+              color:#ffffff;
+          }
+
+          .linkbuttonmod{
+              font-size:  18px;
+  text-decoration: none;
+  background-color: #a2c581;
+  color:#ffffff;
+  padding: 2px 6px 2px 6px;
+  text-align:center;
+  margin:auto;
+ 
+  border-radius:5px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          }
+          .linkbuttonmod:hover{
+              color:#ffffff;
+          }
+ .linkbuttondel{
+              font-size:  18px;
+  text-decoration: none;
+  background-color: #078efc;
+  color:#ffffff;
+  padding: 2px 6px 2px 6px;
+  text-align:center;
+  margin:auto;
+ 
+  border-radius:5px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          }
+          .linkbuttondel:hover{
+              color:#ffffff;
+          }
+.linkbuttonview{
+              font-size:  18px;
+  text-decoration: none;
+  background-color: #f7a30b;
+  color:#ffffff;
+  padding: 2px 6px 2px 6px;
+  text-align:center;
+  margin:auto;
+ 
+  border-radius:5px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          }
+          .linkbuttonview:hover{
+              color:#ffffff;
+          }
+
+.linkbuttonquit{
+              font-size:  18px;
+  text-decoration: none;
+  background-color: #fa4145;
+  color:#ffffff;
+  padding: 2px 6px 2px 6px;
+  text-align:center;
+  margin:auto;
+ 
+  border-radius:5px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          }
+          .linkbuttonquit:hover{
+              color:#ffffff;
+          }
+
+
+.linkbuttonsave{
+              font-size:  18px;
+  text-decoration: none;
+  background-color: #f7dc00;
+  color:#ffffff;
+  padding: 2px 6px 2px 6px;
+  text-align:center;
+  margin:auto;
+ 
+  border-radius:5px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          }
+          .linkbuttonsave:hover{
+              color:#0cdedc;
+          }
+.linkbuttoncancel{
+              font-size:  18px;
+  text-decoration: none;
+  background-color: #0cdedc;
+  color:#ffffff;
+  padding: 2px 6px 2px 6px;
+  text-align:center;
+  margin:auto;
+  border-radius:5px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          }
+          .linkbuttoncancel:hover{
+              color:#f7dc00;
+          }
+.linkbuttonstatus{
+              
+  text-decoration: none;
+  background-color: #ffffff;
+  color:#000000;
+  padding: 2px 6px 2px 6px;
+  text-align:center;
+  margin:auto;
+  border-radius:5px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+height:80px;
+          }
+
+
+.WrapperGrid {
+    border: 1px solid #CCCCCC;
+    height: auto;
+    max-height: 450px;
+    width: auto;
+	overflow:auto;
+} 
+.RowStyle {
+  height: 20px;
+}
+.AlternateRowStyle {
+  height: 20px;
+}

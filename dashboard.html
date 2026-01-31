@@ -1,0 +1,2642 @@
+<style>
+    .attendance {
+    font-size: 1.2em;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.attendance.green {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.attendance.red {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 10px;
+    border: 1px solid #ffeeba;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 1em;
+    text-align: center;
+}
+
+.appreciation {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    padding: 10px;
+    border: 1px solid #bee5eb;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 1em;
+    text-align: center;
+}
+
+
+.dashboard {
+    max-width: 100%;
+    margin: auto;
+    background: white;
+        border-radius: 8px;
+        box-shadow: 0px 0px 5px rgb(0 0 0 / 74%);
+        padding-bottom: 20px;
+    
+}
+
+.dashboard h2 {
+    text-align: center;
+    padding:0px;
+    margin: 0px;
+    color:tomato;
+    padding: 20px 0px;
+    font-size:1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.dashboard h3{
+    background-color:#009688;
+      font-size:1.3rem;
+    font-weight: 500;
+    color:#fff;
+    text-align: center;
+}
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.dashboard button {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.library {
+    background-color: #e91e63;
+}
+
+.forms {
+    background-color: #4caf50;
+}
+
+.directory {
+    background-color: #007bff;
+}
+
+.box {
+       background: white;
+    margin: 5px auto;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgb(0 0 0 / 74%);
+    max-width: 440px;
+}
+
+.date {
+    background: yellow;
+    padding: 3px 7px;
+    font-size: 12px;
+    border-radius: 3px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+/* Scrollable Content */
+#sc1, #sc2{
+    overflow-y: auto;
+    height: 320px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+</style>
+<!doctype html>
+
+<html
+  lang="en"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Student Dashboard</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+     <link rel="shortcut icon" type="image/jpg" href="../images/favicon.png"/>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <!-- build:css assets/vendor/css/theme.css  -->
+
+    <link rel="stylesheet" href="assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+
+    <link rel="stylesheet" href="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- endbuild -->
+
+    <link rel="stylesheet" href="assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="assets/vendor/js/helpers.js"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="assets/js/config.js"></script>
+    <style>
+  .app-brand.demo {
+    width: 100%; /* or set a specific width like 300px */
+    max-width: 100%; /* ensures it doesn't overflow its container */
+  }
+  
+  .app-brand-link {
+    display: block;
+    width: 100%;
+  }
+  
+  .app-brand-logo {
+    width: 100%;
+    height: auto; /* maintains aspect ratio */
+    display: block;
+  }
+  
+  
+    </style>
+        <style>
+    .Social h4{
+        text-align: center;
+        color:tomato;
+        font-size:16px;
+        margin: 0px;
+    }
+    .Social .fa {
+ padding: 7px;
+    font-size: 15px;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    border-radius: 50%;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #000;
+  content:"𝕏";
+  color: white;
+}
+.fa-twitter::before{
+	content:"𝕏";
+	/*font-size:1.2em;*/
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: rgb(228, 64, 95);
+  color: white;
+}
+
+.fa-whatsapp {
+  background: green;
+  color: white;
+}
+
+</style>
+  </head>
+
+<script>
+  document.addEventListener("contextmenu", (event) => event.preventDefault());
+ </script>
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+  <a href="index" class="app-brand-link">
+    <img src="images/NRCM-Logo.png" 
+         alt="NRCM Logo" 
+         class="app-brand-logo">
+  </a>
+
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+              <i class="bx bx-chevron-left d-block d-xl-none align-middle"></i>
+            </a>
+          </div>
+
+          <div class="menu-divider mt-0"></div>
+
+          <div class="menu-inner-shadow"></div>
+
+
+
+          <ul class="menu-inner py-1">
+            <!-- Dashboards -->
+              <li class="menu-item">
+              <a href="index" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-smile"></i>
+                <div class="text-truncate" data-i18n="Boxicons">Dashboard</div>
+              </a>
+            </li>
+         
+            <!-- Layouts -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-building-house"></i>
+                <div class="text-truncate" data-i18n="Layouts">Academics</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="AcademicCalender" class="menu-link">
+                    <div class="text-truncate" data-i18n="Without menu">Academic Calender</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a href="#" class="menu-link">-->
+                <!--    <div class="text-truncate" data-i18n="Without navbar">Time Table</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+               <li class="menu-item">
+                  <a href="Date_wise_attendance" class="menu-link">
+                    <div class="text-truncate" data-i18n="Fluid">Attendance</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="display_holidays" class="menu-link">
+                    <div class="text-truncate" data-i18n="Container">Holidays</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div class="text-truncate" data-i18n="Blank">Feedback</div>
+                  </a>
+                </li>-->
+              </ul>
+            </li>
+
+
+   <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-wallet-alt"></i>
+                <div class="text-truncate" data-i18n="Dashboards">Payments</div>
+                <!--<span class="badge rounded-pill bg-danger ms-auto">5</span>-->
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="Student_Fee" class="menu-link">
+                    <div class="text-truncate" data-i18n="Analytics">Online Fee Payment</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="Fee_Receipt" class="menu-link">
+                    <div class="text-truncate" data-i18n="CRM">Fee Receipt</div>
+                    <!--<div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>-->
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="Fee_Card"
+                
+                    class="menu-link">
+                    <div class="text-truncate" data-i18n="eCommerce">Fee Card</div>
+                    
+                  </a>
+                </li>
+               
+              </ul>
+            </li>
+
+            <!-- Front Pages -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-user-check"></i>
+                <div class="text-truncate" data-i18n="Front Pages">Feedback</div>
+                <!--<div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>-->
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a
+                    href="Feedback"
+                    class="menu-link">
+                
+                    <div class="text-truncate" data-i18n="Landing">Faculty Feedback</div>
+                  </a>
+                </li>
+                  <li class="menu-item">
+                  <a
+                    href="Feedback_Exit_Survey"
+                    class="menu-link">
+                
+                    <div class="text-truncate" data-i18n="Pricing">Course End Feedback</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a-->
+                <!--    href="https://www.nrcmec.org/student_satisfaction_survey"-->
+                <!--    class="menu-link">-->
+                
+                <!--    <div class="text-truncate" data-i18n="Pricing">Servey Forms</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+                
+               
+              </ul>
+            </li>
+
+            <!-- Apps & Pages -->
+           
+             <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bxs-graduation"></i>
+                <div class="text-truncate" data-i18n="Email">Exam Cell</div>
+     
+              </a>
+             <ul class="menu-sub">
+                <li class="menu-item">
+                  <a
+                    href="https://erp.nrcmec.org/"
+                    class="menu-link">
+                    <div class="text-truncate" data-i18n="Landing">Exam Fee Payment</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="#"
+                    class="menu-link">
+                    <div class="text-truncate" data-i18n="Pricing">Exam Fee Receipt</div>
+                  </a>
+                </li>
+   <li class="menu-item">
+                  <a
+                    href="https://erp.nrcmec.org/"
+                class="menu-link">
+                    <div class="text-truncate" data-i18n="Pricing">Exam Results</div>
+                  </a>
+                </li>
+               
+              </ul>
+            </li>
+            
+   
+            <!-- Pages -->
+            <!--<li class="menu-item">-->
+            <!--  <a href="javascript:void(0);" class="menu-link menu-toggle">-->
+            <!--    <i class="menu-icon tf-icons bx bx-dock-top"></i>-->
+            <!--    <div class="text-truncate" data-i18n="Account Settings">Account Settings</div>-->
+            <!--  </a>-->
+            <!--  <ul class="menu-sub">-->
+            <!--    <li class="menu-item">-->
+            <!--      <a href="pages-account-settings-account.html" class="menu-link">-->
+            <!--        <div class="text-truncate" data-i18n="Account">Account</div>-->
+            <!--      </a>-->
+            <!--    </li>-->
+            <!--    <li class="menu-item">-->
+            <!--      <a href="pages-account-settings-notifications.html" class="menu-link">-->
+            <!--        <div class="text-truncate" data-i18n="Notifications">Notifications</div>-->
+            <!--      </a>-->
+            <!--    </li>-->
+            <!--    <li class="menu-item">-->
+            <!--      <a href="pages-account-settings-connections.html" class="menu-link">-->
+            <!--        <div class="text-truncate" data-i18n="Connections">Connections</div>-->
+            <!--      </a>-->
+            <!--    </li>-->
+            <!--  </ul>-->
+            <!--</li>-->
+          
+      
+            <!-- User interface -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-buildings"></i>
+                <div class="text-truncate" data-i18n="User interface">Library</div>
+              </a>
+              <ul class="menu-sub">
+                    <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div class="text-truncate" data-i18n="Accordion">Book Issues</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div class="text-truncate" data-i18n="Accordion">Fine Payments</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a href="#" class="menu-link">-->
+                <!--    <div class="text-truncate" data-i18n="Alerts">Alerts</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+               
+              </ul>
+            </li>
+
+       
+
+        
+
+      
+             <!-- Extended components -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-cloud-upload"></i>
+                <div class="text-truncate" data-i18n="Extended UI">Uploads</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="personal_files" class="menu-link">
+                    <div class="text-truncate" data-i18n="Perfect Scrollbar">Personal Files</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div class="text-truncate" data-i18n="Text Divider">Other Files</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+     <!-- Extended components -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-cog"></i>
+                <div class="text-truncate" data-i18n="Extended UI">Account Settings</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="Password_reset" class="menu-link">
+                    <div class="text-truncate" data-i18n="Perfect Scrollbar">Change Password</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a href="#" class="menu-link">-->
+                <!--    <div class="text-truncate" data-i18n="Text Divider">Other Files</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+              </ul>
+            </li>
+            
+              <!--<li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>-->
+            <li class="menu-item">
+              <a
+                href="#"
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bx-fingerprint"></i>
+                <div class="text-truncate" data-i18n="Support">Biometric</div>
+              </a>
+            </li>
+                <!-- Extended components -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-cloud-download"></i>
+                <div class="text-truncate" data-i18n="Extended UI">Downloads</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="No_due_Certificate.php" class="menu-link">
+                    <div class="text-truncate" data-i18n="Perfect Scrollbar">No Due Certificate</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a href="#" class="menu-link">-->
+                <!--    <div class="text-truncate" data-i18n="Text Divider">Other Files</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+              </ul>
+            </li>
+            
+            <!-- Misc -->
+            <!--<li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>-->
+               <li class="menu-item">
+              <a
+                href="https://wa.me/919347556447"
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bxl-whatsapp"></i>
+                <div class="text-truncate" data-i18n="Support">Help</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a
+                href="logout"
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bx-log-out"></i>
+                <div class="text-truncate" data-i18n="Documentation">Logout</div>
+              </a>
+            </li>
+          </ul>
+          <ul>
+            <div class="Social">
+        <h4>Follow Us</h4>
+<!-- Add font awesome icons -->
+<a href="https://www.facebook.com/NarasimhaReddyEngineeringCollege.NRCM" target="_blank" class="fa fa-facebook"></a>
+<a href="https://www.instagram.com/narsimhareddycollege_nrcm/" target="_blank" class="fa fa-instagram"></a>
+<a href="https://x.com/Nrec_College" target="_blank" class="fa fa-twitter"></a>
+<a href="https://www.linkedin.com/in/narsimhareddyengineeringcollege-nrcm" target="_blank" class="fa fa-linkedin"></a>
+<a href="https://www.youtube.com/channel/UCuE3rO3oUnGiWkF4V2_HBSA" target="_blank" class="fa fa-youtube"></a>
+<a href="https://whatsapp.com/channel/0029VaF4a12DzgT7ZMR41G1s" target="_blank" class="fa fa-whatsapp"></a>
+</div>
+</ul>
+        </aside>
+        
+        
+        <script>
+document.addEventListener("DOMContentLoaded", function () { 
+    let currentUrl = window.location.href.split('/').pop(); // Get current page filename
+    let menuLinks = document.querySelectorAll(".menu-link");
+    let activeFound = false;
+
+    menuLinks.forEach(link => {
+        let linkHref = link.getAttribute("href");
+
+        // Check if the link matches the current page URL
+        if (linkHref === currentUrl) {
+            link.classList.add("active"); // Highlight the active link
+            activeFound = true;
+
+            // Find the parent menu-item and mark it as active
+            let parentMenuItem = link.closest(".menu-item");
+            if (parentMenuItem) {
+                parentMenuItem.classList.add("active");
+
+                // Open the corresponding submenu
+                let menuSub = parentMenuItem.closest(".menu-sub");
+                if (menuSub) {
+                    menuSub.style.display = "block";
+
+                    // Also activate the parent menu
+                    let grandParentMenu = menuSub.closest(".menu-item");
+                    if (grandParentMenu) {
+                        grandParentMenu.classList.add("active");
+                    }
+                } 
+            }
+        }
+    });
+
+    // If no active menu is found, set "Dashboard" as default active
+    if (!activeFound) {
+        let dashboardMenuItem = document.querySelector(".menu-item.dashboard");
+        if (dashboardMenuItem) {
+            dashboardMenuItem.classList.add("active");
+            let dashboardLink = dashboardMenuItem.querySelector(".menu-link");
+            if (dashboardLink) {
+                dashboardLink.classList.add("active");
+            }
+        }
+    }
+});
+
+
+
+        </script>        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <nav
+            class="layout-navbar container-xxl navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme"
+            id="layout-navbar">
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
+                <i class="icon-base bx bx-menu icon-md"></i>
+              </a>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center justify-content-end" id="navbar-collapse">
+              <!-- Search -->
+             <!-- <div class="navbar-nav align-items-center me-auto">
+                <div class="nav-item d-flex align-items-center">
+                  <span class="w-px-22 h-px-22"><i class="icon-base bx bx-search icon-md"></i></span>
+                  <input
+                    type="text"
+                    class="form-control border-0 shadow-none ps-1 ps-sm-2 d-md-block d-none"
+                    placeholder="Search..."
+                    aria-label="Search..." />
+                </div>
+              </div>--!>
+              <!-- /Search -->
+
+
+
+
+    <style>
+        .notification-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .notification-bell {
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0px;
+            border: none;
+            background: transparent;
+            outline: none;
+        }
+
+        .notification-popup {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 320px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: none;
+            font-family: Arial, sans-serif;
+        }
+
+        .notification-header {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: green ;
+        }
+
+        .new-count {
+            background: #2563eb;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .notification-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .notification-item:hover {
+            background: #f8fafc;
+        }
+
+        .notification-icon {
+            font-size: 20px;
+            margin-top: 2px;
+        }
+
+        .notification-content {
+            flex-grow: 1;
+        }
+
+        .notification-message {
+            font-weight: 500;
+            margin-bottom: 4px;
+            color:purple;
+        }
+
+        .notification-time {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .view-all {
+            padding: 16px;
+            text-align: center;
+            color: #2563eb;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+/* Clickable Image */
+.clickable-image {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+#profilePopup .popup-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+/* Modal Popup */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 350px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+.button-container button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#editProfileBtn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#logoutBtn {
+    background-color: #f44336;
+    color: white;
+}
+
+ .button-container {
+        display: flex;
+        gap: 5px; /* Adds spacing between buttons */
+    }
+
+   .button-container button {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    #editProfileBtn {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    #logoutBtn {
+        background-color: #f44336;
+        color: white;
+    }
+
+   .button-container button:hover {
+        opacity: 0.8;
+    }
+    </style>
+
+    <div class="notification-container">
+        <button class="notification-bell" onclick="toggleNotifications()"> 🔔</button>
+        <div class="notification-popup" id="notificationPopup">
+            <div class="notification-header">
+                <span class="notification-title">Notifications</span>
+                <span class="new-count">4 New</span>
+            </div>
+            <div class="notification-list">
+                
+                    <div class="notification-item">
+                        <div class="notification-icon">💼</div>
+                        <div class="notification-content">
+                            <div class="notification-message">Cornerstone Placement Drive</div>
+                            <div class="notification-text">All branches of B.Tech.</div>
+                            <div class="notification-time">8d ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon">💼</div>
+                        <div class="notification-content">
+                            <div class="notification-message">Sutherland Placement Drive</div>
+                            <div class="notification-text">All branches of B.Tech.</div>
+                            <div class="notification-time">25d ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon">💼</div>
+                        <div class="notification-content">
+                            <div class="notification-message">Invoicecloud Placement Drive</div>
+                            <div class="notification-text">For B.Tech CSE</div>
+                            <div class="notification-time">12th Feb</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon">💼</div>
+                        <div class="notification-content">
+                            <div class="notification-message">Bees Placement Drive</div>
+                            <div class="notification-text">All branches of B.Tech.</div>
+                            <div class="notification-time">3rd Feb</div>
+                        </div>
+                    </div>            </div>
+            <div class="view-all" onclick="viewAllNotifications()">View all notifications</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleNotifications() {
+            const popup = document.getElementById('notificationPopup');
+            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function viewAllNotifications() {
+            // Add logic to handle view all action
+            window.location.href = 'notifications.php';
+        }
+
+        // Close popup when clicking outside
+        window.onclick = function(event) {
+            const popup = document.getElementById('notificationPopup');
+            if (!event.target.closest('.notification-container')) {
+                popup.style.display = 'none';
+            }
+        }
+    </script>
+
+
+
+              <ul class="navbar-nav flex-row align-items-center ms-md-auto">
+                <!-- Place this tag where you want the button to render. -->
+                <li class="nav-item lh-1 me-4">
+                <p>Welcome, 23X01A6269</p>
+                </li>
+
+                <!-- User -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a
+                    class="nav-link dropdown-toggle hide-arrow p-0"
+                    href="javascript:void(0);"
+                    data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                      <img src="uploads/23X01A6269_IMG_20250127_212703.jpg" alt="Profile" id="profileImage"  class="clickable-image" class="w-px-40 h-auto rounded-circle" />
+                      
+                    </div>
+                  </a>
+                <!--  <ul class="dropdown-menu dropdown-menu-end">-->
+                <!--    <li>-->
+                <!--      <a class="dropdown-item" href="#">-->
+                <!--        <div class="d-flex">-->
+                <!--          <div class="flex-shrink-0 me-3">-->
+                <!--            <div class="avatar avatar-online">-->
+                <!--              <img src="uploads/23X01A6269_IMG_20250127_212703.jpg" alt="Profile" class="w-px-40 h-auto rounded-circle" />-->
+                <!--            </div>-->
+                <!--          </div>-->
+                <!--          <div class="flex-grow-1">-->
+                <!--            <h6 class="mb-0">KAMMARI SAI NARASIMHA</h6>-->
+                <!--            <small class="text-body-secondary">23X01A6269</small>-->
+                <!--          </div>-->
+                <!--        </div>-->
+                <!--      </a>-->
+                <!--    </li>-->
+                <!--    <li>-->
+                <!--      <div class="dropdown-divider my-1"></div>-->
+                <!--    </li>-->
+                <!--    <li>-->
+                <!--      <a class="dropdown-item" href="#">-->
+                <!--        <i class="icon-base bx bx-user icon-md me-3"></i><span>My Profile</span>-->
+                <!--      </a>-->
+                <!--    </li>-->
+                <!--    <li>-->
+                <!--      <a class="dropdown-item" href="#">-->
+                <!--        <i class="icon-base bx bx-cog icon-md me-3"></i><span>Settings</span>-->
+                <!--      </a>-->
+                <!--    </li>-->
+                    <!--<li>-->
+                    <!--  <a class="dropdown-item" href="#">-->
+                    <!--    <span class="d-flex align-items-center align-middle">-->
+                    <!--      <i class="flex-shrink-0 icon-base bx bx-credit-card icon-md me-3"></i-->
+                    <!--      ><span class="flex-grow-1 align-middle">Billing Plan</span>-->
+                    <!--      <span class="flex-shrink-0 badge rounded-pill bg-danger">4</span>-->
+                    <!--    </span>-->
+                    <!--  </a>-->
+                    <!--</li>-->
+                <!--    <li>-->
+                <!--      <div class="dropdown-divider my-1"></div>-->
+                <!--    </li>-->
+                <!--    <li>-->
+                <!--      <a class="dropdown-item" href="logout">-->
+                <!--        <i class="icon-base bx bx-power-off icon-md me-3"></i><span>Log Out</span>-->
+                <!--      </a>-->
+                <!--    </li>-->
+                <!--  </ul>-->
+                <!--</li>-->
+                <!--/ User -->
+              <!--</ul>-->
+              
+              
+              
+              
+                  <!-- Popup Modal -->
+    <div id="profilePopup" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            
+             <img src="uploads/23X01A6269_IMG_20250127_212703.jpg" alt="Profile" class="popup-img">
+             <!--<h4>Profile Details</h4>-->
+            <p><strong>Name:</strong> <span id="profileName">KAMMARI SAI NARASIMHA</span></p>
+            <p><strong>Roll No:</strong> <span id="profileRollNo">23X01A6269</span></p>
+            <p><strong>Department:</strong> <span id="profileDepartment">CSE-CS</span></p>
+             <p><strong>Year:</strong> <span id="profileRollNo">3</span></p>
+           <!--<p><strong>Section:</strong> <span id="profileRollNo"></span></p>-->
+           
+           <div class="button-container">
+                <button id="editProfileBtn">Change Password</button>
+            <button id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // script.js
+document.addEventListener("DOMContentLoaded", function () {
+    // Get elements
+    const profileImage = document.getElementById("profileImage");
+    const profilePopup = document.getElementById("profilePopup");
+    const closeBtn = document.querySelector(".close");
+
+    // Open popup when image is clicked
+    profileImage.addEventListener("click", function () {
+        profilePopup.style.display = "block";
+    });
+
+    // Close popup when close button is clicked
+    closeBtn.addEventListener("click", function () {
+        profilePopup.style.display = "none";
+    });
+
+    // Close popup when clicking outside the modal
+    window.addEventListener("click", function (event) {
+        if (event.target === profilePopup) {
+            profilePopup.style.display = "none";
+        }
+    });
+
+     document.getElementById("editProfileBtn").addEventListener("click", function () {
+                     
+        window.location.href = "Password_reset.php"; // Redirect to student dashboard
+            
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+        alert("Logging out..."); 
+        window.location.href = "logout"; // Redirect to logout page
+    });
+});
+    </script>
+            </div>
+          </nav>
+          <!-- / Navbar -->
+<style>
+    .highlighted-name {
+    color: green;
+    text-transform: capitalize!important;
+}
+.attendace{
+    color:#ff681d;
+    font-weight: 600;
+}
+
+
+
+.notification p{
+            color:#000;
+            text-transform:uppercase;
+            font-size:15px;
+            font-weight:500;
+             margin-top: 0;
+    margin-bottom: 0rem
+        }
+        p {
+    margin-top: 0;
+    margin-bottom: 0rem!important;
+}
+              .container-fluid {
+    max-width: 100%;
+    padding-right: 0px!important;
+    padding-left: 0px!important;
+    margin-right: auto;
+    margin-left: auto;
+    /*border:2px solid #000;*/
+}
+
+.row {
+    width: 100% ;
+}
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 0px!important;
+    margin-left: 0px!important;
+}
+.justify-content-between {
+    -ms-flex-pack: justify !important;
+    justify-content: space-between !important;
+}
+.text-white {
+    color: #fff !important;
+}
+.align-items-center {
+    -ms-flex-align: center !important;
+    align-items: center !important;
+}
+                 .button_style_1 {
+    background-color: #5f1455;
+    color: #fff;
+    display: block;
+    padding: 7px;
+    border-left: 10px solid #ab070e;
+     border-right: 10px solid #ab070e;
+    font-size: 13px;
+   
+}
+.container-upload {
+            width: 80%;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgb(51 126 78 / 60%);
+            border-radius: 8px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            z-index:-1;
+        }
+        
+        .container-upload h5{
+            color:#0b7873;
+            font-size:18px;
+                z-index:-1;
+        }
+          .Container-admin
+        {
+            max-width: 100%;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgb(51 126 78 / 60%);
+            border-radius: 8px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+      
+            .Container-admin h2{
+             /*font-size:24px;*/
+             padding:10px 0px;
+             color:tomato;
+             font-weight:600;
+         }
+         .profile-photo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-photo img {
+            width: 150px;
+            height: 150px;
+            /*border-radius: 50%;*/
+            object-fit: cover;
+            border: 3px solid #109aa1;
+        }
+                 .edit-button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #FF6000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .edit-button:hover {
+            background-color: #e55d00;
+        }
+        .form-edit input[type="submit"] {
+            margin-top: 10px;
+            background-color: #28a745;
+            border: none;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .Container-admin h2 {
+        font-size: 1.75rem;
+        text-align: left;
+        color:tomato!important;
+        text-transform:uppercase;
+        
+       line-height: 1rem!important;
+        /*font-family:'DaxlinePro' !important;;*/
+        }
+         .Container-admin h5 {
+        font-size: 1.0rem;
+        text-align: left;
+        color:#00427d !important
+        text-transform:uppercase;
+        /*font-family:'DaxlinePro' !important;;*/
+        }
+        .Container-admin p{
+        font-size: 1.2rem;
+        text-align: left;
+        color:green!important;
+        text-transform:capitalize;
+        font-weight:400;
+        /*font-family:'DaxlinePro' !important;;*/
+        }
+         label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #109aa1;
+        }
+        select, input[type="text"]{
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #333;
+            display: block;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .photo-btn {
+            max-width: fit-content;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .profile-photo img{
+            height:150px!important;
+                border: 2px solid tomato;
+    height: 150px !important;
+    border-radius: 10px;
+      display: block;
+  margin-left: auto;
+  margin-right: auto;
+        }
+        .submit {
+            max-width: fit-content;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+            width:fit-content;
+        }
+        .profile-photo img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 3px solid #109aa1;
+                display: block;
+    margin-left: auto;
+    margin-right: auto;
+      color:#000!important;
+        }
+        
+        .card-header {
+    padding: .5rem 1rem;
+    margin: 0;
+    background-color: rgb(64 151 147 / 17%);
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    width:fit-content;
+    margin-left:auto;
+    margin-right:auto;
+}
+      .card-header #name h2 {
+    color: #009688 !important;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin: 0px !important;
+    font-weight: 900;
+    padding-bottom:10px;
+    line-height: 1.5rem!important;
+}
+ #name h2 {
+    color: #096f4b;
+    text-align: center;
+    margin-bottom: 0px;
+    /*font-family: 'DaxlinePro' !important;*/
+}
+</style>
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="row">
+               
+                    <!--/ Transactions -->
+              
+               <div class="Container-admin">
+    <!--<h2>Notifications</h2>-->
+    <div class="container-fluid text-light text-center" style="border:2px solid #000;">
+        <div class="row" style="background-color:#fff;">
+            <div class="d-flex justify-content-between align-items-center breaking-news bg-white"style="padding:0px">
+                <div class="d-flex flex-fill justify-content-center text-white news" style="background-color:#e70998;width:15rem; height: 100%;padding: 5px;">
+                    <span class="d-flex d-flex justify-content-center" style="width: 100%;font-size:1.2rem;text-transform: CAPITALIZE;font-weight: 500;">&nbsp;Flash News</span>
+                </div>
+                <marquee scrollamount="1" onmouseout="this.setAttribute('scrollamount', 1, 0);this.start();" onmouseover="this.setAttribute('scrollamount', 0, 0);this.stop();">
+                    <font color="#333f48">
+                     <div class='notification' style='display: inline-block; margin-right: 15px;'><img src='images/tenor1.gif' width='30' height='12' style='vertical-align: middle; border: 0; margin-right: 5px;'><span style='font-size: 1rem; text-align: left; color: green !important; text-transform: capitalize; font-weight: 400;'>Invoice Cloud On Campus Placement Drive on 12th Feb 2025 ||</span></div><div class='notification' style='display: inline-block; margin-right: 15px;'><img src='images/tenor1.gif' width='30' height='12' style='vertical-align: middle; border: 0; margin-right: 5px;'><span style='font-size: 1rem; text-align: left; color: green !important; text-transform: capitalize; font-weight: 400;'>A Live Screening on &quot;Union Budget-2025:Shaping the Future of Business&quot; on 01-02-2025 ||</span></div><div class='notification' style='display: inline-block; margin-right: 15px;'><img src='images/tenor1.gif' width='30' height='12' style='vertical-align: middle; border: 0; margin-right: 5px;'><span style='font-size: 1rem; text-align: left; color: green !important; text-transform: capitalize; font-weight: 400;'>Deloitte On Campus Placement Drive on 04-02-2025 ||</span></div><div class='notification' style='display: inline-block; margin-right: 15px;'><img src='images/tenor1.gif' width='30' height='12' style='vertical-align: middle; border: 0; margin-right: 5px;'><span style='font-size: 1rem; text-align: left; color: green !important; text-transform: capitalize; font-weight: 400;'>Moviate On Campus Recruitment on 31-01-2025 ||</span></div>
+                    </font>
+                </marquee>
+            </div>
+        </div>
+    </div>
+
+ 
+
+
+ <br>
+
+
+
+             <div class="card-header font-weight-bold">
+                <span id="name"><h2>KAMMARI SAI NARASIMHA</h2></span>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="row mt-2">
+
+  <div class="profile-photo">
+            <img src="uploads/23X01A6269_IMG_20250127_212703.jpg" alt="Profile Photo">
+            <!--<form action="" method="POST" enctype="multipart/form-data">-->
+            <!--    <input type="file" name="photo" accept="image/*" required>-->
+            <!--    <input type="submit" value="Upload Photo" class="edit-button" style="padding: 10px 20px; background-color: #4d376d; color: #fff; border: none; cursor: pointer;">-->
+            <!--</form>-->
+        </div>
+  
+<script>
+    // Function to preview the selected photo
+    function previewPhoto(event) {
+        const preview = document.getElementById('photo-preview');
+        const file = event.target.files[0];
+
+        if (file) {
+            // Create a temporary URL for the selected file and set it as the image source
+            preview.src = URL.createObjectURL(file);
+
+            // Release the temporary URL once the image is loaded
+            preview.onload = function () {
+                URL.revokeObjectURL(preview.src);
+            };
+        }
+    }
+</script>
+
+                        </div>
+                    </div>
+               
+                    <div class="col-md-8">
+
+                                  <div class="row mt-2">
+                            <div class="col-md-4">
+                                  <p>Roll Number: </p>
+
+                            </div>
+                            <div class="col-md-7 text-right">
+                               <strong>23X01A6269</strong>
+                            </div>
+                        </div>
+                          <div class="row mt-2">
+                            <div class="col-md-4">
+                                  <p>Department: </p>
+
+                            </div>
+                            <div class="col-md-7 text-right">
+                               <strong>CSE-CS</strong>
+                            </div>
+                        </div>
+                          <div class="row mt-2">
+                            <div class="col-md-4">
+                                  <p>Year: </p>
+
+                            </div>
+                            <div class="col-md-7 text-right">
+                               <strong>3</strong>
+                            </div>
+                        </div>
+                            <div class="row mt-2">
+                            <div class="col-md-4">
+                                  <p>Student Mobile: </p>
+
+                            </div>
+                            <div class="col-md-7 text-right">
+                               <strong>88xxxxxx12</strong>
+                            </div>
+                        </div>
+                          <div class="row mt-2">
+                            <div class="col-md-4">
+                                  <p>Parent Mobile: </p>
+
+                            </div>
+                            <div class="col-md-7 text-right">
+                               <strong>91xxxxxx12</strong>
+                            </div>
+                        </div>
+                        
+  <!--<button class="edit-button" style="padding: 10px 20px; background-color: #4d376d; color: #fff; border: none; cursor: pointer;"><a href="edit_info.php">Edit Profile</a></button>-->
+                    </div>
+
+             
+                <!--<h4>Welcome back, <br><strong>MEKALA AJAYKUMAR</strong></h4>-->
+                <!--<p>Roll Number: <strong>24X01A66C2</strong></p>-->
+                <!--<p>Department: <strong>FME</strong></p>-->
+                <!--<p>Year: <strong>1</strong></p>-->
+                <!--<p>Student Mobile: <strong>9391823386</strong></p>-->
+                <!--<p>Parent Mobile: <strong>9949495125</strong></p>-->
+              
+                <!--<button class="edit-button"><a href="edit_info.php">Cancel</a></button>-->
+       
+
+                <!-- Edit Profile Form -->
+                <!--<div id="edit-form" style="display:none;">-->
+                <!--    <form action="update_profile.php" method="POST" class="form-edit">-->
+                <!--        <label for="name">Name:</label>-->
+                <!--        <input type="text" name="name" value="MEKALA AJAYKUMAR" required>-->
+                <!--        <label for="phone">Mobile Number:</label>-->
+                <!--        <input type="text" name="phone" value="9391823386" required>-->
+                <!--        <label for="year">Year:</label>-->
+                <!--        <input type="text" name="year" value="1" required>-->
+                <!--        <input type="submit" value="Save Changes">-->
+                <!--    </form>-->
+                <!--</div>-->
+                   </div>
+            </div>
+        </div>
+        
+           <div class="dashboard">
+        <h2>Dashboard</h2>
+        
+        <!-- Buttons -->
+        <!--<div class="buttons">-->
+        <!--    <button class="library">Access Library Portal</button>-->
+        <!--    <button class="forms">Download & Forms</button>-->
+        <!--    <button class="directory">Phone Directory</button>-->
+        <!--</div>-->
+
+        <!-- To Do List -->
+        <!--<div class="box">-->
+        <!--    <h3>📋 To Do List</h3>-->
+        <!--</div>-->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Exam Notifications -->
+        <div class="box py-2 col-lx-4 col-md-4 col-sm-12">
+            <h3>College News</h3>
+            <div id="sc1" style="height:320px;overflow: hidden;" id="news-container1">
+                 <iframe id="NewsWindow" src="../events_and_news" width="100%" height="374" marginwidth="0" marginheight="0" frameborder="0" scrolling="no";></iframe>
+
+            </div>
+        </div>
+
+        <!-- Placement Notifications -->
+        <div class="box py-2 col-lx-4 col-md-4 col-sm-12">
+            <h3>Placement Notifications</h3>
+            
+             <div id="sc2" style="height:320px;overflow: hidden;" id="news-container1">
+       
+               <iframe id="NewsWindow" src="../place_news.php" width="100%" height="374" marginwidth="0" marginheight="0" frameborder="0" scrolling="no"></iframe>
+
+            </div>
+        </div>
+
+        <!-- Exam Circulars -->
+       <div class="box py-2 col-lx-4 col-md-4 col-sm-12">
+            <h3>Examination Notifications</h3>
+            
+              <div id="sc3" style="height:320px;overflow: hidden;" id="news-container1">
+       
+                <iframe id="NewsWindow" src="../exam-news.php" width="100%" height="374" marginwidth="0" marginheight="0" frameborder="0" scrolling="no";></iframe>
+            </div>
+        </div>
+       <script>
+    function autoScroll(scrollId) {
+        let scrollDiv = document.getElementById(scrollId);
+        let scrollAmount = 0;
+        let speed = 50; // Adjust scrolling speed
+        let step = 1; // Adjust scroll step size
+        let maxScroll = scrollDiv.scrollHeight - scrollDiv.clientHeight;
+
+        function scrollStep() {
+            if (scrollAmount < maxScroll) {
+                scrollAmount += step;
+                scrollDiv.scrollTop = scrollAmount;
+            } else {
+                scrollAmount = 0; // Reset to start
+            }
+        }
+
+        setInterval(scrollStep, speed);
+    }
+
+    // Start auto-scroll for all divs
+    window.onload = function () {
+        autoScroll("sc1");
+        autoScroll("sc2");
+        autoScroll("sc3");
+    };
+</script>
+       <div class="card-sri">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NRCM - Monthly Content Calendar</title>
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <style>
+        :root {
+            --primary-color: #9a1b78;
+            --secondary-color: #50e3c2;
+            --accent-color: #f5a623;
+            --text-color: #2d2d2d;
+            --background: #f8f9fa;
+        }
+
+        /*body {*/
+        /*    font-family: 'Segoe UI', system-ui;*/
+        /*    padding: 20px;*/
+        /*    background: var(--background);*/
+        /*    color: var(--text-color);*/
+        /*}*/
+
+        .calendar-container {
+            max-width: 100%;
+            margin: 30px auto;
+            background: white;
+             box-shadow: 0 0 10px rgb(51 126 78 / 60%);
+        }
+
+        .calendar-header {
+            /*background-color: var(--primary-color);*/
+           background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(237,22,167,1) 35%, rgba(0,212,255,1) 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .calendar-header h1 {
+            font-weight: 700;
+            margin: 0;
+            /*color:brown;*/
+            font-size: 2.2rem;
+             /*background: #0e8dbc;*/
+  color: white;
+ text-shadow: .1em .1em 0 hsl(200 50% 30%);
+        }
+
+        .calendar-header h2 {
+            font-weight: 500;
+            margin: 5px 0 0;
+            font-size: 1.5rem;
+            text-shadow: .1em .1em 0 hsl(200 50% 30%);
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            padding: 20px;
+        }
+
+       .calendar-container .header {
+            text-align: center;
+            font-weight: 600;
+            padding: 5px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+       .calendar-container .day {
+            border: 2px solid #e9ecef;
+            padding: 15px;
+            min-height: 120px;
+            position: relative;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+      .calendar-container  .day:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+       .calendar-container .event {
+            font-size: 0.85rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin: 2px 0;
+        }
+
+      .calendar-container  .nav {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+       .calendar-container .nav a {
+            padding: 8px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: transform 0.2s;
+        }
+
+       .calendar-container .nav a:hover {
+            transform: scale(1.05);
+        }
+
+        #event-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(3px);
+            z-index: 999;
+        }
+
+        /* Content types */
+        .event-newsletter { background-color: #4caf50; }
+        .event-live { background-color: #12c78e; }
+        .event-social { background-color: #2196f3; }
+        .event-podcast { background-color: #9c27b0; }
+        .event-blog { background-color: #ff9800; }
+        .event-webinar { background-color: #607d8b; }
+        .event-email { background-color: #795548; }
+        .event-promo { background-color: #6b10cc; }
+        .event-infographic { background-color: #00bcd4; }
+        .event-challenge { background-color:  #e91e63; }
+        .event-other { background-color:  #0b57d0; }
+      
+
+        /* Admin mode */
+        .admin-mode {
+            border: 3px solid var(--secondary-color);
+        }
+        
+        .admin-banner {
+            background-color: var(--secondary-color);
+            color: black;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+#manager-name{
+    font-weight:800;
+    color: #e91e63;
+}
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .calendar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+          .calendar-container  .header {
+                display: none;
+            }
+            
+         .calendar-container   .day {
+                min-height: 80px;
+                padding: 10px;
+            }
+            
+          .calendar-container  .event {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar {
+                grid-template-columns: 1fr;
+            }
+            
+           .calendar-container .nav {
+                flex-direction: row;
+                gap: 10px;
+            }
+        }
+        
+
+        
+           .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+        h1, .h1 {
+    line-height: 2.5rem;
+}
+h2, .h2 {
+    line-height: 1.5rem;
+}
+    </style>
+</head>
+<body>
+
+
+<div class="calendar-container" id="calendar-container">
+    <div class="calendar-header">
+        <h1>Narsimha Reddy Engineering College (NRCM)</h1>
+        <h2>MONTHLY CALENDAR</h2>
+    </div>
+    
+    <!--<div class="d-flex justify-content-end p-2">-->
+    <!--    <button class="btn btn-warning btn-sm" id="admin-toggle">Admin Login</button>-->
+    <!--</div>-->
+    
+    <div class="nav">
+        <a href="?m=12&y=2025">Prev</a>
+        <strong>January 2026</strong>
+        <a href="?m=2&y=2026">Next</a>
+    </div>
+
+    <div class="calendar">
+        <div class='header'>Sun</div><div class='header'>Mon</div><div class='header'>Tue</div><div class='header'>Wed</div><div class='header'>Thu</div><div class='header'>Fri</div><div class='header'>Sat</div><div></div><div></div><div></div><div></div><div class='day' onclick=showForm('2026-01-01')><strong>1</strong></div><div class='day' onclick=showForm('2026-01-02')><strong>2</strong></div><div class='day' onclick=showForm('2026-01-03')><strong>3</strong></div><div class='day' onclick=showForm('2026-01-04')><strong>4</strong></div><div class='day' onclick=showForm('2026-01-05')><strong>5</strong></div><div class='day' onclick=showForm('2026-01-06')><strong>6</strong></div><div class='day' onclick=showForm('2026-01-07')><strong>7</strong></div><div class='day' onclick=showForm('2026-01-08')><strong>8</strong></div><div class='day' onclick=showForm('2026-01-09')><strong>9</strong></div><div class='day' onclick=showForm('2026-01-10')><strong>10</strong></div><div class='day' onclick=showForm('2026-01-11')><strong>11</strong><div class='event event-challenge'>Sankranti Holidays </div></div><div class='day' onclick=showForm('2026-01-12')><strong>12</strong><div class='event event-challenge'>Sankranti Holidays</div></div><div class='day' onclick=showForm('2026-01-13')><strong>13</strong><div class='event event-challenge'>Sankranti Holidays</div></div><div class='day' onclick=showForm('2026-01-14')><strong>14</strong><div class='event event-challenge'>Sankranti Holidays</div></div><div class='day' onclick=showForm('2026-01-15')><strong>15</strong><div class='event event-challenge'>Sankranthi Holidays</div></div><div class='day' onclick=showForm('2026-01-16')><strong>16</strong><div class='event event-challenge'>Sankranthi Holidays</div></div><div class='day' onclick=showForm('2026-01-17')><strong>17</strong><div class='event event-challenge'>Sankranthi Holidays</div></div><div class='day' onclick=showForm('2026-01-18')><strong>18</strong></div><div class='day' onclick=showForm('2026-01-19')><strong>19</strong></div><div class='day' onclick=showForm('2026-01-20')><strong>20</strong></div><div class='day' onclick=showForm('2026-01-21')><strong>21</strong></div><div class='day' onclick=showForm('2026-01-22')><strong>22</strong></div><div class='day' onclick=showForm('2026-01-23')><strong>23</strong></div><div class='day' onclick=showForm('2026-01-24')><strong>24</strong></div><div class='day' onclick=showForm('2026-01-25')><strong>25</strong></div><div class='day' onclick=showForm('2026-01-26')><strong>26</strong><div class='event event-challenge'>77th Republic Day </div></div><div class='day' onclick=showForm('2026-01-27')><strong>27</strong></div><div class='day' onclick=showForm('2026-01-28')><strong>28</strong></div><div class='day' onclick=showForm('2026-01-29')><strong>29</strong></div><div class='day' onclick=showForm('2026-01-30')><strong>30</strong></div><div class='day' onclick=showForm('2026-01-31')><strong>31</strong></div>    </div>
+    
+       <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color event-newsletter"></div>
+                <span>Workshop</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color event-live"></div>
+                <span>Seminar</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color event-social"></div>
+                <span>FDP</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color event-podcast"></div>
+                <span>Guest Lecture</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color event-blog"></div>
+                <span>Sports</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color event-webinar"></div>
+                <span>Technical Events</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color event-email"></div>
+                <span>Cultural Events</span>
+            </div>
+              <div class="legend-item">
+                <div class="legend-color event-promo"></div>
+                <span>Annual Day</span>
+            </div>
+              <div class="legend-item">
+                <div class="legend-color event-infographic"></div>
+                <span>Graduation Day</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color event-challenge"></div>
+                <span>Holiday</span>
+            </div>
+              <div class="legend-item">
+                <div class="legend-color event-other"></div>
+                <span>Other Events</span>
+            </div>
+        </div>
+<br><br>
+    <!--<div class="p-3 text-end">-->
+    <!--    <strong>Calender Designed By:</strong>-->
+    <!--    <span id="manager-name">D Srinivas</span>-->
+    <!--</div>-->
+</div>
+
+<div id="overlay"></div>
+<div id="event-form">
+    <h3 id="form-title">Add Event</h3>
+    <form onsubmit="submitEvent(); return false;">
+        <input type="hidden" id="event-id">
+        <input type="hidden" id="event-date">
+        <div class="mb-3">
+            <label for="event-title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="event-title" required>
+        </div>
+        <div class="mb-3">
+            <label for="event-type" class="form-label">Type</label>
+            <select class="form-select" id="event-type">
+                <option value="newsletter">Workshop</option>
+                <option value="live">Seminar</option>
+                <option value="social">FDP</option>
+                <option value="podcast">Guest Lecture</option>
+                <option value="blog">Sports</option>
+                <option value="webinar">Hackathon</option>
+                <option value="email">Cultural Fest</option>
+                <option value="promo">Annual Day</option>
+                <option value="infographic">Graduation Day</option>
+                <option value="challenge">Holiday</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" onclick="closeForm()">Cancel</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Admin mode toggle
+    let isAdmin = false;
+    document.getElementById('admin-toggle').addEventListener('click', function() {
+        if (!isAdmin) {
+            const password = prompt('Enter admin password:');
+            if (password === 'Prajwal@2021') {
+                isAdmin = true;
+                document.getElementById('calendar-container').classList.add('admin-mode');
+                document.getElementById('admin-toggle').textContent = 'Exit Admin';
+                
+                // Show admin banner
+                const banner = document.createElement('div');
+                banner.className = 'admin-banner';
+                banner.textContent = 'ADMIN MODE: Click on cells to edit content';
+                document.body.insertBefore(banner, document.body.firstChild);
+            }
+        } else {
+            isAdmin = false;
+            document.getElementById('calendar-container').classList.remove('admin-mode');
+            document.getElementById('admin-toggle').textContent = 'Admin Login';
+            document.querySelector('.admin-banner').remove();
+        }
+    });
+
+    // Manager name editing
+    document.getElementById('manager-name').addEventListener('click', function() {
+        if (isAdmin) {
+            const newName = prompt('Enter manager name:');
+            if (newName) {
+                this.textContent = newName;
+            }
+        }
+    });
+
+    // Event form functions
+    function showForm(date) {
+        if (!isAdmin) return;
+        
+        document.getElementById('event-date').value = date;
+        document.getElementById('event-id').value = '';
+        document.getElementById('event-title').value = '';
+        document.getElementById('event-type').value = 'newsletter';
+        document.getElementById('form-title').textContent = 'Add Event';
+        
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('event-form').style.display = 'block';
+    }
+
+    function editEvent(e, id, date, title, type) {
+        e.stopPropagation();
+        
+        document.getElementById('event-date').value = date;
+        document.getElementById('event-id').value = id;
+        document.getElementById('event-title').value = title;
+        document.getElementById('event-type').value = type;
+        document.getElementById('form-title').textContent = 'Edit Event';
+        
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('event-form').style.display = 'block';
+    }
+
+    function closeForm() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('event-form').style.display = 'none';
+    }
+
+    function deleteEvent(e, id) {
+        e.stopPropagation();
+        if (!confirm('Are you sure you want to delete this event?')) return;
+        
+        const formData = new FormData();
+        formData.append('action', 'delete');
+        formData.append('id', id);
+        
+        fetch('', {
+            method: 'POST',
+            body: formData
+        }).then(() => location.reload());
+    }
+
+    function submitEvent() {
+        const formData = new FormData();
+        const id = document.getElementById('event-id').value;
+        
+        formData.append('action', id ? 'edit' : 'add');
+        if (id) formData.append('id', id);
+        formData.append('date', document.getElementById('event-date').value);
+        formData.append('title', document.getElementById('event-title').value);
+        formData.append('type', document.getElementById('event-type').value);
+        
+        fetch('', {
+            method: 'POST',
+            body: formData
+        }).then(() => location.reload());
+    }
+</script>
+</body>
+</html>     </div>
+                                        </div>
+         
+<style>
+     .card-sri {
+            background: white;
+            padding: 0px;
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+           
+            position: relative;
+        }
+        
+        .card-body {
+            padding: 10px !important;
+        }
+</style>
+
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 <style>
+                  .item img{
+                     max-width: 100%;
+        height: 300px;
+        border-radius: 10px;
+        margin: 0px;    
+                  }
+              </style>
+               <div class="row">
+              <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Placements 2025</h4>
+                    
+
+    <style>
+    .card-title{
+        text-align: center;
+        color:tomato;
+    }
+        .slider {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .slide {
+            min-width: 100%;
+        }
+        
+        .slide img {
+            width: 100%;
+        height: 350px;
+        border-radius: 10px;
+        margin: 0px;  
+            display: block;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+        }
+        
+        button {
+            background: rgb(193 22 132 / 95%);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        button:hover {
+            background: rgb(193 22 132 / 95%);
+        }
+        
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .dot.active {
+            background: rgb(193 22 132 / 95%);
+        }
+    </style>
+
+    <div class="slider">
+        <div class="slides">
+            <div class="slide">
+                <img src="../images/25Lacks Placements-2024.jpg" alt="Slide 1">
+            </div>
+            <div class="slide">
+                <img src="../images/16LPA.jpg" alt="Slide 2">
+            </div>
+            <div class="slide">
+                <img src="../images/Placements Scrollers/Invoice Cloud.jpeg" alt="Slide 3">
+            </div>
+           <div class="slide">
+         <img src="../images/Placements Scrollers/Bees.jpeg" alt="Image 1">
+         </div>
+         <div class="slide">
+        <img src="../images/Placements Scrollers/Zentree.jpeg" alt="Image 2">
+        </div>
+        <div class="slide">
+        <img src="../images/Placements Scrollers/zepto.jpeg" alt="Image 3">
+        </div>
+        <div class="slide">
+        <img src="../images/Placements Scrollers/Surya Tech Soluations.jpeg" alt="Image 4">
+        </div>
+        <div class="slide">
+        <img src="../images/Placements Scrollers/Aegis Digital.jpeg" alt="Image 5">
+        </div>
+        <div class="slide">
+        <img src="../images/Placements Scrollers/TekSystems.jpeg" alt="Image 8">
+        </div>
+        <div class="slide">
+        <img src="../images/Placements Scrollers/military interships.jpeg" alt="Image 9">
+        </div>
+        <div class="slide">
+        <img src="../images/Placements Scrollers/Frontier.jpg" alt="Image 10">
+        </div>
+        <div class="slide">
+         <img src="../images/Placements Scrollers/sutherland.jpg" alt="Image 10">
+         </div>
+         <div class="slide">
+          <img src="../images/Placements Scrollers/CADSYS.jpg" alt="Image 10">
+          </div>
+          <div class="slide">
+   <img src="../images/Placements Scrollers/infosys.jpg" alt="Image 10">
+                      </div>
+            
+        </div>
+        
+        <div class="controls">
+            <button class="prev">❮</button>
+            <button class="next">❯</button>
+        </div>
+        
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+              <span class="dot"></span>
+            <span class="dot"></span>
+              <span class="dot"></span>
+            <span class="dot"></span>
+              <span class="dot"></span>
+            <span class="dot"></span>  
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelector('.slides');
+        const slideItems = document.querySelectorAll('.slide');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        const dots = document.querySelectorAll('.dot');
+        
+        let currentIndex = 0;
+        const totalSlides = slideItems.length;
+        
+        function updateSlider() {
+            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+        
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateSlider();
+        }
+        
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+        
+        function goToSlide(index) {
+            currentIndex = index;
+            updateSlider();
+        }
+        
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => goToSlide(index));
+        });
+        
+        // Auto slide
+        setInterval(nextSlide, 5000);
+    </script>
+
+                  </div>
+                </div>
+              </div>
+          
+
+
+                            
+                            
+                            
+                            
+                                    
+                                    <div class="col-md-8 col-xl-8 col-sm-12 grid-margin stretch-card">
+ <div class="card">
+        
+    <style>
+    .container-holiday {
+        width: 100%;
+        margin: 20px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        overflow-x: auto;
+    }
+
+    .container-holiday h2 {
+        text-align: center;
+        color: #23297A;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        border-top: 3px solid #FF6000;
+        border-bottom: 3px solid #FF6000;
+        padding: 10px 0;
+    }
+
+    .container-holiday table {
+        width: 100%;
+        margin: auto;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        min-width: 600px; /* ensures table layout doesn't break on very narrow screens */
+    }
+
+    .container-holiday th,
+    .container-holiday td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd !important;
+    }
+
+    .container-holiday th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .serial-no {
+        width: 50px;
+        text-align: center;
+    }
+    
+    .file-link {
+        color: tomato; /* Changed to tomato color */
+        text-decoration: none;
+        font-weight: bold;
+        padding: 4px 8px;
+        border-radius: 4px;
+        background-color: rgba(255, 99, 71, 0.1); /* Light tomato background */
+        transition: all 0.3s ease;
+    }
+    
+    .file-link:hover {
+        text-decoration: none;
+        background-color: rgba(255, 99, 71, 0.2); /* Slightly darker on hover */
+        box-shadow: 0 2px 4px rgba(255, 99, 71, 0.2);
+    }
+
+    /* Responsive table scroll for small screens */
+    @media (max-width: 768px) {
+        .container-holiday {
+            padding: 10px;
+        }
+
+        .container-holiday table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .container-holiday th,
+        .container-holiday td {
+            font-size: 14px;
+            padding: 8px;
+        }
+
+        .container-holiday h2 {
+            font-size: 18px;
+        }
+        
+        .file-link {
+            padding: 2px 4px;
+            font-size: 13px;
+        }
+    }
+</style>
+
+
+<div class="container-holiday">
+    <h2>List of Holidays</h2>
+    <div class="container-holiday">
+        <table>
+            <thead>
+                <tr>
+                    <th class="serial-no">S.No</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Description</th>
+                    <th>File</th>
+                </tr>
+            </thead>
+            <tbody>
+                                <tr>
+                    <td class="serial-no">1</td>
+                    <td>30 Oct 2025</td>
+                    <td>30 Oct 2025</td>
+                    <td>Bandh</td>
+                    <td>
+                                                    No file
+                                            </td>
+                </tr>
+                                <tr>
+                    <td class="serial-no">2</td>
+                    <td>20 Oct 2025</td>
+                    <td>20 Oct 2025</td>
+                    <td>Diwali </td>
+                    <td>
+                                                    No file
+                                            </td>
+                </tr>
+                                <tr>
+                    <td class="serial-no">3</td>
+                    <td>05 Sep 2025</td>
+                    <td>05 Sep 2025</td>
+                    <td>Milan Un-Nabi</td>
+                    <td>
+                                                    <a href="https://nrcmec.org/Employee/uploads/circulars/68ba88714761c.pdf" class="file-link" target="_blank">View File</a>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td class="serial-no">4</td>
+                    <td>27 Aug 2025</td>
+                    <td>27 Aug 2025</td>
+                    <td>Vinayaka Chavathi</td>
+                    <td>
+                                                    <a href="https://nrcmec.org/Employee/uploads/circulars/68addd1bb251e.pdf" class="file-link" target="_blank">View File</a>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td class="serial-no">5</td>
+                    <td>16 Aug 2025</td>
+                    <td>16 Aug 2025</td>
+                    <td>Sri Krishna Astami </td>
+                    <td>
+                                                    <a href="https://nrcmec.org/Employee/uploads/circulars/689f461b2b261.pdf" class="file-link" target="_blank">View File</a>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td class="serial-no">6</td>
+                    <td>15 Aug 2025</td>
+                    <td>15 Aug 2025</td>
+                    <td>79th Independence Day </td>
+                    <td>
+                                                    No file
+                                            </td>
+                </tr>
+                                <tr>
+                    <td class="serial-no">7</td>
+                    <td>21 Jul 2025</td>
+                    <td>21 Jul 2025</td>
+                    <td>Bonalu Festival </td>
+                    <td>
+                                                    <a href="https://nrcmec.org/Employee/uploads/circulars/687cde2b3c1f4.pdf" class="file-link" target="_blank">View File</a>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td class="serial-no">8</td>
+                    <td>07 Jun 2025</td>
+                    <td>07 Jun 2025</td>
+                    <td>Bakrid</td>
+                    <td>
+                                                    <a href="https://nrcmec.org/Employee/uploads/circulars/684d34417cda8.pdf" class="file-link" target="_blank">View File</a>
+                                            </td>
+                </tr>
+                                <tr>
+                    <td class="serial-no">9</td>
+                    <td>12 May 2025</td>
+                    <td>25 May 2025</td>
+                    <td>Summer Vacation</td>
+                    <td>
+                                                    No file
+                                            </td>
+                </tr>
+                            </tbody>
+        </table>
+    </div>
+</div>
+                                        </div>
+                                        </div>
+                               
+         
+            
+<style>
+     .card-sri {
+            background: white;
+            padding: 20px;
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+</style>
+			
+			<script>
+    function showEditForm() {
+        document.getElementById('edit-form').style.display = 'block';
+    }
+</script>
+        <style>
+            .container-bio {
+    width: 100%;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    /*box-shadow: 0 0 10px rgba(51, 126, 78, 0.6);*/
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.container-bio h2 {
+    text-align: center;
+    color: #23297A;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border-top: 3px solid #FF6000;
+    border-bottom: 3px solid #FF6000;
+    padding: 10px 0;
+}
+
+.container-bio table {
+    max-width: 100%;
+    margin: auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    min-width: 600px; /* ensures table layout doesn't break on very narrow screens */
+}
+
+.container-bio th,
+.container-bio td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd !important;
+}
+
+.container-bio th {
+    background-color: #007bff;
+    color: white;
+}
+
+.serial-no {
+    width: 50px;
+    text-align: center;
+}
+
+/* Responsive table scroll for small screens */
+@media (max-width: 768px) {
+    .container-bio {
+        padding: 10px;
+    }
+
+    .container-bio table {
+        /*display: block;*/
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .container-bio th,
+    .container-bio td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .container-bio h2 {
+        font-size: 18px;
+    }
+}
+
+        </style>
+
+          </div>
+   </div>
+
+    </div>
+    </div>
+    </div>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector(".library").addEventListener("click", function() {
+        alert("Redirecting to Library Portal...");
+    });
+
+    document.querySelector(".forms").addEventListener("click", function() {
+        alert("Downloading Forms...");
+    });
+
+    document.querySelector(".directory").addEventListener("click", function() {
+        alert("Opening Phone Directory...");
+    });
+});
+
+    </script>
+      
+      <!-- jQuery -->
+
+       <script src="assets/vendors/progressbar.js/progressbar.min.js"></script>
+    <script src="assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+    <script src="assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
+      
+            </div>
+            </div>
+            <!-- / Content -->
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl">
+                <div
+                  class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                  <div class="mb-2 mb-md-0"> Copy Rights
+                    &#169;
+                    <script>
+                      document.write(new Date().getFullYear());
+                    </script>
+                   | Developed by
+                    <a href="#" target="_blank" class="footer-link">D Srinivas</a>
+                  </div>
+                  <div class="d-none d-lg-inline-block">
+                
+                    <a href="#" target="_blank" class="footer-link me-4">College Website</a>
+
+                    <!--<a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">College Website</a>-->
+                    <!--<a href="https://themeselection.com/item/category/bootstrap-admin-templates/" target="_blank" class="footer-link me-4">Bootstrap Dashboard</a>-->
+
+                    <!--<a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>-->
+
+                    <!--<a-->
+                    <!--  href="https://github.com/themeselection/sneat-bootstrap-html-admin-template-free/issues"-->
+                    <!--  target="_blank"-->
+                    <!--  class="footer-link"-->
+                    <!--  >Support</a>-->
+                  </div>
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!--<div class="buy-now">-->
+    <!--  <a-->
+    <!--    href="https://themeselection.com/item/sneat-dashboard-pro-bootstrap/"-->
+    <!--    target="_blank"-->
+    <!--    class="btn btn-danger btn-buy-now"-->
+    <!--    >Upgrade to Pro</a-->
+    <!--  >-->
+    <!--</div>-->
+
+    <!-- Core JS -->
+
+    <script src="assets/vendor/libs/jquery/jquery.js"></script>
+
+    <script src="assets/vendor/libs/popper/popper.js"></script>
+    <script src="assets/vendor/js/bootstrap.js"></script>
+
+    <script src="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="assets/vendor/js/menu.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+
+    <script src="assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="assets/js/dashboards-analytics.js"></script>
+
+    <!-- Place this tag before closing body tag for github widget button. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>
+            

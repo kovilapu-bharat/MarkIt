@@ -1,0 +1,235 @@
+import { useTheme } from '@/context/ThemeContext';
+import { Ionicons } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Slider as AwesomeSlider } from 'react-native-awesome-slider';
+import Animated, { FadeInDown, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import DonutChart from '../../components/DonutChart';
+import { AnalyticsService } from '../../services/analytics';
+import { AttendanceService } from '../../services/attendance';
+
+export default function PredictScreen() {
+    const insets = useSafeAreaInsets();
+    const { colors } = useTheme();
+
+    const [loading, setLoading] = useState(true);
+    const [stats, setStats] = useState({ attended: 0, total: 0, percentage: 0 });
+    const [predictMode, setPredictMode] = useState<'attend' | 'miss'>('miss');
+    const [predictionCount, setPredictionCount] = useState(1);
+
+    // Animation state for tabs
+    const [layoutWidth, setLayoutWidth] = useState(0);
+    const translateX = useSharedValue(0);
+
+    // Shared values for smoother animation
+    const progress = useSharedValue(1);
+    const min = useSharedValue(1);
+    const max = useSharedValue(20);
+
+    const pillStyle = useAnimatedStyle(() => {
+        return {
+            transform: [{ translateX: translateX.value }]
+        };
+    });
+
+    useEffect(() => {
+        if (layoutWidth > 0) {
+            translateX.value = withSpring(predictMode === 'attend' ? 0 : (layoutWidth - 8) / 2);
+        }
+    }, [predictMode, layoutWidth]);
+
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    const loadData = async () => {
+        try {
+            const summaryData = await AttendanceService.getAttendance();
+            if (summaryData) {
+                setStats({
+                    attended: summaryData.semesterTotal.attended,
+                    total: summaryData.semesterTotal.total,
+                    percentage: summaryData.overallPercentage
+                });
+            }
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (loading) {
+        return (
+            <View style={[styles.container, { backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center' }]}>
+                <ActivityIndicator size="large" color={colors.primary} />
+            </View>
+        );
+    }
+
+    const currentPredicted = AnalyticsService.predictFuture(
+        stats.attended,
+        stats.total,
+        predictMode === 'attend' ? predictionCount : 0,
+        predictMode === 'miss' ? predictionCount : 0
+    );
+
+    const diff = predictMode === 'attend'
+        ? (currentPredicted - stats.percentage).toFixed(1)
+        : (stats.percentage - currentPredicted).toFixed(1);
+
+    return (
+        <View style={[styles.container, { backgroundColor: colors.background, paddingTop: insets.top }]}>
+            <Animated.View entering={FadeInDown.delay(100).springify()} style={styles.header}>
+                <Text style={[styles.title, { color: colors.text }]}>Attendance Goals 🎯</Text>
+            </Animated.View>
+
+            <ScrollView contentContainerStyle={styles.content}>
+                {/* Current Stats */}
+                <Animated.View
+                    entering={FadeInDown.delay(200).springify()}
+                    style={[styles.card, { backgroundColor: colors.card, padding: 20, marginBottom: 24 }]}
+                >
+                    <Text style={{ color: colors.textSecondary, fontSize: 13, marginBottom: 16, fontWeight: '600' }}>CURRENT STATUS</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+                        <DonutChart percentage={stats.percentage} radius={50} strokeWidth={10} color={stats.percentage >= 75 ? colors.success : colors.primary} />
+                        <View style={{ marginLeft: 0, justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 24, fontWeight: 'bold', color: colors.text }}>
+                                {stats.attended} <Text style={{ fontSize: 16, color: colors.textSecondary }}>/ {stats.total}</Text>
+                            </Text>
+                            <Text style={{ fontSize: 14, color: colors.textSecondary, marginBottom: 8 }}>Classes Attended</Text>
+
+                            <View style={{
+                                backgroundColor: stats.percentage >= 75 ? (colors.success + '20') : ((colors.error || '#FF5252') + '20'),
+                                paddingHorizontal: 10,
+                                paddingVertical: 4,
+                                borderRadius: 12,
+                                alignSelf: 'flex-start'
+                            }}>
+                                <Text style={{ fontSize: 12, fontWeight: 'bold', color: stats.percentage >= 75 ? colors.success : (colors.error || '#FF5252') }}>
+                                    {stats.percentage >= 75 ? 'On Track 🚀' : 'Risk Zone ⚠️'}
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                </Animated.View>
+
+                {/* Crystal Ball */}
+                <Animated.View entering={FadeInDown.delay(300).springify()}>
+                    <Text style={[styles.sectionTitle, { color: colors.textSecondary }]}>CRYSTAL BALL</Text>
+                    <View style={[styles.card, { backgroundColor: colors.card, padding: 20 }]}>
+                        {/* Mode Switch */}
+                        <View
+                            onLayout={(e) => setLayoutWidth(e.nativeEvent.layout.width)}
+                            style={{
+                                flexDirection: 'row',
+                                backgroundColor: colors.background,
+                                borderRadius: 12,
+                                padding: 4,
+                                marginBottom: 24,
+                                position: 'relative'
+                            }}
+                        >
+                            <Animated.View style={[{
+                                position: 'absolute',
+                                top: 4,
+                                bottom: 4,
+                                left: 4,
+                                width: layoutWidth > 0 ? (layoutWidth - 8) / 2 : '50%',
+                                borderRadius: 8,
+                                backgroundColor: predictMode === 'attend' ? colors.primary : (colors.error || '#FF5252'),
+                                shadowColor: "#000",
+                                shadowOffset: { width: 0, height: 1 },
+                                shadowOpacity: 0.1,
+                                shadowRadius: 2,
+                                elevation: 2,
+                            }, pillStyle]} />
+
+                            <TouchableOpacity
+                                onPress={() => { setPredictMode('attend'); Haptics.selectionAsync(); }}
+                                style={styles.tabButton}
+                            >
+                                <Text style={{ fontWeight: '600', color: predictMode === 'attend' ? '#FFF' : colors.textSecondary }}>If I Attend</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => { setPredictMode('miss'); Haptics.selectionAsync(); }}
+                                style={styles.tabButton}
+                            >
+                                <Text style={{ fontWeight: '600', color: predictMode === 'miss' ? '#FFF' : colors.textSecondary }}>If I Miss</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        {/* Slider Controls */}
+                        <View style={{ alignItems: 'center', marginBottom: 20 }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'baseline', marginBottom: 20 }}>
+                                <Text style={{ fontSize: 40, fontWeight: 'bold', color: colors.text }}>{predictionCount}</Text>
+                                <Text style={{ fontSize: 16, color: colors.textSecondary, marginLeft: 6 }}>
+                                    Next {predictionCount === 1 ? 'Class' : 'Classes'}
+                                </Text>
+                            </View>
+
+                            <View style={{ width: '100%', height: 40, justifyContent: 'center' }}>
+                                <AwesomeSlider
+                                    style={{ width: '100%', height: 40 }}
+                                    progress={progress}
+                                    minimumValue={min}
+                                    maximumValue={max}
+                                    step={1}
+                                    onValueChange={(val: number) => {
+                                        const discrete = Math.round(val);
+                                        if (discrete !== predictionCount) {
+                                            setPredictionCount(discrete);
+                                            Haptics.selectionAsync();
+                                        }
+                                    }}
+                                    onHapticFeedback={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
+                                    theme={{
+                                        disableMinTrackTintColor: colors.cardBorder || '#E0E0E0',
+                                        maximumTrackTintColor: colors.cardBorder || '#E0E0E0',
+                                        minimumTrackTintColor: predictMode === 'attend' ? colors.primary : (colors.error || '#FF5252'),
+                                        cacheTrackTintColor: '#0000',
+                                        bubbleBackgroundColor: '#0000',
+                                        heartbeatColor: predictMode === 'attend' ? colors.primary : (colors.error || '#FF5252'),
+                                    }}
+                                    thumbWidth={16}
+                                    renderBubble={() => null}
+                                />
+                            </View>
+
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', paddingHorizontal: 0, marginTop: 4 }}>
+                                <Text style={{ fontSize: 12, color: colors.textSecondary }}>1</Text>
+                                <Text style={{ fontSize: 12, color: colors.textSecondary }}>20</Text>
+                            </View>
+                        </View>
+
+                        {/* Result */}
+                        <View style={{ alignItems: 'center', padding: 20, backgroundColor: colors.background, borderRadius: 16 }}>
+                            <Text style={{ color: colors.textSecondary, fontSize: 13, marginBottom: 8, fontWeight: '600', letterSpacing: 0.5 }}>NEW PERCENTAGE</Text>
+                            <Text style={{ fontSize: 42, fontWeight: 'bold', color: predictMode === 'attend' ? colors.success : (colors.error || '#FF5252') }}>
+                                {currentPredicted.toFixed(1)}%
+                            </Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, backgroundColor: predictMode === 'attend' ? colors.success + '20' : (colors.error || '#FF5252') + '20', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20 }}>
+                                <Ionicons name={predictMode === 'attend' ? "trending-up" : "trending-down"} size={16} color={predictMode === 'attend' ? colors.success : (colors.error || '#FF5252')} />
+                                <Text style={{ fontSize: 14, fontWeight: '700', color: predictMode === 'attend' ? colors.success : (colors.error || '#FF5252'), marginLeft: 6 }}>
+                                    {predictMode === 'attend' ? `+${diff}%` : `-${diff}%`}
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                </Animated.View>
+            </ScrollView>
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: { flex: 1 },
+    header: { paddingHorizontal: 20, paddingBottom: 16, paddingTop: 10 },
+    title: { fontSize: 24, fontWeight: 'bold' },
+    content: { padding: 20, paddingBottom: 100 },
+    card: { borderRadius: 24, marginBottom: 24 },
+    sectionTitle: { fontSize: 13, fontWeight: '700', marginBottom: 16, letterSpacing: 0.5 },
+    tabButton: { flex: 1, paddingVertical: 10, alignItems: 'center', borderRadius: 8, zIndex: 1 }
+});

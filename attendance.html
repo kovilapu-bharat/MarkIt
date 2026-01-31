@@ -1,0 +1,2275 @@
+<!doctype html>
+
+<html
+  lang="en"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Student Dashboard</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+     <link rel="shortcut icon" type="image/jpg" href="../images/favicon.png"/>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <!-- build:css assets/vendor/css/theme.css  -->
+
+    <link rel="stylesheet" href="assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+
+    <link rel="stylesheet" href="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- endbuild -->
+
+    <link rel="stylesheet" href="assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="assets/vendor/js/helpers.js"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="assets/js/config.js"></script>
+    <style>
+  .app-brand.demo {
+    width: 100%; /* or set a specific width like 300px */
+    max-width: 100%; /* ensures it doesn't overflow its container */
+  }
+  
+  .app-brand-link {
+    display: block;
+    width: 100%;
+  }
+  
+  .app-brand-logo {
+    width: 100%;
+    height: auto; /* maintains aspect ratio */
+    display: block;
+  }
+  
+  
+    </style>
+        <style>
+    .Social h4{
+        text-align: center;
+        color:tomato;
+        font-size:16px;
+        margin: 0px;
+    }
+    .Social .fa {
+ padding: 7px;
+    font-size: 15px;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    border-radius: 50%;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #000;
+  content:"𝕏";
+  color: white;
+}
+.fa-twitter::before{
+	content:"𝕏";
+	/*font-size:1.2em;*/
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: rgb(228, 64, 95);
+  color: white;
+}
+
+.fa-whatsapp {
+  background: green;
+  color: white;
+}
+
+</style>
+  </head>
+
+<script>
+  document.addEventListener("contextmenu", (event) => event.preventDefault());
+ </script>
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+  <a href="index" class="app-brand-link">
+    <img src="images/NRCM-Logo.png" 
+         alt="NRCM Logo" 
+         class="app-brand-logo">
+  </a>
+
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+              <i class="bx bx-chevron-left d-block d-xl-none align-middle"></i>
+            </a>
+          </div>
+
+          <div class="menu-divider mt-0"></div>
+
+          <div class="menu-inner-shadow"></div>
+
+
+
+          <ul class="menu-inner py-1">
+            <!-- Dashboards -->
+              <li class="menu-item">
+              <a href="index" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-smile"></i>
+                <div class="text-truncate" data-i18n="Boxicons">Dashboard</div>
+              </a>
+            </li>
+         
+            <!-- Layouts -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-building-house"></i>
+                <div class="text-truncate" data-i18n="Layouts">Academics</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="AcademicCalender" class="menu-link">
+                    <div class="text-truncate" data-i18n="Without menu">Academic Calender</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a href="#" class="menu-link">-->
+                <!--    <div class="text-truncate" data-i18n="Without navbar">Time Table</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+               <li class="menu-item">
+                  <a href="Date_wise_attendance" class="menu-link">
+                    <div class="text-truncate" data-i18n="Fluid">Attendance</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="display_holidays" class="menu-link">
+                    <div class="text-truncate" data-i18n="Container">Holidays</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div class="text-truncate" data-i18n="Blank">Feedback</div>
+                  </a>
+                </li>-->
+              </ul>
+            </li>
+
+
+   <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-wallet-alt"></i>
+                <div class="text-truncate" data-i18n="Dashboards">Payments</div>
+                <!--<span class="badge rounded-pill bg-danger ms-auto">5</span>-->
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="Student_Fee" class="menu-link">
+                    <div class="text-truncate" data-i18n="Analytics">Online Fee Payment</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="Fee_Receipt" class="menu-link">
+                    <div class="text-truncate" data-i18n="CRM">Fee Receipt</div>
+                    <!--<div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>-->
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="Fee_Card"
+                
+                    class="menu-link">
+                    <div class="text-truncate" data-i18n="eCommerce">Fee Card</div>
+                    
+                  </a>
+                </li>
+               
+              </ul>
+            </li>
+
+            <!-- Front Pages -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-user-check"></i>
+                <div class="text-truncate" data-i18n="Front Pages">Feedback</div>
+                <!--<div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>-->
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a
+                    href="Feedback"
+                    class="menu-link">
+                
+                    <div class="text-truncate" data-i18n="Landing">Faculty Feedback</div>
+                  </a>
+                </li>
+                  <li class="menu-item">
+                  <a
+                    href="Feedback_Exit_Survey"
+                    class="menu-link">
+                
+                    <div class="text-truncate" data-i18n="Pricing">Course End Feedback</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a-->
+                <!--    href="https://www.nrcmec.org/student_satisfaction_survey"-->
+                <!--    class="menu-link">-->
+                
+                <!--    <div class="text-truncate" data-i18n="Pricing">Servey Forms</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+                
+               
+              </ul>
+            </li>
+
+            <!-- Apps & Pages -->
+           
+             <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bxs-graduation"></i>
+                <div class="text-truncate" data-i18n="Email">Exam Cell</div>
+     
+              </a>
+             <ul class="menu-sub">
+                <li class="menu-item">
+                  <a
+                    href="https://erp.nrcmec.org/"
+                    class="menu-link">
+                    <div class="text-truncate" data-i18n="Landing">Exam Fee Payment</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="#"
+                    class="menu-link">
+                    <div class="text-truncate" data-i18n="Pricing">Exam Fee Receipt</div>
+                  </a>
+                </li>
+   <li class="menu-item">
+                  <a
+                    href="https://erp.nrcmec.org/"
+                class="menu-link">
+                    <div class="text-truncate" data-i18n="Pricing">Exam Results</div>
+                  </a>
+                </li>
+               
+              </ul>
+            </li>
+            
+   
+            <!-- Pages -->
+            <!--<li class="menu-item">-->
+            <!--  <a href="javascript:void(0);" class="menu-link menu-toggle">-->
+            <!--    <i class="menu-icon tf-icons bx bx-dock-top"></i>-->
+            <!--    <div class="text-truncate" data-i18n="Account Settings">Account Settings</div>-->
+            <!--  </a>-->
+            <!--  <ul class="menu-sub">-->
+            <!--    <li class="menu-item">-->
+            <!--      <a href="pages-account-settings-account.html" class="menu-link">-->
+            <!--        <div class="text-truncate" data-i18n="Account">Account</div>-->
+            <!--      </a>-->
+            <!--    </li>-->
+            <!--    <li class="menu-item">-->
+            <!--      <a href="pages-account-settings-notifications.html" class="menu-link">-->
+            <!--        <div class="text-truncate" data-i18n="Notifications">Notifications</div>-->
+            <!--      </a>-->
+            <!--    </li>-->
+            <!--    <li class="menu-item">-->
+            <!--      <a href="pages-account-settings-connections.html" class="menu-link">-->
+            <!--        <div class="text-truncate" data-i18n="Connections">Connections</div>-->
+            <!--      </a>-->
+            <!--    </li>-->
+            <!--  </ul>-->
+            <!--</li>-->
+          
+      
+            <!-- User interface -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-buildings"></i>
+                <div class="text-truncate" data-i18n="User interface">Library</div>
+              </a>
+              <ul class="menu-sub">
+                    <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div class="text-truncate" data-i18n="Accordion">Book Issues</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div class="text-truncate" data-i18n="Accordion">Fine Payments</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a href="#" class="menu-link">-->
+                <!--    <div class="text-truncate" data-i18n="Alerts">Alerts</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+               
+              </ul>
+            </li>
+
+       
+
+        
+
+      
+             <!-- Extended components -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-cloud-upload"></i>
+                <div class="text-truncate" data-i18n="Extended UI">Uploads</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="personal_files" class="menu-link">
+                    <div class="text-truncate" data-i18n="Perfect Scrollbar">Personal Files</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div class="text-truncate" data-i18n="Text Divider">Other Files</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+     <!-- Extended components -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-cog"></i>
+                <div class="text-truncate" data-i18n="Extended UI">Account Settings</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="Password_reset" class="menu-link">
+                    <div class="text-truncate" data-i18n="Perfect Scrollbar">Change Password</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a href="#" class="menu-link">-->
+                <!--    <div class="text-truncate" data-i18n="Text Divider">Other Files</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+              </ul>
+            </li>
+            
+              <!--<li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>-->
+            <li class="menu-item">
+              <a
+                href="#"
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bx-fingerprint"></i>
+                <div class="text-truncate" data-i18n="Support">Biometric</div>
+              </a>
+            </li>
+                <!-- Extended components -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-cloud-download"></i>
+                <div class="text-truncate" data-i18n="Extended UI">Downloads</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="No_due_Certificate.php" class="menu-link">
+                    <div class="text-truncate" data-i18n="Perfect Scrollbar">No Due Certificate</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a href="#" class="menu-link">-->
+                <!--    <div class="text-truncate" data-i18n="Text Divider">Other Files</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+              </ul>
+            </li>
+            
+            <!-- Misc -->
+            <!--<li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>-->
+               <li class="menu-item">
+              <a
+                href="https://wa.me/919347556447"
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bxl-whatsapp"></i>
+                <div class="text-truncate" data-i18n="Support">Help</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a
+                href="logout"
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bx-log-out"></i>
+                <div class="text-truncate" data-i18n="Documentation">Logout</div>
+              </a>
+            </li>
+          </ul>
+          <ul>
+            <div class="Social">
+        <h4>Follow Us</h4>
+<!-- Add font awesome icons -->
+<a href="https://www.facebook.com/NarasimhaReddyEngineeringCollege.NRCM" target="_blank" class="fa fa-facebook"></a>
+<a href="https://www.instagram.com/narsimhareddycollege_nrcm/" target="_blank" class="fa fa-instagram"></a>
+<a href="https://x.com/Nrec_College" target="_blank" class="fa fa-twitter"></a>
+<a href="https://www.linkedin.com/in/narsimhareddyengineeringcollege-nrcm" target="_blank" class="fa fa-linkedin"></a>
+<a href="https://www.youtube.com/channel/UCuE3rO3oUnGiWkF4V2_HBSA" target="_blank" class="fa fa-youtube"></a>
+<a href="https://whatsapp.com/channel/0029VaF4a12DzgT7ZMR41G1s" target="_blank" class="fa fa-whatsapp"></a>
+</div>
+</ul>
+        </aside>
+        
+        
+        <script>
+document.addEventListener("DOMContentLoaded", function () { 
+    let currentUrl = window.location.href.split('/').pop(); // Get current page filename
+    let menuLinks = document.querySelectorAll(".menu-link");
+    let activeFound = false;
+
+    menuLinks.forEach(link => {
+        let linkHref = link.getAttribute("href");
+
+        // Check if the link matches the current page URL
+        if (linkHref === currentUrl) {
+            link.classList.add("active"); // Highlight the active link
+            activeFound = true;
+
+            // Find the parent menu-item and mark it as active
+            let parentMenuItem = link.closest(".menu-item");
+            if (parentMenuItem) {
+                parentMenuItem.classList.add("active");
+
+                // Open the corresponding submenu
+                let menuSub = parentMenuItem.closest(".menu-sub");
+                if (menuSub) {
+                    menuSub.style.display = "block";
+
+                    // Also activate the parent menu
+                    let grandParentMenu = menuSub.closest(".menu-item");
+                    if (grandParentMenu) {
+                        grandParentMenu.classList.add("active");
+                    }
+                } 
+            }
+        }
+    });
+
+    // If no active menu is found, set "Dashboard" as default active
+    if (!activeFound) {
+        let dashboardMenuItem = document.querySelector(".menu-item.dashboard");
+        if (dashboardMenuItem) {
+            dashboardMenuItem.classList.add("active");
+            let dashboardLink = dashboardMenuItem.querySelector(".menu-link");
+            if (dashboardLink) {
+                dashboardLink.classList.add("active");
+            }
+        }
+    }
+});
+
+
+
+        </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semester Attendance</title>
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --danger-color: #f72585;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+        
+        /*body {*/
+        /*    background-color: #f5f7fa;*/
+        /*    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
+        /*}*/
+        
+        .attendance-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .attendance-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+        }
+        .attendance-header h4{
+            color:#fff;
+        }
+        
+      .attendance-container  .nav-tabs {
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+        }
+        
+       .attendance-container .nav-tabs .nav-link {
+            color: var(--dark-color);
+            font-weight: 500;
+            border: none;
+            padding: 12px 20px;
+            transition: all 0.3s;
+        }
+        
+       .attendance-container .nav-tabs .nav-link:hover {
+            color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+     .attendance-container  .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            background-color: transparent;
+            border-bottom: 3px solid var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .month-stats {
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .attendance-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow-x: auto;
+            border:1px solid #000;
+        }
+        
+        .attendance-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            border:1px solid #000;
+        }
+        
+        .attendance-table td {
+            padding: 10px;
+            text-align: center;
+            /*border-bottom: 1px solid #eee;*/
+            border:1px solid #000;
+            
+        }
+        
+        .attendance-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .attendance-table tr:hover {
+            background-color: #e9f7fe;
+        }
+        
+        .Present {
+            color: #2ecc71;
+            font-weight: bold;
+            /*background-color: rgba(46, 204, 113, 0.1);*/
+            /*border-radius: 5px;*/
+            
+        }
+        
+        .absent {
+            color: #e74c3c;
+            font-weight: bold;
+            /*background-color: rgba(231, 76, 60, 0.1);*/
+            /*border-radius: 5px;*/
+        }
+        
+        .Not-posted {
+            color: #7f8c8d;
+            font-weight: bold;
+            /*background-color: rgba(127, 140, 141, 0.1);*/
+            /*border-radius: 5px;*/
+        }
+        
+        .summary-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, var(--success-color), var(--primary-color));
+        }
+        
+        .alert-box {
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .warning-box {
+            background-color: rgba(248, 150, 30, 0.2);
+            border-left: 4px solid var(--warning-color);
+            color: #d35400;
+        }
+        
+        .success-box {
+            background-color: rgba(76, 201, 240, 0.2);
+            border-left: 4px solid var(--success-color);
+            color: #16a085;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .attendance-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+           .attendance-container .nav-tabs .nav-link {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .stat-card {
+                margin-bottom: 10px;
+            }
+        }
+  .summary-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 25px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .summary-table th {
+            background-color: #3a0ca3;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .summary-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .summary-table tr:last-child {
+            font-weight: bold;
+            background-color: #e9f7fe;
+            border-top: 2px solid #3a0ca3;
+        }
+        
+        .summary-table tr:hover {
+            background-color: #e9f7fe;
+        }
+        
+        .good-attendance {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        
+        .warning-attendance {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        
+        .poor-attendance {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="layout-page">
+        <nav
+            class="layout-navbar container-xxl navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme"
+            id="layout-navbar">
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
+                <i class="icon-base bx bx-menu icon-md"></i>
+              </a>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center justify-content-end" id="navbar-collapse">
+              <!-- Search -->
+             <!-- <div class="navbar-nav align-items-center me-auto">
+                <div class="nav-item d-flex align-items-center">
+                  <span class="w-px-22 h-px-22"><i class="icon-base bx bx-search icon-md"></i></span>
+                  <input
+                    type="text"
+                    class="form-control border-0 shadow-none ps-1 ps-sm-2 d-md-block d-none"
+                    placeholder="Search..."
+                    aria-label="Search..." />
+                </div>
+              </div>--!>
+              <!-- /Search -->
+
+
+
+
+    <style>
+        .notification-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .notification-bell {
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0px;
+            border: none;
+            background: transparent;
+            outline: none;
+        }
+
+        .notification-popup {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 320px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: none;
+            font-family: Arial, sans-serif;
+        }
+
+        .notification-header {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: green ;
+        }
+
+        .new-count {
+            background: #2563eb;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .notification-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .notification-item:hover {
+            background: #f8fafc;
+        }
+
+        .notification-icon {
+            font-size: 20px;
+            margin-top: 2px;
+        }
+
+        .notification-content {
+            flex-grow: 1;
+        }
+
+        .notification-message {
+            font-weight: 500;
+            margin-bottom: 4px;
+            color:purple;
+        }
+
+        .notification-time {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .view-all {
+            padding: 16px;
+            text-align: center;
+            color: #2563eb;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+/* Clickable Image */
+.clickable-image {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+#profilePopup .popup-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+/* Modal Popup */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 350px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+.button-container button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#editProfileBtn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#logoutBtn {
+    background-color: #f44336;
+    color: white;
+}
+
+ .button-container {
+        display: flex;
+        gap: 5px; /* Adds spacing between buttons */
+    }
+
+   .button-container button {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    #editProfileBtn {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    #logoutBtn {
+        background-color: #f44336;
+        color: white;
+    }
+
+   .button-container button:hover {
+        opacity: 0.8;
+    }
+    </style>
+
+    <div class="notification-container">
+        <button class="notification-bell" onclick="toggleNotifications()"> 🔔</button>
+        <div class="notification-popup" id="notificationPopup">
+            <div class="notification-header">
+                <span class="notification-title">Notifications</span>
+                <span class="new-count">4 New</span>
+            </div>
+            <div class="notification-list">
+                
+                    <div class="notification-item">
+                        <div class="notification-icon">💼</div>
+                        <div class="notification-content">
+                            <div class="notification-message">Cornerstone Placement Drive</div>
+                            <div class="notification-text">All branches of B.Tech.</div>
+                            <div class="notification-time">8d ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon">💼</div>
+                        <div class="notification-content">
+                            <div class="notification-message">Sutherland Placement Drive</div>
+                            <div class="notification-text">All branches of B.Tech.</div>
+                            <div class="notification-time">25d ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon">💼</div>
+                        <div class="notification-content">
+                            <div class="notification-message">Invoicecloud Placement Drive</div>
+                            <div class="notification-text">For B.Tech CSE</div>
+                            <div class="notification-time">12th Feb</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon">💼</div>
+                        <div class="notification-content">
+                            <div class="notification-message">Bees Placement Drive</div>
+                            <div class="notification-text">All branches of B.Tech.</div>
+                            <div class="notification-time">3rd Feb</div>
+                        </div>
+                    </div>            </div>
+            <div class="view-all" onclick="viewAllNotifications()">View all notifications</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleNotifications() {
+            const popup = document.getElementById('notificationPopup');
+            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function viewAllNotifications() {
+            // Add logic to handle view all action
+            window.location.href = 'notifications.php';
+        }
+
+        // Close popup when clicking outside
+        window.onclick = function(event) {
+            const popup = document.getElementById('notificationPopup');
+            if (!event.target.closest('.notification-container')) {
+                popup.style.display = 'none';
+            }
+        }
+    </script>
+
+
+
+              <ul class="navbar-nav flex-row align-items-center ms-md-auto">
+                <!-- Place this tag where you want the button to render. -->
+                <li class="nav-item lh-1 me-4">
+                <p>Welcome, 23X01A6269</p>
+                </li>
+
+                <!-- User -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a
+                    class="nav-link dropdown-toggle hide-arrow p-0"
+                    href="javascript:void(0);"
+                    data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                      <img src="uploads/23X01A6269_IMG_20250127_212703.jpg" alt="Profile" id="profileImage"  class="clickable-image" class="w-px-40 h-auto rounded-circle" />
+                      
+                    </div>
+                  </a>
+                <!--  <ul class="dropdown-menu dropdown-menu-end">-->
+                <!--    <li>-->
+                <!--      <a class="dropdown-item" href="#">-->
+                <!--        <div class="d-flex">-->
+                <!--          <div class="flex-shrink-0 me-3">-->
+                <!--            <div class="avatar avatar-online">-->
+                <!--              <img src="uploads/23X01A6269_IMG_20250127_212703.jpg" alt="Profile" class="w-px-40 h-auto rounded-circle" />-->
+                <!--            </div>-->
+                <!--          </div>-->
+                <!--          <div class="flex-grow-1">-->
+                <!--            <h6 class="mb-0">KAMMARI SAI NARASIMHA</h6>-->
+                <!--            <small class="text-body-secondary">23X01A6269</small>-->
+                <!--          </div>-->
+                <!--        </div>-->
+                <!--      </a>-->
+                <!--    </li>-->
+                <!--    <li>-->
+                <!--      <div class="dropdown-divider my-1"></div>-->
+                <!--    </li>-->
+                <!--    <li>-->
+                <!--      <a class="dropdown-item" href="#">-->
+                <!--        <i class="icon-base bx bx-user icon-md me-3"></i><span>My Profile</span>-->
+                <!--      </a>-->
+                <!--    </li>-->
+                <!--    <li>-->
+                <!--      <a class="dropdown-item" href="#">-->
+                <!--        <i class="icon-base bx bx-cog icon-md me-3"></i><span>Settings</span>-->
+                <!--      </a>-->
+                <!--    </li>-->
+                    <!--<li>-->
+                    <!--  <a class="dropdown-item" href="#">-->
+                    <!--    <span class="d-flex align-items-center align-middle">-->
+                    <!--      <i class="flex-shrink-0 icon-base bx bx-credit-card icon-md me-3"></i-->
+                    <!--      ><span class="flex-grow-1 align-middle">Billing Plan</span>-->
+                    <!--      <span class="flex-shrink-0 badge rounded-pill bg-danger">4</span>-->
+                    <!--    </span>-->
+                    <!--  </a>-->
+                    <!--</li>-->
+                <!--    <li>-->
+                <!--      <div class="dropdown-divider my-1"></div>-->
+                <!--    </li>-->
+                <!--    <li>-->
+                <!--      <a class="dropdown-item" href="logout">-->
+                <!--        <i class="icon-base bx bx-power-off icon-md me-3"></i><span>Log Out</span>-->
+                <!--      </a>-->
+                <!--    </li>-->
+                <!--  </ul>-->
+                <!--</li>-->
+                <!--/ User -->
+              <!--</ul>-->
+              
+              
+              
+              
+                  <!-- Popup Modal -->
+    <div id="profilePopup" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            
+             <img src="uploads/23X01A6269_IMG_20250127_212703.jpg" alt="Profile" class="popup-img">
+             <!--<h4>Profile Details</h4>-->
+            <p><strong>Name:</strong> <span id="profileName">KAMMARI SAI NARASIMHA</span></p>
+            <p><strong>Roll No:</strong> <span id="profileRollNo">23X01A6269</span></p>
+            <p><strong>Department:</strong> <span id="profileDepartment">CSE-CS</span></p>
+             <p><strong>Year:</strong> <span id="profileRollNo">3</span></p>
+           <!--<p><strong>Section:</strong> <span id="profileRollNo"></span></p>-->
+           
+           <div class="button-container">
+                <button id="editProfileBtn">Change Password</button>
+            <button id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // script.js
+document.addEventListener("DOMContentLoaded", function () {
+    // Get elements
+    const profileImage = document.getElementById("profileImage");
+    const profilePopup = document.getElementById("profilePopup");
+    const closeBtn = document.querySelector(".close");
+
+    // Open popup when image is clicked
+    profileImage.addEventListener("click", function () {
+        profilePopup.style.display = "block";
+    });
+
+    // Close popup when close button is clicked
+    closeBtn.addEventListener("click", function () {
+        profilePopup.style.display = "none";
+    });
+
+    // Close popup when clicking outside the modal
+    window.addEventListener("click", function (event) {
+        if (event.target === profilePopup) {
+            profilePopup.style.display = "none";
+        }
+    });
+
+     document.getElementById("editProfileBtn").addEventListener("click", function () {
+                     
+        window.location.href = "Password_reset.php"; // Redirect to student dashboard
+            
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+        alert("Logging out..."); 
+        window.location.href = "logout"; // Redirect to logout page
+    });
+});
+    </script>
+            </div>
+          </nav>        
+        <div class="content-wrapper">
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="attendance-container">
+                            <div class="attendance-header">
+                               <h4><i class="fas fa-calendar-alt me-2"></i> Semester Attendance (Month-wise) from December 8, 2025</h4>
+                                <p class="mb-0">View your attendance records organized by month</p>
+                            </div>
+                            
+                            <div class="p-4">
+                                <!-- Month tabs -->
+                             <!-- Replace the existing nav-tabs code with this responsive version -->
+<div class="tabs-container">
+    <div class="scroll-buttons left-scroll d-none d-md-flex">
+        <button class="btn btn-sm scroll-btn" onclick="scrollTabs(-100)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    </div>
+    
+    <div class="tabs-scrollable">
+        <ul class="nav nav-tabs flex-nowrap" id="monthTabs" role="tablist" style="overflow-x: auto; white-space: nowrap;">
+                            <li class="nav-item flex-shrink-0" role="presentation">
+                    <button class="nav-link active" 
+                            id="December-2025-tab" 
+                            data-bs-toggle="tab" 
+                            data-bs-target="#December-2025" 
+                            type="button" role="tab" 
+                            aria-controls="December-2025" 
+                            aria-selected="true">
+                        Dec 2025                        <span class="badge bg-danger ms-2">
+                            46%
+                        </span>
+                    </button>
+                </li>
+                            <li class="nav-item flex-shrink-0" role="presentation">
+                    <button class="nav-link " 
+                            id="January-2026-tab" 
+                            data-bs-toggle="tab" 
+                            data-bs-target="#January-2026" 
+                            type="button" role="tab" 
+                            aria-controls="January-2026" 
+                            aria-selected="false">
+                        Jan 2026                        <span class="badge bg-danger ms-2">
+                            19%
+                        </span>
+                    </button>
+                </li>
+                    </ul>
+    </div>
+    
+    <div class="scroll-buttons right-scroll d-none d-md-flex">
+        <button class="btn btn-sm scroll-btn" onclick="scrollTabs(100)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
+<style>
+    /* Add these styles to your existing CSS */
+    .tabs-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    
+    .tabs-scrollable {
+        flex: 1;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .scroll-buttons {
+        padding: 0 5px;
+        z-index: 1;
+    }
+    
+    .scroll-btn {
+        background-color: white;
+        border: 1px solid #dee2e6;
+        color: var(--primary-color);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .scroll-btn:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    .nav-tabs {
+        display: inline-flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE 10+ */
+    }
+    
+    .nav-tabs::-webkit-scrollbar {
+        display: none; /* Chrome/Safari/Webkit */
+    }
+    
+    .nav-tabs .nav-item {
+        flex-shrink: 0;
+    }
+    
+    @media (max-width: 767.98px) {
+        .tabs-scrollable {
+            overflow-x: auto;
+        }
+        
+        .nav-tabs {
+            padding-bottom: 5px; /* Space for scrollbar */
+        }
+    }
+</style>
+
+<script>
+    // Add this JavaScript to handle tab scrolling
+    function scrollTabs(scrollOffset) {
+        const tabsContainer = document.querySelector('.nav-tabs');
+        tabsContainer.scrollBy({
+            left: scrollOffset,
+            behavior: 'smooth'
+        });
+    }
+    
+    // Show/hide scroll buttons based on scroll position
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabsContainer = document.querySelector('.nav-tabs');
+        const leftScroll = document.querySelector('.left-scroll');
+        const rightScroll = document.querySelector('.right-scroll');
+        
+        if (tabsContainer.scrollWidth > tabsContainer.clientWidth) {
+            rightScroll.classList.remove('d-none');
+            
+            tabsContainer.addEventListener('scroll', function() {
+                leftScroll.style.display = this.scrollLeft > 0 ? 'flex' : 'none';
+                rightScroll.style.display = this.scrollLeft < (this.scrollWidth - this.clientWidth) ? 'flex' : 'none';
+            });
+        }
+    });
+</script>
+                                
+                                <!-- Tab content -->
+                                <div class="tab-content pt-3" id="monthTabsContent">
+                                                                            <div class="tab-pane fade show active" 
+                                             id="December-2025" 
+                                             role="tabpanel" 
+                                             aria-labelledby="December-2025-tab">
+                                            
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="stat-card">
+                                                        <h6>Present</h6>
+                                                        <div class="stat-value text-success">
+                                                            52                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="stat-card">
+                                                        <h6>Total Classes</h6>
+                                                        <div class="stat-value text-primary">
+                                                            114                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="stat-card">
+                                                        <h6>Percentage</h6>
+                                                        <div class="stat-value" style="color: #e74c3c">
+                                                            45.61%
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        
+                                            <div class="table-responsive">
+                                                <table class="attendance-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                                                                                            <th></th>
+                                                                                                                            <th>P1</th>
+                                                                                                                            <th>P2</th>
+                                                                                                                            <th>P3</th>
+                                                                                                                            <th>P4</th>
+                                                                                                                            <th>P5</th>
+                                                                                                                            <th>P6</th>
+                                                                                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>08-12-2025</strong><br>
+                                                                    <small class="text-muted">Mon</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>09-12-2025</strong><br>
+                                                                    <small class="text-muted">Tue</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>10-12-2025</strong><br>
+                                                                    <small class="text-muted">Wed</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>11-12-2025</strong><br>
+                                                                    <small class="text-muted">Thu</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>12-12-2025</strong><br>
+                                                                    <small class="text-muted">Fri</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>13-12-2025</strong><br>
+                                                                    <small class="text-muted">Sat</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>15-12-2025</strong><br>
+                                                                    <small class="text-muted">Mon</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>16-12-2025</strong><br>
+                                                                    <small class="text-muted">Tue</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>17-12-2025</strong><br>
+                                                                    <small class="text-muted">Wed</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>18-12-2025</strong><br>
+                                                                    <small class="text-muted">Thu</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>19-12-2025</strong><br>
+                                                                    <small class="text-muted">Fri</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>20-12-2025</strong><br>
+                                                                    <small class="text-muted">Sat</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>22-12-2025</strong><br>
+                                                                    <small class="text-muted">Mon</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>23-12-2025</strong><br>
+                                                                    <small class="text-muted">Tue</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>24-12-2025</strong><br>
+                                                                    <small class="text-muted">Wed</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>27-12-2025</strong><br>
+                                                                    <small class="text-muted">Sat</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>29-12-2025</strong><br>
+                                                                    <small class="text-muted">Mon</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>30-12-2025</strong><br>
+                                                                    <small class="text-muted">Tue</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>31-12-2025</strong><br>
+                                                                    <small class="text-muted">Wed</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                            </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                                                            <div class="tab-pane fade " 
+                                             id="January-2026" 
+                                             role="tabpanel" 
+                                             aria-labelledby="January-2026-tab">
+                                            
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="stat-card">
+                                                        <h6>Present</h6>
+                                                        <div class="stat-value text-success">
+                                                            16                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="stat-card">
+                                                        <h6>Total Classes</h6>
+                                                        <div class="stat-value text-primary">
+                                                            84                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="stat-card">
+                                                        <h6>Percentage</h6>
+                                                        <div class="stat-value" style="color: #e74c3c">
+                                                            19.05%
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        
+                                            <div class="table-responsive">
+                                                <table class="attendance-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                                                                                            <th></th>
+                                                                                                                            <th>P1</th>
+                                                                                                                            <th>P2</th>
+                                                                                                                            <th>P3</th>
+                                                                                                                            <th>P4</th>
+                                                                                                                            <th>P5</th>
+                                                                                                                            <th>P6</th>
+                                                                                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>01-01-2026</strong><br>
+                                                                    <small class="text-muted">Thu</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>02-01-2026</strong><br>
+                                                                    <small class="text-muted">Fri</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>03-01-2026</strong><br>
+                                                                    <small class="text-muted">Sat</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>05-01-2026</strong><br>
+                                                                    <small class="text-muted">Mon</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>06-01-2026</strong><br>
+                                                                    <small class="text-muted">Tue</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>07-01-2026</strong><br>
+                                                                    <small class="text-muted">Wed</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>09-01-2026</strong><br>
+                                                                    <small class="text-muted">Fri</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>10-01-2026</strong><br>
+                                                                    <small class="text-muted">Sat</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>19-01-2026</strong><br>
+                                                                    <small class="text-muted">Mon</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>20-01-2026</strong><br>
+                                                                    <small class="text-muted">Tue</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>21-01-2026</strong><br>
+                                                                    <small class="text-muted">Wed</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>22-01-2026</strong><br>
+                                                                    <small class="text-muted">Thu</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>23-01-2026</strong><br>
+                                                                    <small class="text-muted">Fri</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="Present">
+                                                                            P                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                    <tr>
+                                                                <td>
+                                                                    <strong>24-01-2026</strong><br>
+                                                                    <small class="text-muted">Sat</small>
+                                                                </td>
+                                                                                                                                                                                                            <td class="Not-posted">-</td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                                                                                                <td class="absent">
+                                                                            A                                                                        </td>
+                                                                                                                                                                                                </tr>
+                                                                                                            </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                                                    </div>
+                            </div>
+                        </div>
+                        
+                        <div class="attendance-container mt-4">
+        <div class="attendance-header">
+            <h4><i class="fas fa-table me-2"></i> Monthly Attendance Summary</h4>
+        </div>
+        <div class="p-4">
+            <div class="table-responsive">
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Classes Attended</th>
+                            <th>Total Classes</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                                    <tr>
+                                <td>December 2025</td>
+                                <td>52</td>
+                                <td>114</td>
+                                <td class="poor-attendance">
+                                    45.61%
+                                </td>
+                            </tr>
+                                                    <tr>
+                                <td>January 2026</td>
+                                <td>16</td>
+                                <td>84</td>
+                                <td class="poor-attendance">
+                                    19.05%
+                                </td>
+                            </tr>
+                                                
+                        <!-- Cumulative row -->
+                        <tr>
+                            <td><strong>Semester Total</strong></td>
+                            <td><strong>68</strong></td>
+                            <td><strong>198</strong></td>
+                            <td class="poor-attendance">
+                                <strong>34.34%</strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+                        
+                        <!-- Overall summary -->
+                        <div class="summary-card">
+                            <h4 class="mb-4"><i class="fas fa-chart-line me-2"></i> Semester Summary</h4>
+                            
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="stat-card">
+                                        <h6>Total Present</h6>
+                                        <div class="stat-value text-success">
+                                            68                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="stat-card">
+                                        <h6>Total Classes</h6>
+                                        <div class="stat-value text-primary">
+                                            198                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="stat-card">
+                                        <h6>Overall Percentage</h6>
+                                        <div class="stat-value" style="color: #e74c3c">
+                                            34.34%
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                          
+                            
+                                                            <div class="alert-box warning-box">
+                                    <i class="fas fa-exclamation-triangle me-3"></i>
+                                    <div>
+                                        <strong>Warning!</strong> Your attendance is below 75%. 
+                                        Regular attendance is important for academic success.
+                                    </div>
+                                </div>
+                                                    </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl">
+                <div
+                  class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                  <div class="mb-2 mb-md-0"> Copy Rights
+                    &#169;
+                    <script>
+                      document.write(new Date().getFullYear());
+                    </script>
+                   | Developed by
+                    <a href="#" target="_blank" class="footer-link">D Srinivas</a>
+                  </div>
+                  <div class="d-none d-lg-inline-block">
+                
+                    <a href="#" target="_blank" class="footer-link me-4">College Website</a>
+
+                    <!--<a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">College Website</a>-->
+                    <!--<a href="https://themeselection.com/item/category/bootstrap-admin-templates/" target="_blank" class="footer-link me-4">Bootstrap Dashboard</a>-->
+
+                    <!--<a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>-->
+
+                    <!--<a-->
+                    <!--  href="https://github.com/themeselection/sneat-bootstrap-html-admin-template-free/issues"-->
+                    <!--  target="_blank"-->
+                    <!--  class="footer-link"-->
+                    <!--  >Support</a>-->
+                  </div>
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!--<div class="buy-now">-->
+    <!--  <a-->
+    <!--    href="https://themeselection.com/item/sneat-dashboard-pro-bootstrap/"-->
+    <!--    target="_blank"-->
+    <!--    class="btn btn-danger btn-buy-now"-->
+    <!--    >Upgrade to Pro</a-->
+    <!--  >-->
+    <!--</div>-->
+
+    <!-- Core JS -->
+
+    <script src="assets/vendor/libs/jquery/jquery.js"></script>
+
+    <script src="assets/vendor/libs/popper/popper.js"></script>
+    <script src="assets/vendor/js/bootstrap.js"></script>
+
+    <script src="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="assets/vendor/js/menu.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+
+    <script src="assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="assets/js/dashboards-analytics.js"></script>
+
+    <!-- Place this tag before closing body tag for github widget button. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            
+            // Make tables horizontally scrollable on mobile
+            if (window.innerWidth < 768) {
+                document.querySelectorAll('.attendance-table').forEach(function(table) {
+                    table.parentElement.classList.add('table-responsive');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
