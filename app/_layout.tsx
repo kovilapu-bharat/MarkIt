@@ -9,6 +9,9 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { ResultsProvider } from '../context/ResultsContext';
 import { ThemeProvider as CustomThemeProvider } from '../context/ThemeContext';
 
+import { registerBackgroundFetchAsync } from '../services/BackgroundFetchService';
+import { NotificationService } from '../services/notification';
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -20,6 +23,14 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+
+      // Register background tasks and permissions
+      const initBackgroundTasks = async () => {
+        await NotificationService.registerForPushNotificationsAsync();
+        await registerBackgroundFetchAsync();
+      };
+
+      initBackgroundTasks();
     }
   }, [loaded]);
 

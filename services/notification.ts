@@ -1,6 +1,22 @@
+import * as Notifications from 'expo-notifications';
+import { Platform } from 'react-native';
 import { loadData, saveData, STORAGE_KEYS } from '../utils/storage';
 import api from './api';
 import { AuthService } from './auth';
+
+// Configure how notifications behave when the app is foregrounded
+try {
+    Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+            shouldPlaySound: true,
+            shouldSetBadge: false,
+            shouldShowBanner: true,
+            shouldShowList: true,
+        }),
+    });
+} catch (e) {
+    console.log('Error setting notification handler (likely Expo Go limitation):', e);
+}
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const cheerio = require('react-native-cheerio');
@@ -66,6 +82,51 @@ export const NotificationService = {
                 return cached.map((n: AppNotification) => ({ ...n, isOffline: true }));
             }
             return [];
+        }
+    },
+
+    registerForPushNotificationsAsync: async () => {
+        try {
+            if (Platform.OS === 'android') {
+                await Notifications.setNotificationChannelAsync('default', {
+                    name: 'default',
+                    importance: Notifications.AndroidImportance.MAX,
+                    vibrationPattern: [0, 250, 250, 250],
+                    lightColor: '#FF231F7C',
+                });
+            }
+
+            // Expo Go check: Notifications might throw here or return mocked status
+            const { status: existingStatus } = await Notifications.getPermissionsAsync();
+            let finalStatus = existingStatus;
+
+            if (existingStatus !== 'granted') {
+                const { status } = await Notifications.requestPermissionsAsync();
+                finalStatus = status;
+            }
+            if (finalStatus !== 'granted') {
+                console.log('Failed to get push token for push notification!');
+                return;
+            }
+            // In a real app we would get the token here:
+            // token = (await Notifications.getExpoPushTokenAsync()).data;
+        } catch (e) {
+            console.log('Error registering for notifications (Expo Go limitation?):', e);
+        }
+    },
+
+    sendLocalNotification: async (title: string, body: string) => {
+        try {
+            await Notifications.scheduleNotificationAsync({
+                content: {
+                    title: title,
+                    body: body,
+                    sound: 'default',
+                },
+                trigger: null, // Send immediately
+            });
+        } catch (e) {
+            console.log('Error sending notification (Expo Go limitation?):', e);
         }
     }
 };

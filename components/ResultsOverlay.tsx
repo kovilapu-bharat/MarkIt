@@ -7,6 +7,7 @@ import { WebView } from 'react-native-webview';
 import { useResults } from '../context/ResultsContext';
 import { useTheme } from '../context/ThemeContext';
 import { ResultsService, SemesterResult, SubjectResult } from '../services/results';
+import { BacklogTracker, GPATrendChart, WhatIfCalculator } from './ResultsEnhancements';
 
 const SubjectRow = ({ subject, isDark, colors }: { subject: SubjectResult, isDark: boolean, colors: any }) => {
     const isFail = subject.result.toUpperCase() === 'F' ||
@@ -17,9 +18,10 @@ const SubjectRow = ({ subject, isDark, colors }: { subject: SubjectResult, isDar
 
     const badgeText = subject.result !== '-' ? subject.result : (isFail ? 'F' : 'P');
     const gradeColor = isPass ? colors.success : colors.error;
+    const borderColor = colors.border || (isDark ? '#333' : '#eee');
 
     return (
-        <View style={[styles.subjectRow, { borderBottomColor: isDark ? '#333' : '#eee' }]}>
+        <View style={[styles.subjectRow, { borderBottomColor: borderColor }]}>
             <View style={styles.subjectInfo}>
                 <Text style={[styles.subjectName, { color: colors.text }]}>{subject.subjectName}</Text>
                 <Text style={[styles.subjectCode, { color: colors.textSecondary }]}>{subject.subjectCode}</Text>
@@ -53,6 +55,7 @@ const SubjectRow = ({ subject, isDark, colors }: { subject: SubjectResult, isDar
 
 const SemesterCard = ({ semester, isDark, colors }: { semester: SemesterResult, isDark: boolean, colors: any }) => {
     const [expanded, setExpanded] = useState(false);
+    const borderColor = colors.border || (isDark ? '#333' : '#eee');
 
     const totalSubjects = semester.subjects.length;
     const passedSubjects = semester.subjects.filter(s => {
@@ -69,7 +72,7 @@ const SemesterCard = ({ semester, isDark, colors }: { semester: SemesterResult, 
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => setExpanded(!expanded)}
-                style={[styles.cardHeader, { borderBottomWidth: expanded ? 1 : 0, borderBottomColor: isDark ? '#333' : '#eee' }]}
+                style={[styles.cardHeader, { borderBottomWidth: expanded ? 1 : 0, borderBottomColor: borderColor }]}
             >
                 <View>
                     <Text style={[styles.semesterTitle, { color: colors.text }]}>{semester.semester}</Text>
@@ -114,8 +117,6 @@ export default function ResultsOverlay() {
     const [viewOriginal, setViewOriginal] = useState(false);
     const [credentials, setCredentials] = useState({ username: '', password: '' });
     const [statusText, setStatusText] = useState('Initializing...');
-
-
 
     const loadCredentials = useCallback(async () => {
         try {
@@ -341,10 +342,8 @@ export default function ResultsOverlay() {
                 {/* Header */}
                 <View style={[styles.header, { borderBottomColor: isDark ? '#333' : '#eee', backgroundColor: colors.card }]}>
                     <View>
-                        <Text style={[styles.headerTitle, { color: colors.text }]}>Exam Results</Text>
-                        {results?.cgpa && results.cgpa !== 'N/A' && !viewOriginal && (
-                            <Text style={[styles.cgpaText, { color: colors.primary }]}>Overall CGPA: {results.cgpa}</Text>
-                        )}
+                        <Text style={[styles.headerTitle, { color: colors.text }]}>Academic Dashboard</Text>
+                        {/* Removed simple CGPA text here as it's now in the dashboard */}
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <TouchableOpacity onPress={toggleView} style={{ marginRight: 15 }}>
@@ -418,9 +417,24 @@ export default function ResultsOverlay() {
                                             </TouchableOpacity>
                                         </View>
                                     ) : (
-                                        results?.semesters.map((sem, index) => (
-                                            <SemesterCard key={index} semester={sem} isDark={isDark} colors={colors} />
-                                        ))
+                                        <>
+                                            {results && (
+                                                <>
+                                                    <BacklogTracker semesters={results.semesters} colors={colors} />
+                                                    <GPATrendChart semesters={results.semesters} colors={colors} />
+                                                    <WhatIfCalculator cgpa={results.cgpa} semesters={results.semesters} colors={colors} />
+
+                                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+                                                        <Text style={[styles.sectionTitle, { color: colors.text }]}>SEMESTER DETAILS</Text>
+                                                        <View style={{ height: 1, flex: 1, backgroundColor: colors.textSecondary, marginLeft: 16, opacity: 0.2 }} />
+                                                    </View>
+                                                </>
+                                            )}
+
+                                            {results?.semesters.map((sem, index) => (
+                                                <SemesterCard key={index} semester={sem} isDark={isDark} colors={colors} />
+                                            ))}
+                                        </>
                                     )}
                                     <View style={{ height: 40 }} />
                                 </ScrollView>
@@ -464,11 +478,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
-    cgpaText: {
-        fontSize: 14,
-        fontWeight: '600',
-        marginTop: 2,
-    },
+
     closeButton: {
         padding: 4,
     },
@@ -594,4 +604,9 @@ const styles = StyleSheet.create({
     emptyText: {
         fontSize: 16,
     },
+    sectionTitle: {
+        fontSize: 14,
+        fontWeight: '600',
+        letterSpacing: 0.5
+    }
 });

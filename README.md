@@ -1,50 +1,77 @@
-# Welcome to your Expo app 👋
+# MarkIt - Academic Companion App 🎓
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**MarkIt** is a powerful academic tracking app built for students to manage their college life effortlessly. It automatically fetches attendance and exam results, offers smart "bunk planning" predictions, and keeps you alerted with background notifications.
 
-## Get started
+## ✨ Key Features
 
-1. Install dependencies
+### 📊 Attendance Tracker
+*   **Auto-Fetch**: Scrapes attendance data directly from the college ERP.
+*   **Visual Stats**: Beautiful progress bars and daily calendars.
+*   **Offline Mode**: Caches data so you can check streaks without internet.
 
-   ```bash
-   npm install
-   ```
+### 🧠 Smart Bunk Planner
+*   **"Can I Bunk?"**: Select dates on a calendar to see how they impact your attendance percentage.
+*   **SafetyNet**: Warns you if a planned leave drops you below the 75% threshold.
+*   **Predictions**: Calculates exactly how many classes you can miss safely.
 
-2. Start the app
+### 📈 Exam Results Hub
+*   **Results Portal**: Fetches exam results from the college portal.
+*   **Analysis**:
+    *   **SGPA/CGPA Trends**: Interactive graphs showing performance over time.
+    *   **Backlog Tracker**: Keeps a count of active backlogs.
+    *   **"What If" Calculator**: Predicts required SGPA to hit your target CGPA.
 
-   ```bash
-   npx expo start
-   ```
+### 🔔 Smart Alerts (Background Agents)
+*   **Attendance Watcher**: Checks for new attendance every 15 minutes and notifies you: *"Attendance Up! 🚀"* or *"Missed a Class? 👀"*.
+*   **Results Watcher**: Periodically checks for new semester results and triggers a **"SCARY HOURS"** alert when they drop.
 
-In the output, you'll find options to open the app in a
+## 🛠️ Tech Stack
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+*   **Framework**: [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/) (SDK 50+).
+*   **Language**: TypeScript.
+*   **Storage**: `expo-secure-store` for encrypted credentials, `AsyncStorage` for data caching.
+*   **Background Tasks**: `expo-background-fetch` & `expo-task-manager`.
+*   **Parsing**: `react-native-cheerio` for HTML parsing.
+*   **UI Components**: Custom glassmorphism cards, `react-native-calendars`, `react-native-gifted-charts`.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🚀 Getting Started
 
-## Get a fresh project
+### Prerequisites
+*   Node.js (LTS)
+*   Expo Go app on your phone (Android/iOS)
 
-When you're ready, run:
+### Installation
 
-```bash
-npm run reset-project
-```
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/yourusername/MarkIt.git
+    cd MarkIt
+    ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
 
-## Learn more
+3.  **Start the app**:
+    ```bash
+    npx expo start
+    ```
 
-To learn more about developing your project with Expo, look at the following resources:
+4.  **Run on Device**:
+    *   Scan the QR code with the **Expo Go** app (Android) or Camera app (iOS).
+    *   **Note for Background Tasks**: Background Fetch works best in a "Development Build" or standalone APK, but manual triggers are included for testing in Expo Go.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 📱 Screenshots
 
-## Join the community
+| Home Dashboard | Attendance Goals | Results Analysis |
+|:---:|:---:|:---:|
+| *(Add Screenshot)* | *(Add Screenshot)* | *(Add Screenshot)* |
 
-Join our community of developers creating universal apps.
+## 🤝 Contributing
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Contributions are welcome! Please fork the repository and submit a pull request.
+
+## 📄 License
+
+This project is licensed under the MIT License.
