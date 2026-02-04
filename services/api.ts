@@ -1,21 +1,28 @@
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
+import { API_CONFIG } from '../constants/config';
+import { ConfigService } from './ConfigService';
 
-const API_URL = 'https://www.nrcmec.org';
-// const API_URL = 'https://www.nrcmec-fake-url-for-test.org';
+
+
 const COOKIE_KEY = 'auth_cookie';
 
 const api = axios.create({
-    baseURL: API_URL,
-    timeout: 30000,
+    baseURL: API_CONFIG.BASE_URL,
+    timeout: API_CONFIG.TIMEOUT,
     headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'User-Agent': API_CONFIG.HEADERS.USER_AGENT,
+        'Content-Type': API_CONFIG.HEADERS.CONTENT_TYPE,
     },
 });
 
-// Request interceptor to add cookie
+// Request interceptor to add cookie and dynamic Base URL
 api.interceptors.request.use(async (config) => {
+    // 1. Dynamic Base URL from Remote Config
+    const dynamicConfig = ConfigService.get();
+    config.baseURL = dynamicConfig.BASE_URL;
+
+    // 2. Auth Cookie
     const cookie = await SecureStore.getItemAsync(COOKIE_KEY);
     if (cookie) {
         config.headers.Cookie = cookie;

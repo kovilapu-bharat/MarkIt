@@ -1,3 +1,4 @@
+import { API_CONFIG } from '../constants/config';
 import { loadData, saveData, STORAGE_KEYS } from '../utils/storage';
 import api from './api';
 import { AuthService } from './auth';
@@ -37,7 +38,7 @@ export const AttendanceService = {
     getAttendance: async (): Promise<AttendanceResponse> => {
         try {
             console.log('Fetching attendance page...');
-            let response = await api.get('/Student/Date_wise_attendance.php');
+            let response = await api.get(API_CONFIG.ENDPOINTS.ATTENDANCE);
             let html = response.data;
 
             // Check if session expired
@@ -47,7 +48,7 @@ export const AttendanceService = {
                 if (!credentials) throw new Error('Not logged in');
                 await AuthService.login(credentials.studentId, credentials.pass);
                 console.log('Retrying attendance page fetch...');
-                response = await api.get('/Student/Date_wise_attendance.php');
+                response = await api.get(API_CONFIG.ENDPOINTS.ATTENDANCE);
                 html = response.data;
             }
 
@@ -113,7 +114,7 @@ export const AttendanceService = {
     getDateWiseAttendance: async (): Promise<DateWiseResponse> => {
         try {
             console.log('Fetching date-wise attendance...');
-            let response = await api.get('/Student/Date_wise_attendance.php');
+            let response = await api.get(API_CONFIG.ENDPOINTS.ATTENDANCE);
             let html = response.data;
 
             if (html.includes('login.php') || html.includes('Enter Roll No') || html.includes('type="password"')) {
@@ -122,7 +123,7 @@ export const AttendanceService = {
                 if (!credentials) throw new Error('Not logged in');
                 await AuthService.login(credentials.studentId, credentials.pass);
                 console.log('Retrying date-wise fetch...');
-                response = await api.get('/Student/Date_wise_attendance.php');
+                response = await api.get(API_CONFIG.ENDPOINTS.ATTENDANCE);
                 html = response.data;
             }
 

@@ -1,3 +1,4 @@
+import { API_CONFIG } from '../constants/config';
 import { loadData, saveData, STORAGE_KEYS } from '../utils/storage';
 import api from './api';
 import { AuthService } from './auth';
@@ -33,11 +34,9 @@ export const ResultsService = {
     getResults: async (): Promise<ResultsData> => {
         try {
             console.log('Fetching results page...');
-            // Correct verified URL from ResultsOverlay.tsx
-            const RESULTS_URL = 'https://erp.nrcmec.org/StudentLogin/Student/overallMarks.aspx';
-            console.log(`Fetching results from: ${RESULTS_URL}`);
+            console.log(`Fetching results from: ${API_CONFIG.ENDPOINTS.RESULTS}`);
 
-            let response = await api.get(RESULTS_URL);
+            let response = await api.get(API_CONFIG.ENDPOINTS.RESULTS);
             let html = response.data;
 
             if (html.includes('login.php') || html.includes('Enter Roll No')) {
@@ -45,7 +44,7 @@ export const ResultsService = {
                 const credentials = await AuthService.getCredentials();
                 if (!credentials) throw new Error('Not logged in');
                 await AuthService.login(credentials.studentId, credentials.pass);
-                response = await api.get(RESULTS_URL);
+                response = await api.get(API_CONFIG.ENDPOINTS.RESULTS);
                 html = response.data;
             }
 

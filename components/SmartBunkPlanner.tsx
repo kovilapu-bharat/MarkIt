@@ -1,3 +1,4 @@
+import { Colors } from '@/constants/theme';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -9,7 +10,7 @@ interface SmartBunkPlannerProps {
     currentAttended: number;
     currentTotal: number;
     currentPercentage: number;
-    colors: any;
+    colors: typeof Colors.light;
 }
 
 export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercentage, colors }: SmartBunkPlannerProps) => {
@@ -76,11 +77,11 @@ export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercent
                         selectedDayTextColor: '#ffffff',
                         todayTextColor: colors.primary,
                         dayTextColor: colors.text,
-                        textDisabledColor: colors.border,
+                        textDisabledColor: colors.cardBorder,
                         dotColor: colors.primary,
                         selectedDotColor: '#ffffff',
                         arrowColor: colors.primary,
-                        disabledArrowColor: colors.border,
+                        disabledArrowColor: colors.cardBorder,
                         monthTextColor: colors.text,
                         indicatorColor: colors.primary,
                         textDayFontWeight: '500',
@@ -110,7 +111,7 @@ export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercent
                     }}
                     renderArrow={(direction) => (
                         <View style={{
-                            backgroundColor: colors.border, // Better contrast in dark mode than 'background'
+                            backgroundColor: colors.cardBorder, // Better contrast in dark mode than 'background'
                             padding: 8,
                             borderRadius: 12,
                             opacity: 0.5
@@ -144,7 +145,7 @@ export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercent
                         onValueChange={(val) => setClassesPerDay(Math.round(val))}
                         theme={{
                             minimumTrackTintColor: colors.textSecondary,
-                            maximumTrackTintColor: colors.border || '#ccc',
+                            maximumTrackTintColor: colors.cardBorder || '#ccc',
                             bubbleBackgroundColor: '#0000',
                         }}
                         thumbWidth={20}

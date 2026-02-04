@@ -1,5 +1,6 @@
 import * as LocalAuthentication from 'expo-local-authentication';
 import * as SecureStore from 'expo-secure-store';
+import { API_CONFIG } from '../constants/config';
 import api from './api';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -21,7 +22,7 @@ export const AuthService = {
         try {
             // Step 1: GET request to initialize session
             console.log('Fetching login page...');
-            await api.get('/Student/login.php');
+            await api.get(API_CONFIG.ENDPOINTS.LOGIN);
 
             // Step 2: POST login credentials
             const formData = new URLSearchParams();
@@ -29,7 +30,7 @@ export const AuthService = {
             formData.append('password', pass);
 
             console.log('Posting credentials...');
-            const loginResponse = await api.post('/Student/login.php', formData.toString(), {
+            const loginResponse = await api.post(API_CONFIG.ENDPOINTS.LOGIN, formData.toString(), {
                 maxRedirects: 5,
                 validateStatus: (status: number) => status >= 200 && status < 400,
             });
@@ -76,7 +77,7 @@ export const AuthService = {
                 if (popupImg) {
                     profileImage = popupImg.startsWith('http')
                         ? popupImg
-                        : `https://www.nrcmec.org/Student/${popupImg}`;
+                        : `${API_CONFIG.BASE_URL}/Student/${popupImg}`;
                 }
 
                 const profile: StudentProfile = {

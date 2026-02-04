@@ -1,3 +1,5 @@
+import { API_CONFIG } from '@/constants/config';
+import { Colors } from '@/constants/theme';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
@@ -9,7 +11,7 @@ import { useTheme } from '../context/ThemeContext';
 import { ResultsService, SemesterResult, SubjectResult } from '../services/results';
 import { BacklogTracker, GPATrendChart, WhatIfCalculator } from './ResultsEnhancements';
 
-const SubjectRow = ({ subject, isDark, colors }: { subject: SubjectResult, isDark: boolean, colors: any }) => {
+const SubjectRow = ({ subject, isDark, colors }: { subject: SubjectResult, isDark: boolean, colors: typeof Colors.light }) => {
     const isFail = subject.result.toUpperCase() === 'F' ||
         subject.grade.toUpperCase() === 'F' ||
         subject.grade.toLowerCase() === 'ab';
@@ -18,7 +20,7 @@ const SubjectRow = ({ subject, isDark, colors }: { subject: SubjectResult, isDar
 
     const badgeText = subject.result !== '-' ? subject.result : (isFail ? 'F' : 'P');
     const gradeColor = isPass ? colors.success : colors.error;
-    const borderColor = colors.border || (isDark ? '#333' : '#eee');
+    const borderColor = colors.cardBorder || (isDark ? '#333' : '#eee');
 
     return (
         <View style={[styles.subjectRow, { borderBottomColor: borderColor }]}>
@@ -53,9 +55,9 @@ const SubjectRow = ({ subject, isDark, colors }: { subject: SubjectResult, isDar
     );
 };
 
-const SemesterCard = ({ semester, isDark, colors }: { semester: SemesterResult, isDark: boolean, colors: any }) => {
+const SemesterCard = ({ semester, isDark, colors }: { semester: SemesterResult, isDark: boolean, colors: typeof Colors.light }) => {
     const [expanded, setExpanded] = useState(false);
-    const borderColor = colors.border || (isDark ? '#333' : '#eee');
+    const borderColor = colors.cardBorder || (isDark ? '#333' : '#eee');
 
     const totalSubjects = semester.subjects.length;
     const passedSubjects = semester.subjects.filter(s => {
@@ -365,7 +367,7 @@ export default function ResultsOverlay() {
                     }}>
                         <WebView
                             key={credentials.username}
-                            source={{ uri: 'https://erp.nrcmec.org/StudentLogin/Student/overallMarks.aspx' }}
+                            source={{ uri: API_CONFIG.ENDPOINTS.RESULTS }}
                             injectedJavaScript={INJECTED_JAVASCRIPT}
                             onMessage={handleMessage}
                             javaScriptEnabled={true}
