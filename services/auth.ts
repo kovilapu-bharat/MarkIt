@@ -1,3 +1,4 @@
+import * as LocalAuthentication from 'expo-local-authentication';
 import * as SecureStore from 'expo-secure-store';
 import api from './api';
 
@@ -133,4 +134,29 @@ export const AuthService = {
         const profile = await SecureStore.getItemAsync(PROFILE_KEY);
         return profile ? JSON.parse(profile) : null;
     },
+
+    checkBiometrics: async () => {
+        const hasHardware = await LocalAuthentication.hasHardwareAsync();
+        const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+        return hasHardware && isEnrolled;
+    },
+
+    loginWithBiometrics: async () => {
+        const result = await LocalAuthentication.authenticateAsync({
+            promptMessage: 'Authenticate to continue',
+            fallbackLabel: 'Use Passcode',
+        });
+
+        if (result.success) {
+            const credsStr = await SecureStore.getItemAsync(CREDENTIALS_KEY);
+            if (credsStr) {
+                const { studentId, pass } = JSON.parse(credsStr);
+                return AuthService.login(studentId, pass);
+            } else {
+                throw new Error('No credentials stored. Please login manually first.');
+            }
+        } else {
+            throw new Error('Biometric authentication failed');
+        }
+    }
 };

@@ -2,9 +2,11 @@ import { useResults } from '@/context/ResultsContext';
 import { useTheme } from '@/context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Image, Modal, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLogout } from '../../hooks/useLogout';
 import { AttendanceResponse, AttendanceService, MonthlyAttendance } from '../../services/attendance';
@@ -64,7 +66,7 @@ export default function HomeScreen() {
   }, []);
 
   const headerComponent = (
-    <View>
+    <Animated.View entering={FadeInDown.duration(800).springify()}>
       {/* Header */}
       <View style={styles.header}>
         <View style={{ flex: 1, marginRight: 12, flexShrink: 1 }}>
@@ -97,51 +99,61 @@ export default function HomeScreen() {
         </View>
       </View>
 
-      {/* Profile Card */}
-      <View style={[styles.profileCard, { backgroundColor: colors.card }]}>
-        <Image
-          source={{ uri: profile?.profileImage || 'https://via.placeholder.com/60' }}
-          style={[styles.profileImage, { backgroundColor: colors.badge, borderColor: colors.success }]}
-        />
-        <View style={styles.profileInfo}>
-          <Text style={[styles.profileName, { color: colors.text }]}>{profile?.name || 'Student'}</Text>
-          <Text style={[styles.profileDept, { color: colors.textSecondary }]}>{profile?.department || 'Department'}</Text>
-          <View style={styles.badgesRow}>
-            <View style={[styles.badge, { backgroundColor: colors.badge }]}>
-              <Text style={[styles.badgeText, { color: colors.badgeText }]}>Year {profile?.year || '-'}</Text>
-            </View>
-            <View style={[styles.badge, { backgroundColor: colors.badge }]}>
-              <Text style={[styles.badgeText, { color: colors.badgeText }]}>ID: {profile?.rollNo}</Text>
+      {/* Profile Card with Glassmorphism */}
+      <Animated.View entering={FadeInDown.delay(100).duration(800).springify()}>
+        <BlurView intensity={isDark ? 50 : 80} tint={isDark ? 'dark' : 'light'} style={[styles.profileCard, { borderColor: colors.cardBorder, borderWidth: 1, backgroundColor: isDark ? 'rgba(30,30,30,0.5)' : 'rgba(255,255,255,0.7)' }]}>
+          <Image
+            source={{ uri: profile?.profileImage || 'https://via.placeholder.com/60' }}
+            style={[styles.profileImage, { backgroundColor: colors.badge, borderColor: colors.success }]}
+          />
+          <View style={styles.profileInfo}>
+            <Text style={[styles.profileName, { color: colors.text }]}>{profile?.name || 'Student'}</Text>
+            <Text style={[styles.profileDept, { color: colors.textSecondary }]}>{profile?.department || 'Department'}</Text>
+            <View style={styles.badgesRow}>
+              <View style={[styles.badge, { backgroundColor: colors.badge }]}>
+                <Text style={[styles.badgeText, { color: colors.badgeText }]}>Year {profile?.year || '-'}</Text>
+              </View>
+              <View style={[styles.badge, { backgroundColor: colors.badge }]}>
+                <Text style={[styles.badgeText, { color: colors.badgeText }]}>ID: {profile?.rollNo}</Text>
+              </View>
             </View>
           </View>
-        </View>
-        <TouchableOpacity
-          style={[styles.bellBtn, { backgroundColor: colors.badge }]}
-          onPress={() => router.push('/notifications')}
-        >
-          <Ionicons name="notifications-outline" size={20} color={colors.text} />
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            style={[styles.bellBtn, { backgroundColor: colors.badge }]}
+            onPress={() => router.push('/notifications')}
+          >
+            <Ionicons name="notifications-outline" size={20} color={colors.text} />
+          </TouchableOpacity>
+        </BlurView>
+      </Animated.View>
 
-      {/* Stats Row */}
-      <TouchableOpacity
+      {/* Stats Row with Glassmorphism */}
+      <Animated.View
+        entering={FadeInDown.delay(200).duration(800).springify()}
         style={styles.statsRow}
-        onPress={() => router.push('/analytics')}
-        activeOpacity={0.8}
       >
-        <View style={[styles.statCard, { backgroundColor: colors.card }]}>
-          <View style={styles.statHeader}>
-            <Ionicons name="checkmark-circle" size={16} color={colors.success} style={{ marginRight: 6 }} />
-            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>OVERALL</Text>
-          </View>
-          <Text style={[styles.statValue, { color: (attendanceData?.overallPercentage || 0) >= 75 ? colors.success : colors.error }]}>
-            {attendanceData?.overallPercentage.toFixed(0)}%
-          </Text>
-          <Text style={[styles.statSubtext, { color: colors.textSecondary }]}>
-            {attendanceData?.semesterTotal ? `${attendanceData.semesterTotal.attended} / ${attendanceData.semesterTotal.total} classes` : 'Total Attendance'}
-          </Text>
-        </View>
-        <View style={[styles.statCard, { backgroundColor: colors.card }]}>
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={() => router.push('/analytics')}
+          activeOpacity={0.8}
+        >
+          <BlurView intensity={isDark ? 40 : 80} tint={isDark ? 'dark' : 'light'} style={[styles.statCard, { backgroundColor: isDark ? 'rgba(40,40,40,0.5)' : 'rgba(255,255,255,0.6)', borderColor: colors.cardBorder, borderWidth: 1 }]}>
+            <View style={styles.statHeader}>
+              <Ionicons name="checkmark-circle" size={16} color={colors.success} style={{ marginRight: 6 }} />
+              <Text style={[styles.statLabel, { color: colors.textSecondary }]}>OVERALL</Text>
+            </View>
+            <Text style={[styles.statValue, { color: (attendanceData?.overallPercentage || 0) >= 75 ? colors.success : colors.error }]}>
+              {attendanceData?.overallPercentage.toFixed(0)}%
+            </Text>
+            <Text style={[styles.statSubtext, { color: colors.textSecondary }]}>
+              {attendanceData?.semesterTotal ? `${attendanceData.semesterTotal.attended} / ${attendanceData.semesterTotal.total} classes` : 'Total Attendance'}
+            </Text>
+          </BlurView>
+        </TouchableOpacity>
+
+        <View style={{ width: 12 }} />
+
+        <BlurView intensity={isDark ? 40 : 80} tint={isDark ? 'dark' : 'light'} style={[styles.statCard, { flex: 1, backgroundColor: isDark ? 'rgba(40,40,40,0.5)' : 'rgba(255,255,255,0.6)', borderColor: colors.cardBorder, borderWidth: 1 }]}>
           <View style={styles.statHeader}>
             <Ionicons
               name={(attendanceData?.overallPercentage || 0) >= 75 ? "trending-up" : "warning"}
@@ -170,14 +182,11 @@ export default function HomeScreen() {
               </>
             );
           })()}
-        </View>
-        <View style={{ position: 'absolute', right: -4, top: '40%', opacity: 0.5 }}>
-          <Ionicons name="chevron-forward" size={24} color={colors.textSecondary} />
-        </View>
-      </TouchableOpacity>
+        </BlurView>
+      </Animated.View>
 
       {/* Academics Section */}
-      <View style={{ marginBottom: 24 }}>
+      <Animated.View entering={FadeInDown.delay(300).duration(800).springify()} style={{ marginBottom: 24 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
           <Text style={[styles.sectionTitle, { color: colors.text }]}>Academics</Text>
           <TouchableOpacity
@@ -191,27 +200,29 @@ export default function HomeScreen() {
 
         {/* Exam Results Card */}
         <TouchableOpacity
-          style={[styles.subjectCard, { backgroundColor: colors.card }]}
           onPress={() => showResults()}
+          activeOpacity={0.8}
         >
-          <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
-            <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: colors.primary + '20', justifyContent: 'center', alignItems: 'center', marginRight: 16 }}>
-              <Ionicons name="school-outline" size={24} color={colors.primary} />
+          <BlurView intensity={isDark ? 40 : 80} tint={isDark ? 'dark' : 'light'} style={[styles.subjectCard, { backgroundColor: isDark ? 'rgba(40,40,40,0.5)' : 'rgba(255,255,255,0.6)', borderColor: colors.cardBorder, borderWidth: 1 }]}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
+              <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: colors.primary + '20', justifyContent: 'center', alignItems: 'center', marginRight: 16 }}>
+                <Ionicons name="school-outline" size={24} color={colors.primary} />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={{ color: colors.text, fontSize: 16, fontWeight: 'bold' }}>Exam Results</Text>
+                <Text style={{ color: colors.textSecondary, fontSize: 13 }}>View semester grades and CGPA</Text>
+              </View>
+              <Ionicons name="open-outline" size={20} color={colors.textSecondary} />
             </View>
-            <View style={{ flex: 1 }}>
-              <Text style={{ color: colors.text, fontSize: 16, fontWeight: 'bold' }}>Exam Results</Text>
-              <Text style={{ color: colors.textSecondary, fontSize: 13 }}>View semester grades and CGPA</Text>
-            </View>
-            <Ionicons name="open-outline" size={20} color={colors.textSecondary} />
-          </View>
+          </BlurView>
         </TouchableOpacity>
-      </View>
+      </Animated.View>
 
       {/* Section Title */}
       <View style={styles.sectionHeader}>
         <Text style={[styles.sectionTitle, { color: colors.text }]}>Monthly Attendance</Text>
       </View>
-    </View>
+    </Animated.View>
   );
 
   if (loading) {
@@ -278,6 +289,13 @@ export default function HomeScreen() {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top, backgroundColor: colors.background }]}>
+      <LinearGradient
+        colors={isDark ? [colors.background, '#1a1a1a'] : [colors.primary + '10', colors.background]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={StyleSheet.absoluteFill}
+      />
+
       <FlatList
         data={attendanceData?.months ? [...attendanceData.months] : []}
         keyExtractor={(item) => item.month}
@@ -285,6 +303,7 @@ export default function HomeScreen() {
         contentContainerStyle={styles.listContent}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.text} />}
         ListHeaderComponent={headerComponent}
+        showsVerticalScrollIndicator={false}
       />
 
       {/* Info Modal */}
@@ -465,7 +484,6 @@ const styles = StyleSheet.create({
   },
   statsRow: {
     flexDirection: 'row',
-    gap: 12,
     marginBottom: 24,
   },
   statCard: {
