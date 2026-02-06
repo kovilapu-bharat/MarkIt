@@ -1,8 +1,11 @@
 import { useTheme } from '@/context/ThemeContext';
+import { BlurView } from 'expo-blur';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, FlatList, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AttendanceService, DailyAttendance } from '../../services/attendance';
 import { AuthService } from '../../services/auth';
@@ -112,13 +115,21 @@ export default function DateWiseScreen() {
     );
   };
 
-  const renderDayItem = ({ item }: { item: DailyAttendance }) => {
+  const renderDayItem = ({ item, index }: { item: DailyAttendance; index: number }) => {
     const absentCount = item.periods.filter(p => p === 'A').length;
     const presentCount = item.periods.filter(p => p === 'P').length;
     // const isGood = absentCount === 0;
 
     return (
-      <View style={[styles.dayCard, { backgroundColor: colors.card, shadowColor: isDark ? '#000' : '#888' }]}>
+      <Animated.View
+        entering={FadeInDown.delay(index * 50).springify()}
+        style={[styles.dayCard, { shadowColor: isDark ? '#000' : '#888', backgroundColor: 'transparent' }]}
+      >
+        <BlurView
+          intensity={isDark ? 40 : 80}
+          tint={isDark ? 'dark' : 'light'}
+          style={[StyleSheet.absoluteFill, { backgroundColor: isDark ? 'rgba(40,40,40,0.5)' : 'rgba(255,255,255,0.7)' }]}
+        />
         <View style={[styles.dayAccent, { backgroundColor: absentCount === 0 ? colors.success : colors.error }]} />
         <View style={styles.dayContent}>
           <View style={styles.dayHeader}>
@@ -145,16 +156,22 @@ export default function DateWiseScreen() {
             </View>
           </View>
           <View style={styles.periodsRow}>
-            {item.periods.map((status, index) => renderPeriodCell(status, index))}
+            {item.periods.map((status, idx) => renderPeriodCell(status, idx))}
           </View>
         </View>
-      </View>
+      </Animated.View>
     );
   };
 
   return (
     <View style={[styles.container, { paddingTop: insets.top, backgroundColor: colors.background }]}>
       <StatusBar style={isDark ? "light" : "dark"} />
+      <LinearGradient
+        colors={isDark ? [colors.background, '#1a1a1a'] : [colors.primary + '10', colors.background]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={StyleSheet.absoluteFill}
+      />
 
       <FlatList
         data={filteredDays}
@@ -182,8 +199,11 @@ export default function DateWiseScreen() {
                   key={month}
                   style={[
                     styles.filterChip,
-                    { backgroundColor: colors.badge },
-                    selectedMonth === month && { backgroundColor: colors.primary }
+                    {
+                      backgroundColor: selectedMonth === month ? colors.primary : (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'),
+                      borderWidth: 1,
+                      borderColor: selectedMonth === month ? colors.primary : (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)')
+                    }
                   ]}
                   onPress={() => setSelectedMonth(month)}
                 >

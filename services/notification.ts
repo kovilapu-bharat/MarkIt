@@ -1,3 +1,4 @@
+import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 import { loadData, saveData, STORAGE_KEYS } from '../utils/storage';
@@ -86,32 +87,50 @@ export const NotificationService = {
     },
 
     registerForPushNotificationsAsync: async () => {
+        let token;
+
+        if (Platform.OS === 'android') {
+            await Notifications.setNotificationChannelAsync('default', {
+                name: 'default',
+                importance: Notifications.AndroidImportance.MAX,
+                vibrationPattern: [0, 250, 250, 250],
+                lightColor: '#FF231F7C',
+            });
+        }
+
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+
+        if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+        }
+
+        if (finalStatus !== 'granted') {
+            console.log('Failed to get push token for push notification!');
+            return;
+        }
+
+        // Learn more about projectId:
+        // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
         try {
-            if (Platform.OS === 'android') {
-                await Notifications.setNotificationChannelAsync('default', {
-                    name: 'default',
-                    importance: Notifications.AndroidImportance.MAX,
-                    vibrationPattern: [0, 250, 250, 250],
-                    lightColor: '#FF231F7C',
-                });
+            // Check if we are running in Expo Go or Build
+            const projectId = Constants?.expoConfig?.extra?.eas?.projectId ?? Constants?.easConfig?.projectId;
+
+            if (!projectId) {
+                // For development/Expo Go, we can start without it, but real push needs it.
+                console.log('Project ID not found. Ensure you have synced with EAS.');
             }
 
-            // Expo Go check: Notifications might throw here or return mocked status
-            const { status: existingStatus } = await Notifications.getPermissionsAsync();
-            let finalStatus = existingStatus;
+            token = (await Notifications.getExpoPushTokenAsync({
+                projectId: projectId,
+            })).data;
 
-            if (existingStatus !== 'granted') {
-                const { status } = await Notifications.requestPermissionsAsync();
-                finalStatus = status;
-            }
-            if (finalStatus !== 'granted') {
-                console.log('Failed to get push token for push notification!');
-                return;
-            }
-            // In a real app we would get the token here:
-            // token = (await Notifications.getExpoPushTokenAsync()).data;
+            console.log('Expo Push Token (Share with Backend/Firebase):', token);
+            return token;
+
         } catch (e) {
-            console.log('Error registering for notifications (Expo Go limitation?):', e);
+            console.log('Error registering for notifications:', e);
         }
     },
 

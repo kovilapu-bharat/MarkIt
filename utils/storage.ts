@@ -5,6 +5,7 @@ export const STORAGE_KEYS = {
     DATE_WISE_ATTENDANCE: 'date_wise_attendance',
     NOTIFICATIONS: 'notifications_cache',
     EXAM_RESULTS: 'exam_results_cache',
+    FEE_RECEIPTS: 'fee_receipts_cache',
     LAST_UPDATED: 'last_updated_timestamp',
 };
 

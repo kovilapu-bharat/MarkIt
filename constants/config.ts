@@ -3,6 +3,7 @@ export const API_CONFIG = {
     ENDPOINTS: {
         LOGIN: '/Student/login.php',
         ATTENDANCE: '/Student/Date_wise_attendance.php',
+        FEE_RECEIPT: '/Student/Fee_Receipt',
         RESULTS: 'https://erp.nrcmec.org/StudentLogin/Student/overallMarks.aspx',
     },
     HEADERS: {

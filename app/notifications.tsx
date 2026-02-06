@@ -1,11 +1,16 @@
 import { useTheme } from '@/context/ThemeContext';
 import { AppNotification, NotificationService } from '@/services/notification';
-import { Stack } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Stack, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
 export default function NotificationsScreen() {
     const { colors, isDark } = useTheme();
+    const router = useRouter();
     const [notifications, setNotifications] = useState<AppNotification[]>([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
@@ -31,31 +36,42 @@ export default function NotificationsScreen() {
         loadNotifications();
     };
 
-    const renderItem = ({ item }: { item: AppNotification }) => (
-        <View style={[styles.card, { backgroundColor: colors.card, shadowColor: isDark ? '#000' : '#888' }]}>
-            <View style={styles.header}>
-                <View style={[styles.iconContainer, { backgroundColor: colors.primary + '15' }]}>
-                    <Text style={{ fontSize: 20 }}>{item.icon}</Text>
+    const renderItem = ({ item, index }: { item: AppNotification; index: number }) => (
+        <Animated.View entering={FadeInDown.delay(index * 100).springify()}>
+            <BlurView intensity={isDark ? 40 : 80} tint={isDark ? 'dark' : 'light'} style={[styles.card, { backgroundColor: isDark ? 'rgba(40,40,40,0.5)' : 'rgba(255,255,255,0.7)', borderColor: colors.cardBorder }]}>
+                <View style={styles.header}>
+                    <View style={[styles.iconContainer, { backgroundColor: colors.primary + '15' }]}>
+                        <Text style={{ fontSize: 20 }}>{item.icon}</Text>
+                    </View>
+                    <View style={styles.headerText}>
+                        <Text style={[styles.title, { color: colors.text }]}>{item.title}</Text>
+                        <Text style={[styles.time, { color: colors.textSecondary }]}>{item.time}</Text>
+                    </View>
                 </View>
-                <View style={styles.headerText}>
-                    <Text style={[styles.title, { color: colors.text }]}>{item.title}</Text>
-                    <Text style={[styles.time, { color: colors.textSecondary }]}>{item.time}</Text>
+                <View style={styles.contentContainer}>
+                    <Text style={[styles.description, { color: colors.textSecondary }]}>{item.description}</Text>
                 </View>
-            </View>
-            <View style={styles.contentContainer}>
-                <Text style={[styles.description, { color: colors.textSecondary }]}>{item.description}</Text>
-            </View>
-        </View>
+            </BlurView>
+        </Animated.View>
     );
 
     return (
-        <View style={[styles.container, { backgroundColor: colors.background }]}>
-            <Stack.Screen options={{
-                headerStyle: { backgroundColor: colors.background },
-                headerTitleStyle: { color: colors.text },
-                headerTintColor: colors.primary,
-                title: 'College Updates'
-            }} />
+        <View style={styles.container}>
+            <Stack.Screen options={{ headerShown: false }} />
+            <LinearGradient
+                colors={isDark ? [colors.background, '#1a1a1a'] : [colors.primary + '10', colors.background]}
+                style={StyleSheet.absoluteFill}
+            />
+
+            {/* Custom Header */}
+            <View style={[styles.screenHeader, { paddingTop: 60 }]}>
+                <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+                    <View style={[styles.backButtonCircle, { backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.6)' }]}>
+                        <Ionicons name="arrow-back" size={24} color={colors.text} />
+                    </View>
+                </TouchableOpacity>
+                <Text style={[styles.screenTitle, { color: colors.text }]}>Notifications</Text>
+            </View>
 
             {loading ? (
                 <View style={styles.center}>
@@ -67,10 +83,13 @@ export default function NotificationsScreen() {
                     renderItem={renderItem}
                     keyExtractor={(item) => item.id}
                     contentContainerStyle={styles.list}
+                    showsVerticalScrollIndicator={false}
                     refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.primary} />}
                     ListEmptyComponent={
                         <View style={styles.center}>
-                            <Text style={{ color: colors.textSecondary }}>No new notifications</Text>
+                            <Ionicons name="notifications-off-outline" size={64} color={colors.textSecondary + '50'} style={{ marginBottom: 16 }} />
+                            <Text style={{ color: colors.textSecondary, fontSize: 16, fontWeight: '600' }}>No new notifications</Text>
+                            <Text style={{ color: colors.textSecondary, opacity: 0.7, marginTop: 4 }}>You're all caught up!</Text>
                         </View>
                     }
                 />
@@ -83,9 +102,32 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    screenHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        marginBottom: 10,
+        zIndex: 10,
+    },
+    backButton: {
+        marginRight: 15,
+    },
+    backButtonCircle: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    screenTitle: {
+        fontSize: 28,
+        fontWeight: '800',
+        letterSpacing: -0.5,
+    },
     list: {
         padding: 20,
         gap: 16,
+        paddingTop: 10,
     },
     center: {
         flex: 1,
@@ -96,10 +138,8 @@ const styles = StyleSheet.create({
         padding: 16,
         borderRadius: 20,
         marginBottom: 4,
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-        elevation: 4,
+        borderWidth: 1,
+        overflow: 'hidden',
     },
     header: {
         flexDirection: 'row',

@@ -5,10 +5,10 @@ import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Image, Modal, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Modal, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useLogout } from '../../hooks/useLogout';
+import { SkeletonLoader } from '../../components/SkeletonLoader';
 import { AttendanceResponse, AttendanceService, MonthlyAttendance } from '../../services/attendance';
 import { AuthService, StudentProfile } from '../../services/auth';
 
@@ -19,10 +19,11 @@ export default function HomeScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
+  const [showPhotoModal, setShowPhotoModal] = useState(false);
 
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { colors, toggleTheme, isDark } = useTheme();
+  const { colors, isDark } = useTheme();
   const { showResults } = useResults();
 
   const fetchData = useCallback(async () => {
@@ -58,7 +59,7 @@ export default function HomeScreen() {
     fetchData();
   }, [fetchData]);
 
-  const { handleLogout, loggingOut } = useLogout();
+
 
   const mounted = React.useRef(true);
   useEffect(() => {
@@ -82,19 +83,17 @@ export default function HomeScreen() {
           )}
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center', flexShrink: 0 }}>
-          <TouchableOpacity onPress={toggleTheme} style={[styles.iconBtn, { borderColor: colors.cardBorder, backgroundColor: colors.card, marginRight: 8 }]}>
-            <Ionicons name={isDark ? "sunny" : "moon"} size={20} color={colors.text} />
+          <TouchableOpacity
+            onPress={() => router.push('/notifications')}
+            style={[styles.iconBtn, { borderColor: colors.cardBorder, backgroundColor: colors.card, marginRight: 8 }]}
+          >
+            <Ionicons name="notifications-outline" size={22} color={colors.text} />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={handleLogout}
-            disabled={loggingOut}
-            style={[styles.iconBtn, { borderColor: 'rgba(255, 69, 58, 0.3)', backgroundColor: 'rgba(255, 69, 58, 0.1)' }]}
+            onPress={() => router.push('/settings' as any)}
+            style={[styles.iconBtn, { borderColor: colors.cardBorder, backgroundColor: colors.card }]}
           >
-            {loggingOut ? (
-              <ActivityIndicator size="small" color="#FF453A" />
-            ) : (
-              <Ionicons name="log-out-outline" size={20} color="#FF453A" />
-            )}
+            <Ionicons name="settings-outline" size={22} color={colors.text} />
           </TouchableOpacity>
         </View>
       </View>
@@ -102,27 +101,53 @@ export default function HomeScreen() {
       {/* Profile Card with Glassmorphism */}
       <Animated.View entering={FadeInDown.delay(100).duration(800).springify()}>
         <BlurView intensity={isDark ? 50 : 80} tint={isDark ? 'dark' : 'light'} style={[styles.profileCard, { borderColor: colors.cardBorder, borderWidth: 1, backgroundColor: isDark ? 'rgba(30,30,30,0.5)' : 'rgba(255,255,255,0.7)' }]}>
-          <Image
-            source={{ uri: profile?.profileImage || 'https://via.placeholder.com/60' }}
-            style={[styles.profileImage, { backgroundColor: colors.badge, borderColor: colors.success }]}
-          />
-          <View style={styles.profileInfo}>
-            <Text style={[styles.profileName, { color: colors.text }]}>{profile?.name || 'Student'}</Text>
-            <Text style={[styles.profileDept, { color: colors.textSecondary }]}>{profile?.department || 'Department'}</Text>
-            <View style={styles.badgesRow}>
-              <View style={[styles.badge, { backgroundColor: colors.badge }]}>
-                <Text style={[styles.badgeText, { color: colors.badgeText }]}>Year {profile?.year || '-'}</Text>
-              </View>
-              <View style={[styles.badge, { backgroundColor: colors.badge }]}>
-                <Text style={[styles.badgeText, { color: colors.badgeText }]}>ID: {profile?.rollNo}</Text>
+          <TouchableOpacity
+            style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }}
+            onPress={() => router.push('/student-profile' as any)}
+            activeOpacity={0.7}
+          >
+            <View>
+              <Image
+                source={{ uri: profile?.profileImage || 'https://via.placeholder.com/60' }}
+                style={[styles.profileImage, { backgroundColor: colors.badge, borderColor: colors.success }]}
+              />
+              {/* Show hint if no image OR if image is the default placeholder */}
+              {(!profile?.profileImage || profile.profileImage.includes('default.png')) && (
+                <TouchableOpacity
+                  style={{
+                    position: 'absolute',
+                    bottom: -4,
+                    right: -4,
+                    backgroundColor: '#f59e0b', // Amber
+                    borderRadius: 12,
+                    borderWidth: 2,
+                    borderColor: colors.card,
+                    padding: 4,
+                    zIndex: 20,
+                    elevation: 5,
+                  }}
+                  hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                  onPress={(e) => {
+                    e.stopPropagation();
+                    setShowPhotoModal(true);
+                  }}
+                >
+                  <Ionicons name="information" size={16} color="#fff" />
+                </TouchableOpacity>
+              )}
+            </View>
+            <View style={styles.profileInfo}>
+              <Text style={[styles.profileName, { color: colors.text }]}>{profile?.name || 'Student'}</Text>
+              <Text style={[styles.profileDept, { color: colors.textSecondary }]}>{profile?.department || 'Department'}</Text>
+              <View style={styles.badgesRow}>
+                <View style={[styles.badge, { backgroundColor: colors.badge }]}>
+                  <Text style={[styles.badgeText, { color: colors.badgeText }]}>Year {profile?.year || '-'}</Text>
+                </View>
+                <View style={[styles.badge, { backgroundColor: colors.badge }]}>
+                  <Text style={[styles.badgeText, { color: colors.badgeText }]}>ID: {profile?.rollNo}</Text>
+                </View>
               </View>
             </View>
-          </View>
-          <TouchableOpacity
-            style={[styles.bellBtn, { backgroundColor: colors.badge }]}
-            onPress={() => router.push('/notifications')}
-          >
-            <Ionicons name="notifications-outline" size={20} color={colors.text} />
           </TouchableOpacity>
         </BlurView>
       </Animated.View>
@@ -185,50 +210,105 @@ export default function HomeScreen() {
         </BlurView>
       </Animated.View>
 
-      {/* Academics Section */}
+      {/* Quick Actions Grid */}
       <Animated.View entering={FadeInDown.delay(300).duration(800).springify()} style={{ marginBottom: 24 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
-          <Text style={[styles.sectionTitle, { color: colors.text }]}>Academics</Text>
-          <TouchableOpacity
-            onPress={() => setShowInfoModal(true)}
-            hitSlop={10}
-            style={{ marginLeft: 8 }}
-          >
-            <Ionicons name="information-circle-outline" size={20} color={colors.textSecondary} />
-          </TouchableOpacity>
-        </View>
+        <Text style={[styles.sectionTitle, { color: colors.text, marginBottom: 16 }]}>Quick Actions</Text>
 
-        {/* Exam Results Card */}
-        <TouchableOpacity
-          onPress={() => showResults()}
-          activeOpacity={0.8}
-        >
-          <BlurView intensity={isDark ? 40 : 80} tint={isDark ? 'dark' : 'light'} style={[styles.subjectCard, { backgroundColor: isDark ? 'rgba(40,40,40,0.5)' : 'rgba(255,255,255,0.6)', borderColor: colors.cardBorder, borderWidth: 1 }]}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
-              <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: colors.primary + '20', justifyContent: 'center', alignItems: 'center', marginRight: 16 }}>
+        <View style={styles.gridContainer}>
+          {/* Exam Results Card */}
+          <TouchableOpacity
+            style={styles.gridItem}
+            onPress={() => showResults()}
+            activeOpacity={0.8}
+          >
+            <BlurView intensity={isDark ? 40 : 80} tint={isDark ? 'dark' : 'light'} style={[styles.gridCard, { backgroundColor: isDark ? 'rgba(40,40,40,0.5)' : 'rgba(255,255,255,0.6)', borderColor: colors.cardBorder, borderWidth: 1 }]}>
+              <View style={[styles.gridIcon, { backgroundColor: colors.primary + '20' }]}>
                 <Ionicons name="school-outline" size={24} color={colors.primary} />
               </View>
-              <View style={{ flex: 1 }}>
-                <Text style={{ color: colors.text, fontSize: 16, fontWeight: 'bold' }}>Exam Results</Text>
-                <Text style={{ color: colors.textSecondary, fontSize: 13 }}>View semester grades and CGPA</Text>
+              <Text style={[styles.gridTitle, { color: colors.text }]}>Exam Results</Text>
+              <Text style={[styles.gridSubtitle, { color: colors.textSecondary }]}>Grades & CGPA</Text>
+            </BlurView>
+          </TouchableOpacity>
+
+          {/* Fee Receipts Card */}
+          <TouchableOpacity
+            style={styles.gridItem}
+            onPress={() => router.push('/fee-receipts' as any)}
+            activeOpacity={0.8}
+          >
+            <BlurView intensity={isDark ? 40 : 80} tint={isDark ? 'dark' : 'light'} style={[styles.gridCard, { backgroundColor: isDark ? 'rgba(40,40,40,0.5)' : 'rgba(255,255,255,0.6)', borderColor: colors.cardBorder, borderWidth: 1 }]}>
+              <View style={[styles.gridIcon, { backgroundColor: colors.warning + '20' }]}>
+                <Ionicons name="receipt-outline" size={24} color={colors.warning} />
               </View>
-              <Ionicons name="open-outline" size={20} color={colors.textSecondary} />
-            </View>
-          </BlurView>
-        </TouchableOpacity>
+              <Text style={[styles.gridTitle, { color: colors.text }]}>Fee Receipts</Text>
+              <Text style={[styles.gridSubtitle, { color: colors.textSecondary }]}>Payment History</Text>
+            </BlurView>
+          </TouchableOpacity>
+        </View>
       </Animated.View>
+
+
 
       {/* Section Title */}
       <View style={styles.sectionHeader}>
         <Text style={[styles.sectionTitle, { color: colors.text }]}>Monthly Attendance</Text>
       </View>
-    </Animated.View>
+    </Animated.View >
   );
 
   if (loading) {
     return (
-      <View style={[styles.centerContainer, { backgroundColor: colors.background }]}>
-        <ActivityIndicator size="large" color={colors.primary} />
+      <View style={[styles.container, { backgroundColor: colors.background, paddingTop: insets.top }]}>
+        <LinearGradient
+          colors={isDark ? ['#1a1a2e', '#16213e'] : ['#f0f4ff', '#e8f0fe']}
+          style={StyleSheet.absoluteFill}
+        />
+        {/* Skeleton Header */}
+        <View style={styles.header}>
+          <View style={{ flex: 1 }}>
+            <SkeletonLoader width={100} height={14} />
+            <SkeletonLoader width={150} height={24} style={{ marginTop: 8 }} />
+          </View>
+          <View style={{ flexDirection: 'row', gap: 8 }}>
+            <SkeletonLoader width={44} height={44} borderRadius={22} />
+            <SkeletonLoader width={44} height={44} borderRadius={22} />
+          </View>
+        </View>
+
+        {/* Skeleton Profile Card */}
+        <View style={[styles.profileCard, { backgroundColor: colors.card, borderColor: colors.cardBorder, marginTop: 16 }]}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <SkeletonLoader width={60} height={60} borderRadius={30} />
+            <View style={{ marginLeft: 16, flex: 1 }}>
+              <SkeletonLoader width="80%" height={18} />
+              <SkeletonLoader width="50%" height={14} style={{ marginTop: 8 }} />
+            </View>
+          </View>
+        </View>
+
+        {/* Skeleton Stats */}
+        <View style={{ flexDirection: 'row', gap: 12, marginTop: 16 }}>
+          <View style={[styles.statCard, { backgroundColor: colors.card, flex: 1 }]}>
+            <SkeletonLoader width={56} height={56} borderRadius={28} />
+            <SkeletonLoader width={60} height={12} style={{ marginTop: 8 }} />
+          </View>
+          <View style={[styles.statCard, { backgroundColor: colors.card, flex: 1 }]}>
+            <SkeletonLoader width={56} height={56} borderRadius={28} />
+            <SkeletonLoader width={60} height={12} style={{ marginTop: 8 }} />
+          </View>
+        </View>
+
+        {/* Skeleton Quick Actions */}
+        <View style={{ marginTop: 16 }}>
+          <SkeletonLoader width={120} height={16} />
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 12, gap: 12 }}>
+            {[1, 2, 3, 4].map(i => (
+              <View key={i} style={{ width: '47%' }}>
+                <SkeletonLoader width="100%" height={80} borderRadius={16} />
+              </View>
+            ))}
+          </View>
+        </View>
       </View>
     );
   }
@@ -264,8 +344,14 @@ export default function HomeScreen() {
     const isWarning = item.percentage >= 75 && item.percentage < 85;
 
     return (
-      <View
-        style={[styles.subjectCard, { backgroundColor: colors.card }]}
+      <BlurView
+        intensity={isDark ? 40 : 80}
+        tint={isDark ? 'dark' : 'light'}
+        style={[styles.subjectCard, {
+          backgroundColor: isDark ? 'rgba(40,40,40,0.5)' : 'rgba(255,255,255,0.6)',
+          borderColor: colors.cardBorder,
+          borderWidth: 1
+        }]}
       >
         <View style={styles.subjectContent}>
           <Text style={[styles.subjectName, { color: colors.text }]}>{item.month}</Text>
@@ -283,7 +369,7 @@ export default function HomeScreen() {
           </View>
         </View>
         <CircularProgress percentage={item.percentage} />
-      </View>
+      </BlurView>
     );
   };
 
@@ -336,6 +422,59 @@ export default function HomeScreen() {
               <Text style={styles.modalButtonText}>Got it</Text>
             </TouchableOpacity>
           </View>
+        </BlurView>
+      </Modal>
+      {/* Photo Update Modal */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={showPhotoModal}
+        onRequestClose={() => setShowPhotoModal(false)}
+      >
+        <BlurView intensity={40} tint={isDark ? "dark" : "light"} style={styles.modalOverlay}>
+          <Animated.View
+            entering={FadeInDown.springify().damping(15)}
+            style={[styles.modalCard, { backgroundColor: colors.card, borderColor: colors.cardBorder, overflow: 'hidden' }]}
+          >
+            <LinearGradient
+              colors={isDark ? [colors.background, colors.card] : [colors.card, colors.background]}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View style={{ alignItems: 'center', marginBottom: 20 }}>
+              <View style={{
+                width: 64, height: 64, borderRadius: 32,
+                backgroundColor: colors.primary + '15',
+                justifyContent: 'center', alignItems: 'center',
+                marginBottom: 16,
+                borderWidth: 1, borderColor: colors.primary + '30'
+              }}>
+                <Ionicons name="image-outline" size={32} color={colors.primary} />
+                <View style={{ position: 'absolute', bottom: 0, right: 0, backgroundColor: colors.badge, borderRadius: 10, padding: 2 }}>
+                  <Ionicons name="cloud-upload" size={12} color={colors.success} />
+                </View>
+              </View>
+              <Text style={[styles.modalTitle, { color: colors.text, fontSize: 22 }]}>Update Profile Photo</Text>
+            </View>
+
+            <Text style={[styles.modalText, { color: colors.textSecondary, marginBottom: 8 }]}>
+              Want to see your picture here?
+            </Text>
+            <Text style={[styles.modalText, { color: colors.text, fontWeight: '500' }]}>
+              Please update your profile photo on the <Text style={{ color: colors.primary }}>College Website</Text>.
+            </Text>
+            <Text style={[styles.modalText, { color: colors.textSecondary, fontSize: 12, marginTop: 8 }]}>
+              It will sync automatically next time you login!
+            </Text>
+
+            <TouchableOpacity
+              style={[styles.modalButton, { backgroundColor: colors.primary, marginTop: 28, shadowColor: colors.primary, shadowOpacity: 0.3, shadowRadius: 8, elevation: 4 }]}
+              onPress={() => setShowPhotoModal(false)}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.modalButtonText}>Understood</Text>
+            </TouchableOpacity>
+          </Animated.View>
         </BlurView>
       </Modal>
     </View>
@@ -433,22 +572,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
   },
-  bellBtn: {
-    position: 'absolute',
-    right: 16,
-    top: 16,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+
   profileCard: {
     borderRadius: 16,
     padding: 16,
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginBottom: 16,
+    overflow: 'hidden', // Fix for Android BlurView border radius
   },
   profileImage: {
     width: 60,
@@ -490,6 +621,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 16,
     padding: 16,
+    overflow: 'hidden', // Fix for Android BlurView border radius
   },
   statHeader: {
     flexDirection: 'row',
@@ -524,6 +656,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 12,
+    overflow: 'hidden', // Fix for Android BlurView border radius
   },
   subjectContent: {
     flex: 1,
@@ -562,5 +695,36 @@ const styles = StyleSheet.create({
   circleText: {
     fontSize: 12,
     fontWeight: 'bold',
+  },
+  gridContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  gridItem: {
+    width: '48%',
+  },
+  gridCard: {
+    borderRadius: 16,
+    padding: 16,
+    alignItems: 'flex-start',
+    height: 120,
+    justifyContent: 'space-between',
+    overflow: 'hidden', // Fix for Android BlurView border radius
+  },
+  gridIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  gridTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  gridSubtitle: {
+    fontSize: 12,
   },
 });

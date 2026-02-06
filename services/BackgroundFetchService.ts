@@ -25,6 +25,41 @@ export const checkAttendanceInBackground = async () => {
             const oldClasses = oldAttendance.semesterTotal?.total || 0;
             const newClasses = newAttendance.semesterTotal?.total || 0;
 
+            // --- ENHANCED: Period-level change detection ---
+            // Compare today's periods with cached data
+            const today = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+            // Load date-wise attendance separately (different cache)
+            const oldDateWise = await loadData(STORAGE_KEYS.DATE_WISE_ATTENDANCE);
+            const newDateWise = await AttendanceService.getDateWiseAttendance();
+
+            const oldDaily = oldDateWise?.days || [];
+            const newDaily = newDateWise?.days || [];
+
+            const oldToday = oldDaily.find((d: any) => d.date === today);
+            const newToday = newDaily.find((d: any) => d.date === today);
+
+            if (newToday && oldToday) {
+                const changes: string[] = [];
+
+                newToday.periods.forEach((status: string, idx: number) => {
+                    const oldStatus = oldToday.periods[idx] || '-';
+                    if (oldStatus === '-' && status !== '-') {
+                        const emoji = status === 'P' ? '✅' : '❌';
+                        changes.push(`Period ${idx + 1}: ${status === 'P' ? 'Present' : 'Absent'} ${emoji}`);
+                    }
+                });
+
+                if (changes.length > 0) {
+                    await NotificationService.sendLocalNotification(
+                        `Attendance Updated! 📚`,
+                        changes.join(', ')
+                    );
+                    return BackgroundFetch.BackgroundFetchResult.NewData;
+                }
+            }
+            // --- END ENHANCED ---
+
             if (newTotal > oldTotal) {
                 // Attendance increased!
                 const diff = newTotal - oldTotal;
@@ -79,6 +114,33 @@ export const checkAttendanceInBackground = async () => {
             }
         } else {
             console.log('[BackgroundFetch] First run or no old results data, saving baseline.');
+        }
+
+        // --- 3. FEE RECEIPTS CHECK ---
+        const oldFees = await loadData(STORAGE_KEYS.FEE_RECEIPTS);
+        if (oldFees && oldFees.length > 0) {
+            console.log('[BackgroundFetch] Checking for new fee receipts...');
+            const { FeeService } = await import('./FeeService');
+
+            // Get current academic year
+            const years = await FeeService.getAcademicYears();
+            const currentYear = years[0] || '2025-26';
+            const newFees = await FeeService.getReceipts(currentYear);
+
+            if (newFees && newFees.length > oldFees.length) {
+                const diff = newFees.length - oldFees.length;
+                const latestReceipt = newFees[0]; // Most recent
+
+                await NotificationService.sendLocalNotification(
+                    'New Fee Receipt! 💰',
+                    `${diff} new payment${diff > 1 ? 's' : ''} recorded. Latest: ₹${latestReceipt?.amount || 'N/A'}`
+                );
+                return BackgroundFetch.BackgroundFetchResult.NewData;
+            } else {
+                console.log('[BackgroundFetch] No new fee receipts detected.');
+            }
+        } else {
+            console.log('[BackgroundFetch] First run or no old fee data, saving baseline.');
         }
 
         return BackgroundFetch.BackgroundFetchResult.NoData;

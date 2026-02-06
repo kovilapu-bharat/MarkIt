@@ -1,0 +1,1509 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Receipts</title>
+    <!-- Load Tailwind CSS CDN for modern and responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Print Styles (to ensure clean printable receipts) */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            /* Make sure receipt container and its content are visible for print */
+            .receipts-container,
+            .receipts-container * {
+                visibility: visible;
+            }
+            .receipts-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                border: none;
+                background-color: #fff;
+            }
+            /* Hide non-receipt elements */
+            .button-container, .form-container, .error-message, .receipt-summary, .footer {
+                display: none !important;
+            }
+            .receipt-item {
+                /* Force page break before each receipt for multi-print view */
+                page-break-before: auto;
+                page-break-inside: avoid;
+                margin-bottom: 40px;
+                padding: 20px;
+                border: 1px solid #000;
+            }
+            /* Ensure background colors print */
+            .status {
+                background-color: #10B981 !important; /* Tailwind's green-500 */
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            /* --- REVISED FLEX-ROW PRINT STYLES FOR STUDENT DETAILS --- */
+            .receipt-details-grid {
+                display: flex; /* Use flexbox for row layout */
+                flex-wrap: wrap; /* Allow items to wrap into a second row */
+                gap: 1rem; /* Add spacing between items */
+            }
+            .receipt-details-grid > div {
+                /* Force two items per row (each taking 50% minus the gap) */
+                flex: 0 0 calc(50% - 0.5rem); 
+                border-bottom: 1px solid #ddd;
+                padding: 8px 0;
+            }
+            /* -------------------------------------------------------- */
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+            }
+            th, td {
+                padding: 10px 15px;
+                text-align: left;
+                border: 1px solid #ddd !important;
+            }
+            th {
+                background-color: #f3f4f6 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+        /* Custom styles for logo image */
+        .responsive-logo {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+    <!doctype html>
+
+<html
+  lang="en"
+  class="layout-menu-fixed layout-compact"
+  data-assets-path="assets/"
+  data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>Student Dashboard</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+     <link rel="shortcut icon" type="image/jpg" href="../images/favicon.png"/>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="assets/vendor/fonts/iconify-icons.css" />
+
+    <!-- Core CSS -->
+    <!-- build:css assets/vendor/css/theme.css  -->
+
+    <link rel="stylesheet" href="assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+
+    <link rel="stylesheet" href="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- endbuild -->
+
+    <link rel="stylesheet" href="assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="assets/vendor/js/helpers.js"></script>
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="assets/js/config.js"></script>
+    <style>
+  .app-brand.demo {
+    width: 100%; /* or set a specific width like 300px */
+    max-width: 100%; /* ensures it doesn't overflow its container */
+  }
+  
+  .app-brand-link {
+    display: block;
+    width: 100%;
+  }
+  
+  .app-brand-logo {
+    width: 100%;
+    height: auto; /* maintains aspect ratio */
+    display: block;
+  }
+  
+  
+    </style>
+        <style>
+    .Social h4{
+        text-align: center;
+        color:tomato;
+        font-size:16px;
+        margin: 0px;
+    }
+    .Social .fa {
+ padding: 7px;
+    font-size: 15px;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    border-radius: 50%;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #000;
+  content:"𝕏";
+  color: white;
+}
+.fa-twitter::before{
+	content:"𝕏";
+	/*font-size:1.2em;*/
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: rgb(228, 64, 95);
+  color: white;
+}
+
+.fa-whatsapp {
+  background: green;
+  color: white;
+}
+
+</style>
+  </head>
+
+<script>
+  document.addEventListener("contextmenu", (event) => event.preventDefault());
+ </script>
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+  <a href="index" class="app-brand-link">
+    <img src="images/NRCM-Logo.png" 
+         alt="NRCM Logo" 
+         class="app-brand-logo">
+  </a>
+
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+              <i class="bx bx-chevron-left d-block d-xl-none align-middle"></i>
+            </a>
+          </div>
+
+          <div class="menu-divider mt-0"></div>
+
+          <div class="menu-inner-shadow"></div>
+
+
+
+          <ul class="menu-inner py-1">
+            <!-- Dashboards -->
+              <li class="menu-item">
+              <a href="index" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-smile"></i>
+                <div class="text-truncate" data-i18n="Boxicons">Dashboard</div>
+              </a>
+            </li>
+         
+            <!-- Layouts -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-building-house"></i>
+                <div class="text-truncate" data-i18n="Layouts">Academics</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="AcademicCalender" class="menu-link">
+                    <div class="text-truncate" data-i18n="Without menu">Academic Calender</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a href="#" class="menu-link">-->
+                <!--    <div class="text-truncate" data-i18n="Without navbar">Time Table</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+               <li class="menu-item">
+                  <a href="Date_wise_attendance" class="menu-link">
+                    <div class="text-truncate" data-i18n="Fluid">Attendance</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="display_holidays" class="menu-link">
+                    <div class="text-truncate" data-i18n="Container">Holidays</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div class="text-truncate" data-i18n="Blank">Feedback</div>
+                  </a>
+                </li>-->
+              </ul>
+            </li>
+
+
+   <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-wallet-alt"></i>
+                <div class="text-truncate" data-i18n="Dashboards">Payments</div>
+                <!--<span class="badge rounded-pill bg-danger ms-auto">5</span>-->
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="Student_Fee" class="menu-link">
+                    <div class="text-truncate" data-i18n="Analytics">Online Fee Payment</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="Fee_Receipt" class="menu-link">
+                    <div class="text-truncate" data-i18n="CRM">Fee Receipt</div>
+                    <!--<div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>-->
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="Fee_Card"
+                
+                    class="menu-link">
+                    <div class="text-truncate" data-i18n="eCommerce">Fee Card</div>
+                    
+                  </a>
+                </li>
+               
+              </ul>
+            </li>
+
+            <!-- Front Pages -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-user-check"></i>
+                <div class="text-truncate" data-i18n="Front Pages">Feedback</div>
+                <!--<div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>-->
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a
+                    href="Feedback"
+                    class="menu-link">
+                
+                    <div class="text-truncate" data-i18n="Landing">Faculty Feedback</div>
+                  </a>
+                </li>
+                  <li class="menu-item">
+                  <a
+                    href="Feedback_Exit_Survey"
+                    class="menu-link">
+                
+                    <div class="text-truncate" data-i18n="Pricing">Course End Feedback</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a-->
+                <!--    href="https://www.nrcmec.org/student_satisfaction_survey"-->
+                <!--    class="menu-link">-->
+                
+                <!--    <div class="text-truncate" data-i18n="Pricing">Servey Forms</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+                
+               
+              </ul>
+            </li>
+
+            <!-- Apps & Pages -->
+           
+             <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bxs-graduation"></i>
+                <div class="text-truncate" data-i18n="Email">Exam Cell</div>
+     
+              </a>
+             <ul class="menu-sub">
+                <li class="menu-item">
+                  <a
+                    href="https://erp.nrcmec.org/"
+                    class="menu-link">
+                    <div class="text-truncate" data-i18n="Landing">Exam Fee Payment</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a
+                    href="#"
+                    class="menu-link">
+                    <div class="text-truncate" data-i18n="Pricing">Exam Fee Receipt</div>
+                  </a>
+                </li>
+   <li class="menu-item">
+                  <a
+                    href="https://erp.nrcmec.org/"
+                class="menu-link">
+                    <div class="text-truncate" data-i18n="Pricing">Exam Results</div>
+                  </a>
+                </li>
+               
+              </ul>
+            </li>
+            
+   
+            <!-- Pages -->
+            <!--<li class="menu-item">-->
+            <!--  <a href="javascript:void(0);" class="menu-link menu-toggle">-->
+            <!--    <i class="menu-icon tf-icons bx bx-dock-top"></i>-->
+            <!--    <div class="text-truncate" data-i18n="Account Settings">Account Settings</div>-->
+            <!--  </a>-->
+            <!--  <ul class="menu-sub">-->
+            <!--    <li class="menu-item">-->
+            <!--      <a href="pages-account-settings-account.html" class="menu-link">-->
+            <!--        <div class="text-truncate" data-i18n="Account">Account</div>-->
+            <!--      </a>-->
+            <!--    </li>-->
+            <!--    <li class="menu-item">-->
+            <!--      <a href="pages-account-settings-notifications.html" class="menu-link">-->
+            <!--        <div class="text-truncate" data-i18n="Notifications">Notifications</div>-->
+            <!--      </a>-->
+            <!--    </li>-->
+            <!--    <li class="menu-item">-->
+            <!--      <a href="pages-account-settings-connections.html" class="menu-link">-->
+            <!--        <div class="text-truncate" data-i18n="Connections">Connections</div>-->
+            <!--      </a>-->
+            <!--    </li>-->
+            <!--  </ul>-->
+            <!--</li>-->
+          
+      
+            <!-- User interface -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-buildings"></i>
+                <div class="text-truncate" data-i18n="User interface">Library</div>
+              </a>
+              <ul class="menu-sub">
+                    <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div class="text-truncate" data-i18n="Accordion">Book Issues</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div class="text-truncate" data-i18n="Accordion">Fine Payments</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a href="#" class="menu-link">-->
+                <!--    <div class="text-truncate" data-i18n="Alerts">Alerts</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+               
+              </ul>
+            </li>
+
+       
+
+        
+
+      
+             <!-- Extended components -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-cloud-upload"></i>
+                <div class="text-truncate" data-i18n="Extended UI">Uploads</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="personal_files" class="menu-link">
+                    <div class="text-truncate" data-i18n="Perfect Scrollbar">Personal Files</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div class="text-truncate" data-i18n="Text Divider">Other Files</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+     <!-- Extended components -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-cog"></i>
+                <div class="text-truncate" data-i18n="Extended UI">Account Settings</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="Password_reset" class="menu-link">
+                    <div class="text-truncate" data-i18n="Perfect Scrollbar">Change Password</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a href="#" class="menu-link">-->
+                <!--    <div class="text-truncate" data-i18n="Text Divider">Other Files</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+              </ul>
+            </li>
+            
+              <!--<li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>-->
+            <li class="menu-item">
+              <a
+                href="#"
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bx-fingerprint"></i>
+                <div class="text-truncate" data-i18n="Support">Biometric</div>
+              </a>
+            </li>
+                <!-- Extended components -->
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-cloud-download"></i>
+                <div class="text-truncate" data-i18n="Extended UI">Downloads</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="No_due_Certificate.php" class="menu-link">
+                    <div class="text-truncate" data-i18n="Perfect Scrollbar">No Due Certificate</div>
+                  </a>
+                </li>
+                <!--<li class="menu-item">-->
+                <!--  <a href="#" class="menu-link">-->
+                <!--    <div class="text-truncate" data-i18n="Text Divider">Other Files</div>-->
+                <!--  </a>-->
+                <!--</li>-->
+              </ul>
+            </li>
+            
+            <!-- Misc -->
+            <!--<li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>-->
+               <li class="menu-item">
+              <a
+                href="https://wa.me/919347556447"
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bxl-whatsapp"></i>
+                <div class="text-truncate" data-i18n="Support">Help</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a
+                href="logout"
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bx-log-out"></i>
+                <div class="text-truncate" data-i18n="Documentation">Logout</div>
+              </a>
+            </li>
+          </ul>
+          <ul>
+            <div class="Social">
+        <h4>Follow Us</h4>
+<!-- Add font awesome icons -->
+<a href="https://www.facebook.com/NarasimhaReddyEngineeringCollege.NRCM" target="_blank" class="fa fa-facebook"></a>
+<a href="https://www.instagram.com/narsimhareddycollege_nrcm/" target="_blank" class="fa fa-instagram"></a>
+<a href="https://x.com/Nrec_College" target="_blank" class="fa fa-twitter"></a>
+<a href="https://www.linkedin.com/in/narsimhareddyengineeringcollege-nrcm" target="_blank" class="fa fa-linkedin"></a>
+<a href="https://www.youtube.com/channel/UCuE3rO3oUnGiWkF4V2_HBSA" target="_blank" class="fa fa-youtube"></a>
+<a href="https://whatsapp.com/channel/0029VaF4a12DzgT7ZMR41G1s" target="_blank" class="fa fa-whatsapp"></a>
+</div>
+</ul>
+        </aside>
+        
+        
+        <script>
+document.addEventListener("DOMContentLoaded", function () { 
+    let currentUrl = window.location.href.split('/').pop(); // Get current page filename
+    let menuLinks = document.querySelectorAll(".menu-link");
+    let activeFound = false;
+
+    menuLinks.forEach(link => {
+        let linkHref = link.getAttribute("href");
+
+        // Check if the link matches the current page URL
+        if (linkHref === currentUrl) {
+            link.classList.add("active"); // Highlight the active link
+            activeFound = true;
+
+            // Find the parent menu-item and mark it as active
+            let parentMenuItem = link.closest(".menu-item");
+            if (parentMenuItem) {
+                parentMenuItem.classList.add("active");
+
+                // Open the corresponding submenu
+                let menuSub = parentMenuItem.closest(".menu-sub");
+                if (menuSub) {
+                    menuSub.style.display = "block";
+
+                    // Also activate the parent menu
+                    let grandParentMenu = menuSub.closest(".menu-item");
+                    if (grandParentMenu) {
+                        grandParentMenu.classList.add("active");
+                    }
+                } 
+            }
+        }
+    });
+
+    // If no active menu is found, set "Dashboard" as default active
+    if (!activeFound) {
+        let dashboardMenuItem = document.querySelector(".menu-item.dashboard");
+        if (dashboardMenuItem) {
+            dashboardMenuItem.classList.add("active");
+            let dashboardLink = dashboardMenuItem.querySelector(".menu-link");
+            if (dashboardLink) {
+                dashboardLink.classList.add("active");
+            }
+        }
+    }
+});
+
+
+
+        </script></head>
+<body class="bg-gray-100 font-sans">
+    <!-- Menu -->
+    <!-- Layout container -->
+    <div class="layout-page">
+        <!-- Navbar -->
+        <nav
+            class="layout-navbar container-xxl navbar-detached navbar navbar-expand-xl align-items-center bg-navbar-theme"
+            id="layout-navbar">
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
+                <i class="icon-base bx bx-menu icon-md"></i>
+              </a>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center justify-content-end" id="navbar-collapse">
+              <!-- Search -->
+             <!-- <div class="navbar-nav align-items-center me-auto">
+                <div class="nav-item d-flex align-items-center">
+                  <span class="w-px-22 h-px-22"><i class="icon-base bx bx-search icon-md"></i></span>
+                  <input
+                    type="text"
+                    class="form-control border-0 shadow-none ps-1 ps-sm-2 d-md-block d-none"
+                    placeholder="Search..."
+                    aria-label="Search..." />
+                </div>
+              </div>--!>
+              <!-- /Search -->
+
+
+
+
+    <style>
+        .notification-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .notification-bell {
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0px;
+            border: none;
+            background: transparent;
+            outline: none;
+        }
+
+        .notification-popup {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 320px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: none;
+            font-family: Arial, sans-serif;
+        }
+
+        .notification-header {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: green ;
+        }
+
+        .new-count {
+            background: #2563eb;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .notification-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .notification-item:hover {
+            background: #f8fafc;
+        }
+
+        .notification-icon {
+            font-size: 20px;
+            margin-top: 2px;
+        }
+
+        .notification-content {
+            flex-grow: 1;
+        }
+
+        .notification-message {
+            font-weight: 500;
+            margin-bottom: 4px;
+            color:purple;
+        }
+
+        .notification-time {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .view-all {
+            padding: 16px;
+            text-align: center;
+            color: #2563eb;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+/* Clickable Image */
+.clickable-image {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+#profilePopup .popup-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+/* Modal Popup */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 350px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+.button-container button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#editProfileBtn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#logoutBtn {
+    background-color: #f44336;
+    color: white;
+}
+
+ .button-container {
+        display: flex;
+        gap: 5px; /* Adds spacing between buttons */
+    }
+
+   .button-container button {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    #editProfileBtn {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    #logoutBtn {
+        background-color: #f44336;
+        color: white;
+    }
+
+   .button-container button:hover {
+        opacity: 0.8;
+    }
+    </style>
+
+    <div class="notification-container">
+        <button class="notification-bell" onclick="toggleNotifications()"> 🔔</button>
+        <div class="notification-popup" id="notificationPopup">
+            <div class="notification-header">
+                <span class="notification-title">Notifications</span>
+                <span class="new-count">4 New</span>
+            </div>
+            <div class="notification-list">
+                
+                    <div class="notification-item">
+                        <div class="notification-icon">💼</div>
+                        <div class="notification-content">
+                            <div class="notification-message">Cornerstone Placement Drive</div>
+                            <div class="notification-text">All branches of B.Tech.</div>
+                            <div class="notification-time">8d ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon">💼</div>
+                        <div class="notification-content">
+                            <div class="notification-message">Sutherland Placement Drive</div>
+                            <div class="notification-text">All branches of B.Tech.</div>
+                            <div class="notification-time">25d ago</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon">💼</div>
+                        <div class="notification-content">
+                            <div class="notification-message">Invoicecloud Placement Drive</div>
+                            <div class="notification-text">For B.Tech CSE</div>
+                            <div class="notification-time">12th Feb</div>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon">💼</div>
+                        <div class="notification-content">
+                            <div class="notification-message">Bees Placement Drive</div>
+                            <div class="notification-text">All branches of B.Tech.</div>
+                            <div class="notification-time">3rd Feb</div>
+                        </div>
+                    </div>            </div>
+            <div class="view-all" onclick="viewAllNotifications()">View all notifications</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleNotifications() {
+            const popup = document.getElementById('notificationPopup');
+            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function viewAllNotifications() {
+            // Add logic to handle view all action
+            window.location.href = 'notifications.php';
+        }
+
+        // Close popup when clicking outside
+        window.onclick = function(event) {
+            const popup = document.getElementById('notificationPopup');
+            if (!event.target.closest('.notification-container')) {
+                popup.style.display = 'none';
+            }
+        }
+    </script>
+
+
+
+              <ul class="navbar-nav flex-row align-items-center ms-md-auto">
+                <!-- Place this tag where you want the button to render. -->
+                <li class="nav-item lh-1 me-4">
+                <p>Welcome, 23X01A6267</p>
+                </li>
+
+                <!-- User -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a
+                    class="nav-link dropdown-toggle hide-arrow p-0"
+                    href="javascript:void(0);"
+                    data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                      <img src="uploads/default.png" alt="Profile" id="profileImage"  class="clickable-image" class="w-px-40 h-auto rounded-circle" />
+                      
+                    </div>
+                  </a>
+                <!--  <ul class="dropdown-menu dropdown-menu-end">-->
+                <!--    <li>-->
+                <!--      <a class="dropdown-item" href="#">-->
+                <!--        <div class="d-flex">-->
+                <!--          <div class="flex-shrink-0 me-3">-->
+                <!--            <div class="avatar avatar-online">-->
+                <!--              <img src="uploads/default.png" alt="Profile" class="w-px-40 h-auto rounded-circle" />-->
+                <!--            </div>-->
+                <!--          </div>-->
+                <!--          <div class="flex-grow-1">-->
+                <!--            <h6 class="mb-0">JONAGATLA HEMA SRI</h6>-->
+                <!--            <small class="text-body-secondary">23X01A6267</small>-->
+                <!--          </div>-->
+                <!--        </div>-->
+                <!--      </a>-->
+                <!--    </li>-->
+                <!--    <li>-->
+                <!--      <div class="dropdown-divider my-1"></div>-->
+                <!--    </li>-->
+                <!--    <li>-->
+                <!--      <a class="dropdown-item" href="#">-->
+                <!--        <i class="icon-base bx bx-user icon-md me-3"></i><span>My Profile</span>-->
+                <!--      </a>-->
+                <!--    </li>-->
+                <!--    <li>-->
+                <!--      <a class="dropdown-item" href="#">-->
+                <!--        <i class="icon-base bx bx-cog icon-md me-3"></i><span>Settings</span>-->
+                <!--      </a>-->
+                <!--    </li>-->
+                    <!--<li>-->
+                    <!--  <a class="dropdown-item" href="#">-->
+                    <!--    <span class="d-flex align-items-center align-middle">-->
+                    <!--      <i class="flex-shrink-0 icon-base bx bx-credit-card icon-md me-3"></i-->
+                    <!--      ><span class="flex-grow-1 align-middle">Billing Plan</span>-->
+                    <!--      <span class="flex-shrink-0 badge rounded-pill bg-danger">4</span>-->
+                    <!--    </span>-->
+                    <!--  </a>-->
+                    <!--</li>-->
+                <!--    <li>-->
+                <!--      <div class="dropdown-divider my-1"></div>-->
+                <!--    </li>-->
+                <!--    <li>-->
+                <!--      <a class="dropdown-item" href="logout">-->
+                <!--        <i class="icon-base bx bx-power-off icon-md me-3"></i><span>Log Out</span>-->
+                <!--      </a>-->
+                <!--    </li>-->
+                <!--  </ul>-->
+                <!--</li>-->
+                <!--/ User -->
+              <!--</ul>-->
+              
+              
+              
+              
+                  <!-- Popup Modal -->
+    <div id="profilePopup" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            
+             <img src="uploads/default.png" alt="Profile" class="popup-img">
+             <!--<h4>Profile Details</h4>-->
+            <p><strong>Name:</strong> <span id="profileName">JONAGATLA HEMA SRI</span></p>
+            <p><strong>Roll No:</strong> <span id="profileRollNo">23X01A6267</span></p>
+            <p><strong>Department:</strong> <span id="profileDepartment">CSE-CS</span></p>
+             <p><strong>Year:</strong> <span id="profileRollNo">3</span></p>
+           <!--<p><strong>Section:</strong> <span id="profileRollNo"></span></p>-->
+           
+           <div class="button-container">
+                <button id="editProfileBtn">Change Password</button>
+            <button id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // script.js
+document.addEventListener("DOMContentLoaded", function () {
+    // Get elements
+    const profileImage = document.getElementById("profileImage");
+    const profilePopup = document.getElementById("profilePopup");
+    const closeBtn = document.querySelector(".close");
+
+    // Open popup when image is clicked
+    profileImage.addEventListener("click", function () {
+        profilePopup.style.display = "block";
+    });
+
+    // Close popup when close button is clicked
+    closeBtn.addEventListener("click", function () {
+        profilePopup.style.display = "none";
+    });
+
+    // Close popup when clicking outside the modal
+    window.addEventListener("click", function (event) {
+        if (event.target === profilePopup) {
+            profilePopup.style.display = "none";
+        }
+    });
+
+     document.getElementById("editProfileBtn").addEventListener("click", function () {
+                     
+        window.location.href = "Password_reset.php"; // Redirect to student dashboard
+            
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+        alert("Logging out..."); 
+        window.location.href = "logout"; // Redirect to logout page
+    });
+});
+    </script>
+            </div>
+          </nav>        <!-- Content wrapper -->
+        <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container mx-auto px-4 py-8">
+                <div class="flex flex-wrap justify-center">
+                    <!-- Main Content Card -->
+                    <div class="w-full lg:w-3/4">
+                        <div class="bg-white p-6 md:p-10 rounded-xl shadow-xl">
+                            <h2 class="text-3xl font-extrabold text-indigo-700 text-center mb-6 border-b pb-4">Fee Payment Receipts</h2>
+
+                            <div class="form-container mb-8 bg-indigo-50 p-6 rounded-lg shadow-inner">
+                                <form method="POST" action="" class="space-y-4">
+                                    <div class="flex flex-col md:flex-row md:space-x-4">
+                                        <!-- Academic Year Dropdown -->
+                                        <div class="flex-1 form-group">
+                                            <label for="academic_year" class="block text-sm font-medium text-gray-700 mb-1">Select Academic Year</label>
+                                            <select id="academic_year" name="academic_year" required onchange="this.form.submit()"
+                                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out">
+                                                <option value="">Select Academic Year</option>
+                                                                                                    <option value="2025-26" selected>
+                                                        2025-26                                                    </option>
+                                                                                                    <option value="2024-25" >
+                                                        2024-25                                                    </option>
+                                                                                            </select>
+                                        </div>
+
+                                        <!-- Receipt Number Dropdown (Only appears after year selection) -->
+                                                                                <div class="flex-1 form-group mt-4 md:mt-0">
+                                            <label for="receipt_id" class="block text-sm font-medium text-gray-700 mb-1">Select Specific Receipt</label>
+                                            <select id="receipt_id" name="receipt_id"
+                                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition duration-150 ease-in-out">
+                                                <option value="">View All Receipts</option>
+                                                                                                    <option value="24982" 
+                                                        >
+                                                        #24982 - ₹5,000.00 (Misc)
+                                                    </option>
+                                                                                                    <option value="24981" 
+                                                        >
+                                                        #24981 - ₹10,000.00 (Others)
+                                                    </option>
+                                                                                                    <option value="24975" 
+                                                        >
+                                                        #24975 - ₹40,000.00 (Transport)
+                                                    </option>
+                                                                                                    <option value="11537" 
+                                                        >
+                                                        #11537 - ₹35,000.00 (Tuition)
+                                                    </option>
+                                                                                            </select>
+                                        </div>
+                                                                            </div>
+                                    
+                                                                        <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4 pt-4">
+                                        <button type="submit" name="view_selected" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-200">
+                                            View Selected Receipt
+                                        </button>
+                                        <button type="submit" name="view_all" class="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-200">
+                                            View All Receipts
+                                        </button>
+                                    </div>
+                                                                    </form>
+                            </div>
+
+                            <!-- Error Message Display -->
+                            
+                            <!-- Receipts Display Container -->
+                                                            <div class="receipt-summary bg-blue-100 text-blue-800 p-4 rounded-lg mb-6 text-center font-bold shadow-sm">
+                                    Found 4 successful receipt(s) for Academic Year: 2025-26                                </div>
+                                
+                                <div class="receipts-container space-y-8">
+                                                                        <div class="receipt-item border border-gray-300 rounded-lg shadow-lg bg-white p-4 md:p-8">
+                                        
+                                        <!-- Header Section -->
+                                        <div class="header text-center mb-6 border-b pb-4">
+                                            <!-- Replace with your actual logo image path -->
+                                            <img src="images/Nrcm_Mobile_Logo.png" alt="Institution Logo" class="responsive-logo max-h-24 mb-4 mx-auto">
+                                            <h3 class="text-xl md:text-2xl font-bold text-gray-800 leading-tight">OFFICIAL PAYMENT RECEIPT</h3>
+                                            <div class="status inline-block mt-2 px-4 py-1 text-sm font-semibold rounded-full bg-green-500 text-white shadow-md">Success</div>
+                                        </div>
+
+                                        <div class="subheading text-center font-extrabold text-lg uppercase underline mb-6 mt-6 text-gray-700">Online Fees Receipt</div>
+
+                                        <!-- Student Details - Responsive Grid -->
+                                        <!-- Note: The grid classes (grid-cols-1 md:grid-cols-2) are for screen view. Print view is controlled by @media print CSS -->
+                                        <div class="receipt-details-grid grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 text-sm mb-6 p-4 border border-indigo-200 rounded-lg bg-indigo-50">
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Receipt No.:</strong> <span class="text-gray-800">24982</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Date of Payment:</strong> <span class="text-gray-800">2025-10-21 21:34:34</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Roll No.:</strong> <span class="text-green-900 font-semibold">23X01A6267</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Student Name:</strong> <span class="text-green-900 font-semibold">JONAGATLA HEMA SRI</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Father's Name:</strong> <span class="text-gray-800">JONAGATLA GANESH</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Program:</strong> <span class="text-gray-800">B.TECH</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Semester:</strong> <span class="text-gray-800">III-II SEM</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Branch:</strong> <span class="text-green-900 font-semibold">CSE-CS</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Fee Particulars Table - Made scrollable on small screens -->
+                                        <div class="overflow-x-auto shadow-md rounded-lg border border-gray-200">
+                                            <table class="min-w-full table-auto text-left text-sm text-gray-700 bg-white">
+                                                <thead class="bg-gray-50 border-b border-gray-200">
+                                                    <tr>
+                                                        <th scope="col" class="py-3 px-4 font-bold text-gray-600 w-1/12">S.No.</th>
+                                                        <th scope="col" class="py-3 px-4 font-bold text-gray-600 w-8/12">PARTICULARS</th>
+                                                        <th scope="col" class="py-3 px-4 font-bold text-gray-600 text-right w-3/12">AMOUNT (Rs.)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="bg-gray-100">
+                                                        <td colspan="3" class="text-center py-2 px-4 font-extrabold text-sm text-gray-900 border-t">Academic Year: 2025-26</td>
+                                                    </tr>
+                                                    <tr class="border-b hover:bg-gray-50">
+                                                        <td class="py-3 px-4">1</td>
+                                                        <td class="py-3 px-4">Misc</td>
+                                                        <td class="py-3 px-4 text-right font-medium">₹5,000.00</td>
+                                                    </tr>
+                                                    <tr class="bg-gray-200 border-t border-gray-300 font-extrabold text-gray-900">
+                                                        <td colspan="2" class="py-3 px-4 text-right text-base">TOTAL</td>
+                                                        <td class="py-3 px-4 text-right text-lg text-indigo-700">₹5,000.00</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <p class="mt-6 text-sm text-gray-600">
+                                            <strong class="text-gray-700">Transaction ID</strong>: <span class="font-mono">251021247894326</span> &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <strong class="text-gray-700">Payment Mode</strong>: CREDIT_CARD                                        </p>
+                                        
+                                        <div class="footer mt-6 pt-4 text-xs text-gray-500 text-center border-t border-dashed">
+                                            Electronically generated receipt. No signature required.
+                                        </div>
+                                    </div>
+                                                                        <div class="receipt-item border border-gray-300 rounded-lg shadow-lg bg-white p-4 md:p-8">
+                                        
+                                        <!-- Header Section -->
+                                        <div class="header text-center mb-6 border-b pb-4">
+                                            <!-- Replace with your actual logo image path -->
+                                            <img src="images/Nrcm_Mobile_Logo.png" alt="Institution Logo" class="responsive-logo max-h-24 mb-4 mx-auto">
+                                            <h3 class="text-xl md:text-2xl font-bold text-gray-800 leading-tight">OFFICIAL PAYMENT RECEIPT</h3>
+                                            <div class="status inline-block mt-2 px-4 py-1 text-sm font-semibold rounded-full bg-green-500 text-white shadow-md">Success</div>
+                                        </div>
+
+                                        <div class="subheading text-center font-extrabold text-lg uppercase underline mb-6 mt-6 text-gray-700">Online Fees Receipt</div>
+
+                                        <!-- Student Details - Responsive Grid -->
+                                        <!-- Note: The grid classes (grid-cols-1 md:grid-cols-2) are for screen view. Print view is controlled by @media print CSS -->
+                                        <div class="receipt-details-grid grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 text-sm mb-6 p-4 border border-indigo-200 rounded-lg bg-indigo-50">
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Receipt No.:</strong> <span class="text-gray-800">24981</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Date of Payment:</strong> <span class="text-gray-800">2025-10-21 21:31:15</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Roll No.:</strong> <span class="text-green-900 font-semibold">23X01A6267</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Student Name:</strong> <span class="text-green-900 font-semibold">JONAGATLA HEMA SRI</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Father's Name:</strong> <span class="text-gray-800">JONAGATLA GANESH</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Program:</strong> <span class="text-gray-800">B.TECH</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Semester:</strong> <span class="text-gray-800">III-II SEM</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Branch:</strong> <span class="text-green-900 font-semibold">CSE-CS</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Fee Particulars Table - Made scrollable on small screens -->
+                                        <div class="overflow-x-auto shadow-md rounded-lg border border-gray-200">
+                                            <table class="min-w-full table-auto text-left text-sm text-gray-700 bg-white">
+                                                <thead class="bg-gray-50 border-b border-gray-200">
+                                                    <tr>
+                                                        <th scope="col" class="py-3 px-4 font-bold text-gray-600 w-1/12">S.No.</th>
+                                                        <th scope="col" class="py-3 px-4 font-bold text-gray-600 w-8/12">PARTICULARS</th>
+                                                        <th scope="col" class="py-3 px-4 font-bold text-gray-600 text-right w-3/12">AMOUNT (Rs.)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="bg-gray-100">
+                                                        <td colspan="3" class="text-center py-2 px-4 font-extrabold text-sm text-gray-900 border-t">Academic Year: 2025-26</td>
+                                                    </tr>
+                                                    <tr class="border-b hover:bg-gray-50">
+                                                        <td class="py-3 px-4">1</td>
+                                                        <td class="py-3 px-4">Others</td>
+                                                        <td class="py-3 px-4 text-right font-medium">₹10,000.00</td>
+                                                    </tr>
+                                                    <tr class="bg-gray-200 border-t border-gray-300 font-extrabold text-gray-900">
+                                                        <td colspan="2" class="py-3 px-4 text-right text-base">TOTAL</td>
+                                                        <td class="py-3 px-4 text-right text-lg text-indigo-700">₹10,000.00</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <p class="mt-6 text-sm text-gray-600">
+                                            <strong class="text-gray-700">Transaction ID</strong>: <span class="font-mono">251021247894168</span> &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <strong class="text-gray-700">Payment Mode</strong>: CREDIT_CARD                                        </p>
+                                        
+                                        <div class="footer mt-6 pt-4 text-xs text-gray-500 text-center border-t border-dashed">
+                                            Electronically generated receipt. No signature required.
+                                        </div>
+                                    </div>
+                                                                        <div class="receipt-item border border-gray-300 rounded-lg shadow-lg bg-white p-4 md:p-8">
+                                        
+                                        <!-- Header Section -->
+                                        <div class="header text-center mb-6 border-b pb-4">
+                                            <!-- Replace with your actual logo image path -->
+                                            <img src="images/Nrcm_Mobile_Logo.png" alt="Institution Logo" class="responsive-logo max-h-24 mb-4 mx-auto">
+                                            <h3 class="text-xl md:text-2xl font-bold text-gray-800 leading-tight">OFFICIAL PAYMENT RECEIPT</h3>
+                                            <div class="status inline-block mt-2 px-4 py-1 text-sm font-semibold rounded-full bg-green-500 text-white shadow-md">Success</div>
+                                        </div>
+
+                                        <div class="subheading text-center font-extrabold text-lg uppercase underline mb-6 mt-6 text-gray-700">Online Fees Receipt</div>
+
+                                        <!-- Student Details - Responsive Grid -->
+                                        <!-- Note: The grid classes (grid-cols-1 md:grid-cols-2) are for screen view. Print view is controlled by @media print CSS -->
+                                        <div class="receipt-details-grid grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 text-sm mb-6 p-4 border border-indigo-200 rounded-lg bg-indigo-50">
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Receipt No.:</strong> <span class="text-gray-800">24975</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Date of Payment:</strong> <span class="text-gray-800">2025-10-21 21:21:10</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Roll No.:</strong> <span class="text-green-900 font-semibold">23X01A6267</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Student Name:</strong> <span class="text-green-900 font-semibold">JONAGATLA HEMA SRI</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Father's Name:</strong> <span class="text-gray-800">JONAGATLA GANESH</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Program:</strong> <span class="text-gray-800">B.TECH</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Semester:</strong> <span class="text-gray-800">III-II SEM</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Branch:</strong> <span class="text-green-900 font-semibold">CSE-CS</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Fee Particulars Table - Made scrollable on small screens -->
+                                        <div class="overflow-x-auto shadow-md rounded-lg border border-gray-200">
+                                            <table class="min-w-full table-auto text-left text-sm text-gray-700 bg-white">
+                                                <thead class="bg-gray-50 border-b border-gray-200">
+                                                    <tr>
+                                                        <th scope="col" class="py-3 px-4 font-bold text-gray-600 w-1/12">S.No.</th>
+                                                        <th scope="col" class="py-3 px-4 font-bold text-gray-600 w-8/12">PARTICULARS</th>
+                                                        <th scope="col" class="py-3 px-4 font-bold text-gray-600 text-right w-3/12">AMOUNT (Rs.)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="bg-gray-100">
+                                                        <td colspan="3" class="text-center py-2 px-4 font-extrabold text-sm text-gray-900 border-t">Academic Year: 2025-26</td>
+                                                    </tr>
+                                                    <tr class="border-b hover:bg-gray-50">
+                                                        <td class="py-3 px-4">1</td>
+                                                        <td class="py-3 px-4">Transport</td>
+                                                        <td class="py-3 px-4 text-right font-medium">₹40,000.00</td>
+                                                    </tr>
+                                                    <tr class="bg-gray-200 border-t border-gray-300 font-extrabold text-gray-900">
+                                                        <td colspan="2" class="py-3 px-4 text-right text-base">TOTAL</td>
+                                                        <td class="py-3 px-4 text-right text-lg text-indigo-700">₹40,000.00</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <p class="mt-6 text-sm text-gray-600">
+                                            <strong class="text-gray-700">Transaction ID</strong>: <span class="font-mono">251021247893735</span> &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <strong class="text-gray-700">Payment Mode</strong>: CREDIT_CARD                                        </p>
+                                        
+                                        <div class="footer mt-6 pt-4 text-xs text-gray-500 text-center border-t border-dashed">
+                                            Electronically generated receipt. No signature required.
+                                        </div>
+                                    </div>
+                                                                        <div class="receipt-item border border-gray-300 rounded-lg shadow-lg bg-white p-4 md:p-8">
+                                        
+                                        <!-- Header Section -->
+                                        <div class="header text-center mb-6 border-b pb-4">
+                                            <!-- Replace with your actual logo image path -->
+                                            <img src="images/Nrcm_Mobile_Logo.png" alt="Institution Logo" class="responsive-logo max-h-24 mb-4 mx-auto">
+                                            <h3 class="text-xl md:text-2xl font-bold text-gray-800 leading-tight">OFFICIAL PAYMENT RECEIPT</h3>
+                                            <div class="status inline-block mt-2 px-4 py-1 text-sm font-semibold rounded-full bg-green-500 text-white shadow-md">Success</div>
+                                        </div>
+
+                                        <div class="subheading text-center font-extrabold text-lg uppercase underline mb-6 mt-6 text-gray-700">Online Fees Receipt</div>
+
+                                        <!-- Student Details - Responsive Grid -->
+                                        <!-- Note: The grid classes (grid-cols-1 md:grid-cols-2) are for screen view. Print view is controlled by @media print CSS -->
+                                        <div class="receipt-details-grid grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 text-sm mb-6 p-4 border border-indigo-200 rounded-lg bg-indigo-50">
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Receipt No.:</strong> <span class="text-gray-800">11537</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Date of Payment:</strong> <span class="text-gray-800">2025-09-03 07:11:58</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Roll No.:</strong> <span class="text-green-900 font-semibold">23X01A6267</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Student Name:</strong> <span class="text-green-900 font-semibold">JONAGATLA HEMA SRI</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Father's Name:</strong> <span class="text-gray-800">JONAGATLA GANESH</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Program:</strong> <span class="text-gray-800">B.TECH</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Semester:</strong> <span class="text-gray-800">III-II SEM</span>
+                                            </div>
+                                            <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                                                <strong class="text-gray-600">Branch:</strong> <span class="text-green-900 font-semibold">CSE-CS</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Fee Particulars Table - Made scrollable on small screens -->
+                                        <div class="overflow-x-auto shadow-md rounded-lg border border-gray-200">
+                                            <table class="min-w-full table-auto text-left text-sm text-gray-700 bg-white">
+                                                <thead class="bg-gray-50 border-b border-gray-200">
+                                                    <tr>
+                                                        <th scope="col" class="py-3 px-4 font-bold text-gray-600 w-1/12">S.No.</th>
+                                                        <th scope="col" class="py-3 px-4 font-bold text-gray-600 w-8/12">PARTICULARS</th>
+                                                        <th scope="col" class="py-3 px-4 font-bold text-gray-600 text-right w-3/12">AMOUNT (Rs.)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="bg-gray-100">
+                                                        <td colspan="3" class="text-center py-2 px-4 font-extrabold text-sm text-gray-900 border-t">Academic Year: 2025-26</td>
+                                                    </tr>
+                                                    <tr class="border-b hover:bg-gray-50">
+                                                        <td class="py-3 px-4">1</td>
+                                                        <td class="py-3 px-4">Tuition</td>
+                                                        <td class="py-3 px-4 text-right font-medium">₹35,000.00</td>
+                                                    </tr>
+                                                    <tr class="bg-gray-200 border-t border-gray-300 font-extrabold text-gray-900">
+                                                        <td colspan="2" class="py-3 px-4 text-right text-base">TOTAL</td>
+                                                        <td class="py-3 px-4 text-right text-lg text-indigo-700">₹35,000.00</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <p class="mt-6 text-sm text-gray-600">
+                                            <strong class="text-gray-700">Transaction ID</strong>: <span class="font-mono">250903242585291</span> &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <strong class="text-gray-700">Payment Mode</strong>: CREDIT_CARD                                        </p>
+                                        
+                                        <div class="footer mt-6 pt-4 text-xs text-gray-500 text-center border-t border-dashed">
+                                            Electronically generated receipt. No signature required.
+                                        </div>
+                                    </div>
+                                                                    </div>
+
+                                <!-- Action Buttons -->
+                                <div class="button-container flex justify-center space-x-4 mt-8">
+                                    <button class="print-button bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300" onclick="window.print()">
+                                        Print Receipts                                    </button>
+                                </div>
+
+                                <div class="footer mt-8 pt-4 border-t text-center text-sm text-gray-500">
+                                    <p>These are auto-generated receipts. Please keep them for your records.</p>
+                                    <p>For any queries, please contact our support team with your transaction references.</p>
+                                </div>
+                                                    </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / Content -->
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl">
+                <div
+                  class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                  <div class="mb-2 mb-md-0"> Copy Rights
+                    &#169;
+                    <script>
+                      document.write(new Date().getFullYear());
+                    </script>
+                   | Developed by
+                    <a href="#" target="_blank" class="footer-link">D Srinivas</a>
+                  </div>
+                  <div class="d-none d-lg-inline-block">
+                
+                    <a href="#" target="_blank" class="footer-link me-4">College Website</a>
+
+                    <!--<a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">College Website</a>-->
+                    <!--<a href="https://themeselection.com/item/category/bootstrap-admin-templates/" target="_blank" class="footer-link me-4">Bootstrap Dashboard</a>-->
+
+                    <!--<a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>-->
+
+                    <!--<a-->
+                    <!--  href="https://github.com/themeselection/sneat-bootstrap-html-admin-template-free/issues"-->
+                    <!--  target="_blank"-->
+                    <!--  class="footer-link"-->
+                    <!--  >Support</a>-->
+                  </div>
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!--<div class="buy-now">-->
+    <!--  <a-->
+    <!--    href="https://themeselection.com/item/sneat-dashboard-pro-bootstrap/"-->
+    <!--    target="_blank"-->
+    <!--    class="btn btn-danger btn-buy-now"-->
+    <!--    >Upgrade to Pro</a-->
+    <!--  >-->
+    <!--</div>-->
+
+    <!-- Core JS -->
+
+    <script src="assets/vendor/libs/jquery/jquery.js"></script>
+
+    <script src="assets/vendor/libs/popper/popper.js"></script>
+    <script src="assets/vendor/js/bootstrap.js"></script>
+
+    <script src="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="assets/vendor/js/menu.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+
+    <script src="assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="assets/js/dashboards-analytics.js"></script>
+
+    <!-- Place this tag before closing body tag for github widget button. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>
+        </div>
+    </div>
+</body>
+</html>

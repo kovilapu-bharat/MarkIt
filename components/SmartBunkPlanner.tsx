@@ -1,4 +1,3 @@
-import { Colors } from '@/constants/theme';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -10,7 +9,7 @@ interface SmartBunkPlannerProps {
     currentAttended: number;
     currentTotal: number;
     currentPercentage: number;
-    colors: typeof Colors.light;
+    colors: any;
 }
 
 export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercentage, colors }: SmartBunkPlannerProps) => {
@@ -22,9 +21,56 @@ export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercent
     const min = useSharedValue(1);
     const max = useSharedValue(7);
 
+    // Generate Sundays for the current and next year
+    const getSundays = () => {
+        const sundays: { [key: string]: any } = {};
+        const today = new Date();
+        const start = new Date(today.getFullYear(), 0, 1);
+        const end = new Date(today.getFullYear() + 2, 0, 1); // 2 years range
+
+        let current = new Date(start);
+        // Find first Sunday
+        while (current.getDay() !== 0) {
+            current.setDate(current.getDate() + 1);
+        }
+
+        while (current < end) {
+            // Use local time components to avoid UTC shift issues (toISOString can shift to previous day)
+            const year = current.getFullYear();
+            const month = String(current.getMonth() + 1).padStart(2, '0');
+            const day = String(current.getDate()).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+
+            sundays[dateStr] = {
+                disabled: true,
+                disableTouchEvent: true,
+                customStyles: {
+                    container: {
+                        backgroundColor: colors.cardBorder ? (colors.cardBorder + '40') : 'rgba(150,150,150,0.1)',
+                        borderRadius: 8
+                    },
+                    text: {
+                        color: colors.textSecondary,
+                        opacity: 0.5
+                    }
+                }
+            };
+            current.setDate(current.getDate() + 7);
+        }
+        return sundays;
+    };
+
+    // Memoize sundays
+    const [sundays] = useState(getSundays());
+
     const onDayPress = (day: DateData) => {
         const date = day.dateString;
+
+        // Prevent selecting Sundays (extra safety, though disabledTouchEvent handles it)
+        if (sundays[date]) return;
+
         const newDates = { ...selectedDates };
+
 
         if (newDates[date]) {
             delete newDates[date];
@@ -65,7 +111,7 @@ export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercent
                 <Calendar
                     key={colors.text} // Force re-render on theme change
                     onDayPress={onDayPress}
-                    markedDates={selectedDates}
+                    markedDates={{ ...sundays, ...selectedDates }}
                     markingType={'custom'}
                     enableSwipeMonths={true}
                     hideExtraDays={true}
