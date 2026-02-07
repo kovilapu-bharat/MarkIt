@@ -4,7 +4,7 @@ import { API_CONFIG } from '../constants/config';
 
 const CONFIG_CACHE_KEY = 'remote_config_cache';
 // TODO: Replace with your actual GitHub Raw JSON URL
-const REMOTE_CONFIG_URL = 'https://raw.githubusercontent.com/your-username/MarkIt-Config/master/config.json';
+const REMOTE_CONFIG_URL = 'https://raw.githubusercontent.com/your-username/Clgpo-Config/master/config.json';
 
 export interface RemoteConfig {
     BASE_URL: string;

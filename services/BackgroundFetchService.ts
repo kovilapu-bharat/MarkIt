@@ -81,6 +81,11 @@ export const checkAttendanceInBackground = async () => {
             console.log('[BackgroundFetch] First run or no old attendance data, saving baseline.');
         }
 
+        // Update Daily Summary 6PM Notification with latest %
+        if (newAttendance) {
+            await NotificationService.scheduleDailySummary(newAttendance.overallPercentage);
+        }
+
         // --- 2. RESULTS CHECK ---
         // Only run if we have cached results to compare against
         const oldResults = await loadData(STORAGE_KEYS.EXAM_RESULTS);

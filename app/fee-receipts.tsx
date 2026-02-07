@@ -1,3 +1,4 @@
+import { useTheme } from '@/context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, useRouter } from 'expo-router';
@@ -7,13 +8,48 @@ import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated';
 import { FeeReceipt, FeeService } from '../services/FeeService';
 
 // Skeleton Loader Component
-const SkeletonLoader = () => (
-    <View style={{ paddingHorizontal: 20 }}>
+const SkeletonLoader = ({ colors, isDark }: { colors: any; isDark: boolean }) => (
+    <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
         {[1, 2, 3].map((key) => (
-            <View key={key} style={[styles.card, styles.skeletonCard]}>
-                <View style={[styles.skeletonLine, { width: '40%', height: 20, marginBottom: 10 }]} />
-                <View style={[styles.skeletonLine, { width: '60%', height: 16, marginBottom: 20 }]} />
-                <View style={[styles.skeletonLine, { width: '90%', height: 14 }]} />
+            <View
+                key={key}
+                style={[
+                    styles.card,
+                    {
+                        backgroundColor: colors.card,
+                        padding: 20,
+                        marginBottom: 16,
+                    }
+                ]}
+            >
+                {/* Header skeleton */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+                    {/* Icon circle */}
+                    <View style={[styles.skeletonLine, {
+                        width: 48,
+                        height: 48,
+                        borderRadius: 24,
+                        marginRight: 15,
+                        backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : '#e2e8f0'
+                    }]} />
+                    {/* Text lines */}
+                    <View style={{ flex: 1 }}>
+                        <View style={[styles.skeletonLine, { width: '60%', height: 16, marginBottom: 8, backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : '#e2e8f0' }]} />
+                        <View style={[styles.skeletonLine, { width: '40%', height: 12, backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : '#f1f5f9' }]} />
+                    </View>
+                    {/* Badge */}
+                    <View style={[styles.skeletonLine, { width: 50, height: 24, borderRadius: 12, backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : '#f1f5f9' }]} />
+                </View>
+                {/* Separator */}
+                <View style={{ height: 1, backgroundColor: colors.cardBorder, marginBottom: 16 }} />
+                {/* Footer skeleton */}
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View>
+                        <View style={[styles.skeletonLine, { width: 70, height: 10, marginBottom: 6, backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : '#f1f5f9' }]} />
+                        <View style={[styles.skeletonLine, { width: 120, height: 14, backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : '#e2e8f0' }]} />
+                    </View>
+                    <View style={[styles.skeletonLine, { width: 80, height: 22, borderRadius: 4, backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : '#e2e8f0' }]} />
+                </View>
             </View>
         ))}
     </View>
@@ -21,6 +57,7 @@ const SkeletonLoader = () => (
 
 export default function FeeReceiptsScreen() {
     const router = useRouter();
+    const { colors, isDark } = useTheme();
     const [receipts, setReceipts] = useState<FeeReceipt[]>([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
@@ -89,48 +126,48 @@ export default function FeeReceiptsScreen() {
     const renderItem = ({ item, index }: { item: FeeReceipt; index: number }) => (
         <Animated.View
             entering={FadeInDown.delay(index * 100).springify()}
-            style={styles.card}
+            style={[styles.card, { backgroundColor: colors.card, shadowColor: isDark ? '#000' : '#888' }]}
         >
             <View style={styles.cardHeader}>
-                <View style={styles.iconContainer}>
-                    <Ionicons name="receipt-outline" size={24} color="#4361ee" />
+                <View style={[styles.iconContainer, { backgroundColor: colors.primary + '20' }]}>
+                    <Ionicons name="receipt-outline" size={24} color={colors.primary} />
                 </View>
                 <View style={styles.headerTextContainer}>
-                    <Text style={styles.receiptNo}>Receipt #{item.receiptNo}</Text>
-                    <Text style={styles.date}>{item.date}</Text>
+                    <Text style={[styles.receiptNo, { color: colors.text }]}>Receipt #{item.receiptNo}</Text>
+                    <Text style={[styles.date, { color: colors.textSecondary }]}>{item.date}</Text>
                 </View>
-                {/* Status Badge moved inside header flow to strictly sit top-right but not overlap if amount pushes */}
-                <View style={styles.statusBadge}>
-                    <Text style={styles.statusText}>PAID</Text>
+                {/* Status Badge */}
+                <View style={[styles.statusBadge, { backgroundColor: colors.success + '20' }]}>
+                    <Text style={[styles.statusText, { color: colors.success }]}>PAID</Text>
                 </View>
             </View>
 
-            <View style={styles.separator} />
+            <View style={[styles.separator, { backgroundColor: colors.cardBorder }]} />
             <View style={styles.cardFooter}>
                 <View style={styles.footerContent}>
-                    <Text style={styles.descriptionLabel}>Payment For</Text>
-                    <Text style={styles.description}>{item.description}</Text>
+                    <Text style={[styles.descriptionLabel, { color: colors.textSecondary }]}>Payment For</Text>
+                    <Text style={[styles.description, { color: colors.text }]}>{item.description}</Text>
                 </View>
-                <Text style={styles.amount}>{item.amount}</Text>
+                <Text style={[styles.amount, { color: colors.primary }]}>{item.amount}</Text>
             </View>
         </Animated.View>
     );
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: colors.background }]}>
             <Stack.Screen options={{ headerShown: false }} />
             <LinearGradient
-                colors={['#e0eafc', '#cfdef3']}
+                colors={isDark ? [colors.background, '#1a1a2e'] : ['#e0eafc', '#cfdef3']}
                 style={styles.background}
             />
 
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-                    <View style={styles.backButtonCircle}>
-                        <Ionicons name="arrow-back" size={24} color="#333" />
+                    <View style={[styles.backButtonCircle, { backgroundColor: colors.card, borderColor: colors.cardBorder }]}>
+                        <Ionicons name="arrow-back" size={24} color={colors.text} />
                     </View>
                 </TouchableOpacity>
-                <Text style={styles.headerTitle}>Fee Receipts</Text>
+                <Text style={[styles.headerTitle, { color: colors.text }]}>Fee Receipts</Text>
             </View>
 
             {/* Academic Year Selector */}
@@ -149,12 +186,14 @@ export default function FeeReceiptsScreen() {
                                 entering={FadeInRight.delay(index * 100)}
                                 style={[
                                     styles.yearChip,
-                                    selectedYear === item && styles.yearChipSelected,
+                                    { backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.7)', borderColor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.9)' },
+                                    selectedYear === item && { backgroundColor: colors.primary, borderColor: colors.primary },
                                 ]}
                             >
                                 <Text
                                     style={[
                                         styles.yearText,
+                                        { color: colors.textSecondary },
                                         selectedYear === item && styles.yearTextSelected,
                                     ]}
                                 >
@@ -168,9 +207,9 @@ export default function FeeReceiptsScreen() {
 
             {/* Total Summary Card */}
             {!loading && receipts.length > 0 && (
-                <Animated.View entering={FadeInDown.duration(600)} style={styles.summaryCard}>
+                <Animated.View entering={FadeInDown.duration(600)} style={[styles.summaryCard, { shadowColor: colors.primary }]}>
                     <LinearGradient
-                        colors={['#4361ee', '#3f37c9']}
+                        colors={isDark ? [colors.primary, '#3730a3'] : ['#4361ee', '#3f37c9']}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 1 }}
                         style={styles.summaryGradient}
@@ -187,12 +226,12 @@ export default function FeeReceiptsScreen() {
             )}
 
             {loading ? (
-                <SkeletonLoader />
+                <SkeletonLoader colors={colors} isDark={isDark} />
             ) : receipts.length === 0 ? (
                 <View style={styles.center}>
-                    <Ionicons name="document-text-outline" size={80} color="#cbd5e1" />
-                    <Text style={styles.emptyText}>No receipts found</Text>
-                    <Text style={styles.emptySubText}>Select a different year or pull to refresh</Text>
+                    <Ionicons name="document-text-outline" size={80} color={colors.textSecondary} />
+                    <Text style={[styles.emptyText, { color: colors.text }]}>No receipts found</Text>
+                    <Text style={[styles.emptySubText, { color: colors.textSecondary }]}>Select a different year or pull to refresh</Text>
                 </View>
             ) : (
                 <FlatList
@@ -205,8 +244,8 @@ export default function FeeReceiptsScreen() {
                         <RefreshControl
                             refreshing={refreshing}
                             onRefresh={onRefresh}
-                            colors={['#4361ee']}
-                            tintColor="#4361ee"
+                            colors={[colors.primary]}
+                            tintColor={colors.primary}
                         />
                     }
                 />

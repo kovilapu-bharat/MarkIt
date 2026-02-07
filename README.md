@@ -1,6 +1,6 @@
-# MarkIt - Academic Companion App 🎓
+# Clgpo - Academic Companion App 🎓
 
-**MarkIt** is a powerful academic tracking app built for students to manage their college life effortlessly. It automatically fetches attendance and exam results, offers smart "bunk planning" predictions, and keeps you alerted with background notifications.
+**Clgpo** is a powerful academic tracking app built for students to manage their college life effortlessly. It automatically fetches attendance and exam results, offers smart "bunk planning" predictions, and keeps you alerted with background notifications.
 
 ## ✨ Key Features
 
@@ -44,8 +44,8 @@
 
 1.  **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/MarkIt.git
-    cd MarkIt
+    git clone https://github.com/yourusername/Clgpo.git
+    cd Clgpo
     ```
 
 2.  **Install dependencies**:

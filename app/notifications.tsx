@@ -5,8 +5,10 @@ import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+
+import { ScalePressable } from '@/components/ScalePressable';
 
 export default function NotificationsScreen() {
     const { colors, isDark } = useTheme();
@@ -65,11 +67,11 @@ export default function NotificationsScreen() {
 
             {/* Custom Header */}
             <View style={[styles.screenHeader, { paddingTop: 60 }]}>
-                <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+                <ScalePressable onPress={() => router.back()} style={styles.backButton}>
                     <View style={[styles.backButtonCircle, { backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.6)' }]}>
                         <Ionicons name="arrow-back" size={24} color={colors.text} />
                     </View>
-                </TouchableOpacity>
+                </ScalePressable>
                 <Text style={[styles.screenTitle, { color: colors.text }]}>Notifications</Text>
             </View>
 
@@ -89,7 +91,7 @@ export default function NotificationsScreen() {
                         <View style={styles.center}>
                             <Ionicons name="notifications-off-outline" size={64} color={colors.textSecondary + '50'} style={{ marginBottom: 16 }} />
                             <Text style={{ color: colors.textSecondary, fontSize: 16, fontWeight: '600' }}>No new notifications</Text>
-                            <Text style={{ color: colors.textSecondary, opacity: 0.7, marginTop: 4 }}>You're all caught up!</Text>
+                            <Text style={{ color: colors.textSecondary, opacity: 0.7, marginTop: 4 }}>You&apos;re all caught up!</Text>
                         </View>
                     }
                 />

@@ -4,9 +4,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeInDown, FadeInUp, useSharedValue, withSpring } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScalePressable } from '../components/ScalePressable';
 
 const { width } = Dimensions.get('window');
 
@@ -95,9 +96,9 @@ export default function Onboarding() {
                 {/* Skip Button */}
                 {currentIndex < slides.length - 1 && (
                     <Animated.View entering={FadeInUp.delay(200)} style={styles.skipContainer}>
-                        <TouchableOpacity onPress={handleSkip}>
+                        <ScalePressable onPress={handleSkip}>
                             <Text style={styles.skipText}>Skip</Text>
-                        </TouchableOpacity>
+                        </ScalePressable>
                     </Animated.View>
                 )}
 
@@ -144,7 +145,7 @@ export default function Onboarding() {
                     </View>
 
                     {/* Next/Get Started Button */}
-                    <TouchableOpacity onPress={handleNext} activeOpacity={0.8}>
+                    <ScalePressable onPress={handleNext}>
                         <LinearGradient
                             colors={[currentSlide.color, currentSlide.color + 'cc']}
                             start={{ x: 0, y: 0 }}
@@ -160,7 +161,7 @@ export default function Onboarding() {
                                 color="#fff"
                             />
                         </LinearGradient>
-                    </TouchableOpacity>
+                    </ScalePressable>
                 </View>
             </SafeAreaView>
         </View>

@@ -1,12 +1,15 @@
 import { useTheme } from '@/context/ThemeContext';
 import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ScalePressable } from '../../components/ScalePressable';
+import { ListSkeleton, SkeletonLoader } from '../../components/SkeletonLoader';
 import { AttendanceService, DailyAttendance } from '../../services/attendance';
 import { AuthService } from '../../services/auth';
 
@@ -90,8 +93,23 @@ export default function DateWiseScreen() {
 
   if (loading) {
     return (
-      <View style={[styles.centerContainer, { backgroundColor: colors.background }]}>
-        <ActivityIndicator size="large" color={colors.primary} />
+      <View style={[styles.container, { paddingTop: insets.top, backgroundColor: colors.background }]}>
+        <LinearGradient
+          colors={isDark ? [colors.background, '#1a1a1a'] : [colors.primary + '10', colors.background]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={StyleSheet.absoluteFill}
+        />
+        <View style={styles.header}>
+          <SkeletonLoader width={180} height={24} style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)' }} />
+          <SkeletonLoader width={60} height={16} style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)' }} />
+        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterContainer}>
+          {[1, 2, 3, 4].map(i => (
+            <SkeletonLoader key={i} width={80} height={36} borderRadius={20} style={{ marginRight: 12, backgroundColor: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)' }} />
+          ))}
+        </ScrollView>
+        <ListSkeleton count={6} colors={colors} />
       </View>
     );
   }
@@ -99,17 +117,20 @@ export default function DateWiseScreen() {
   const renderPeriodCell = (status: string, index: number) => {
     let bgColor = isDark ? '#3a3a5e' : '#E5E5EA';
     let textColor = colors.textSecondary;
+    let borderColor = 'transparent';
 
     if (status === 'P') {
-      bgColor = colors.successBg;
+      bgColor = colors.success + '20'; // Glassy success
       textColor = colors.success;
+      borderColor = colors.success + '40';
     } else if (status === 'A') {
-      bgColor = colors.errorBg;
+      bgColor = colors.error + '20'; // Glassy error
       textColor = colors.error;
+      borderColor = colors.error + '40';
     }
 
     return (
-      <View key={index} style={[styles.periodCell, { backgroundColor: bgColor }]}>
+      <View key={index} style={[styles.periodCell, { backgroundColor: bgColor, borderWidth: 1, borderColor }]}>
         <Text style={[styles.periodText, { color: textColor }]}>{status === 'null' ? '⁃' : status}</Text>
       </View>
     );
@@ -123,42 +144,46 @@ export default function DateWiseScreen() {
     return (
       <Animated.View
         entering={FadeInDown.delay(index * 50).springify()}
-        style={[styles.dayCard, { shadowColor: isDark ? '#000' : '#888', backgroundColor: 'transparent' }]}
       >
-        <BlurView
-          intensity={isDark ? 40 : 80}
-          tint={isDark ? 'dark' : 'light'}
-          style={[StyleSheet.absoluteFill, { backgroundColor: isDark ? 'rgba(40,40,40,0.5)' : 'rgba(255,255,255,0.7)' }]}
-        />
-        <View style={[styles.dayAccent, { backgroundColor: absentCount === 0 ? colors.success : colors.error }]} />
-        <View style={styles.dayContent}>
-          <View style={styles.dayHeader}>
-            <View>
-              <Text style={[styles.dateText, { color: colors.text }]}>{item.date}</Text>
-              <Text style={[styles.dayText, { color: colors.textSecondary }]}>{item.day}</Text>
+        <ScalePressable
+          style={[styles.dayCard, { shadowColor: isDark ? '#000' : '#888', backgroundColor: 'transparent' }]}
+          activeOpacity={0.9} // Slight fade
+        >
+          <BlurView
+            intensity={isDark ? 40 : 80}
+            tint={isDark ? 'dark' : 'light'}
+            style={[StyleSheet.absoluteFill, { backgroundColor: isDark ? 'rgba(40,40,40,0.5)' : 'rgba(255,255,255,0.7)' }]}
+          />
+          <View style={[styles.dayAccent, { backgroundColor: absentCount === 0 ? colors.success : colors.error }]} />
+          <View style={styles.dayContent}>
+            <View style={styles.dayHeader}>
+              <View>
+                <Text style={[styles.dateText, { color: colors.text }]}>{item.date}</Text>
+                <Text style={[styles.dayText, { color: colors.textSecondary }]}>{item.day}</Text>
+              </View>
+              <View style={{ flexDirection: 'row', gap: 6 }}>
+                {presentCount > 0 && (
+                  <View style={[styles.statusBadge, { backgroundColor: colors.success + '20', borderColor: colors.success + '30', borderWidth: 1 }]}>
+                    <Text style={{ color: colors.success, fontSize: 12, fontWeight: 'bold' }}>P: {presentCount}</Text>
+                  </View>
+                )}
+                {absentCount > 0 && (
+                  <View style={[styles.statusBadge, { backgroundColor: colors.error + '20', borderColor: colors.error + '30', borderWidth: 1 }]}>
+                    <Text style={{ color: colors.error, fontSize: 12, fontWeight: 'bold' }}>A: {absentCount}</Text>
+                  </View>
+                )}
+                {presentCount === 0 && absentCount === 0 && (
+                  <View style={[styles.statusBadge, { backgroundColor: colors.textSecondary + '20' }]}>
+                    <Text style={{ color: colors.textSecondary, fontSize: 12, fontWeight: 'bold' }}>-</Text>
+                  </View>
+                )}
+              </View>
             </View>
-            <View style={{ flexDirection: 'row', gap: 6 }}>
-              {presentCount > 0 && (
-                <View style={[styles.statusBadge, { backgroundColor: colors.success + '20' }]}>
-                  <Text style={{ color: colors.success, fontSize: 12, fontWeight: 'bold' }}>P: {presentCount}</Text>
-                </View>
-              )}
-              {absentCount > 0 && (
-                <View style={[styles.statusBadge, { backgroundColor: colors.error + '20' }]}>
-                  <Text style={{ color: colors.error, fontSize: 12, fontWeight: 'bold' }}>A: {absentCount}</Text>
-                </View>
-              )}
-              {presentCount === 0 && absentCount === 0 && (
-                <View style={[styles.statusBadge, { backgroundColor: colors.textSecondary + '20' }]}>
-                  <Text style={{ color: colors.textSecondary, fontSize: 12, fontWeight: 'bold' }}>-</Text>
-                </View>
-              )}
+            <View style={styles.periodsRow}>
+              {item.periods.map((status, idx) => renderPeriodCell(status, idx))}
             </View>
           </View>
-          <View style={styles.periodsRow}>
-            {item.periods.map((status, idx) => renderPeriodCell(status, idx))}
-          </View>
-        </View>
+        </ScalePressable>
       </Animated.View>
     );
   };
@@ -205,7 +230,10 @@ export default function DateWiseScreen() {
                       borderColor: selectedMonth === month ? colors.primary : (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)')
                     }
                   ]}
-                  onPress={() => setSelectedMonth(month)}
+                  onPress={() => {
+                    setSelectedMonth(month);
+                    Haptics.selectionAsync();
+                  }}
                 >
                   <Text style={[
                     styles.filterChipText,
@@ -259,6 +287,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
+    paddingHorizontal: 16, // Added padding since removed from styles.header in previous version? No, keeping consistent
   },
   headerTitle: {
     fontSize: 22,
@@ -328,6 +357,8 @@ const styles = StyleSheet.create({
   dayContent: {
     flex: 1,
     padding: 16,
+    // Add padding right to avoid content hitting edge
+    paddingRight: 16
   },
   dayHeader: {
     flexDirection: 'row',
@@ -345,7 +376,7 @@ const styles = StyleSheet.create({
   periodsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: 4, // Reduced bottom margin
   },
   periodCell: {
     width: 44,
@@ -359,9 +390,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   statusBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 12,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
   },
   statsRow: {
     alignItems: 'flex-end',

@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Slider } from 'react-native-awesome-slider';
@@ -12,8 +13,14 @@ interface SmartBunkPlannerProps {
     colors: any;
 }
 
+// Date state types: 'attend' (green) → 'bunk' (red) → removed
+interface DateState {
+    type: 'attend' | 'bunk';
+    marking: any;
+}
+
 export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercentage, colors }: SmartBunkPlannerProps) => {
-    const [selectedDates, setSelectedDates] = useState<{ [key: string]: any }>({});
+    const [selectedDates, setSelectedDates] = useState<{ [key: string]: DateState }>({});
     const [classesPerDay, setClassesPerDay] = useState(6);
 
     // Slider shared values
@@ -35,7 +42,6 @@ export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercent
         }
 
         while (current < end) {
-            // Use local time components to avoid UTC shift issues (toISOString can shift to previous day)
             const year = current.getFullYear();
             const month = String(current.getMonth() + 1).padStart(2, '0');
             const day = String(current.getDate()).padStart(2, '0');
@@ -63,55 +69,94 @@ export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercent
     // Memoize sundays
     const [sundays] = useState(getSundays());
 
+    // Cycle: none → attend (green) → bunk (red) → none
     const onDayPress = (day: DateData) => {
         const date = day.dateString;
 
-        // Prevent selecting Sundays (extra safety, though disabledTouchEvent handles it)
+        // Prevent selecting Sundays
         if (sundays[date]) return;
 
+        Haptics.selectionAsync();
         const newDates = { ...selectedDates };
 
-
-        if (newDates[date]) {
-            delete newDates[date];
-        } else {
+        if (!newDates[date]) {
+            // First tap: Attend (green)
             newDates[date] = {
-                selected: true,
-                selectedColor: colors.error || '#FF3B30',
-                // specific styles to ensure circle
-                customStyles: {
-                    container: {
-                        borderRadius: 20, // ensure circle
-                        elevation: 2
+                type: 'attend',
+                marking: {
+                    selected: true,
+                    selectedColor: colors.success,
+                    customStyles: {
+                        container: { borderRadius: 20, elevation: 2 }
                     }
                 }
             };
+        } else if (newDates[date].type === 'attend') {
+            // Second tap: Bunk (red)
+            newDates[date] = {
+                type: 'bunk',
+                marking: {
+                    selected: true,
+                    selectedColor: colors.error || '#FF3B30',
+                    customStyles: {
+                        container: { borderRadius: 20, elevation: 2 }
+                    }
+                }
+            };
+        } else {
+            // Third tap: Remove
+            delete newDates[date];
         }
         setSelectedDates(newDates);
     };
 
-    const daysBunked = Object.keys(selectedDates).length;
-    const classesMissed = daysBunked * classesPerDay;
+    // Build calendar markings from state
+    const getMarkedDates = () => {
+        const markings: { [key: string]: any } = {};
+        Object.entries(selectedDates).forEach(([date, state]) => {
+            markings[date] = state.marking;
+        });
+        return { ...sundays, ...markings };
+    };
 
-    const futureTotal = currentTotal + classesMissed;
-    // Attended stays same because we are bunking
-    const futurePercentage = futureTotal > 0 ? (currentAttended / futureTotal) * 100 : 0;
-    const diff = (currentPercentage - futurePercentage).toFixed(2);
+    // Count attend and bunk days separately
+    const attendDays = Object.values(selectedDates).filter(d => d.type === 'attend').length;
+    const bunkDays = Object.values(selectedDates).filter(d => d.type === 'bunk').length;
+    const attendClasses = attendDays * classesPerDay;
+    const bunkClasses = bunkDays * classesPerDay;
+    const totalClasses = attendClasses + bunkClasses;
 
+    // Calculate combined effect
+    // For bunked classes: total increases, attended stays same
+    // For attended classes: both total and attended increase
+    const futureTotal = currentTotal + totalClasses;
+    const futureAttended = currentAttended + attendClasses; // Only attend classes add to attended
+    const futurePercentage = futureTotal > 0 ? (futureAttended / futureTotal) * 100 : currentPercentage;
+    const percentChange = futurePercentage - currentPercentage;
     const isSafe = futurePercentage >= 75;
+    const hasSelections = attendDays > 0 || bunkDays > 0;
 
     return (
         <View style={styles.container}>
+            {/* Compact legend */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 12, paddingHorizontal: 8 }}>
+                <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: colors.success, marginRight: 4 }} />
+                <Text style={{ color: colors.textSecondary, fontSize: 11, marginRight: 12 }}>Attend</Text>
+                <View style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: colors.error, marginRight: 4 }} />
+                <Text style={{ color: colors.textSecondary, fontSize: 11, marginRight: 12 }}>Bunk</Text>
+                <Text style={{ color: colors.textSecondary, fontSize: 11 }}>Tap to cycle</Text>
+            </View>
+
             <View style={[styles.card, { backgroundColor: colors.card, padding: 16 }]}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
                     <Ionicons name="calendar" size={20} color={colors.primary} style={{ marginRight: 8 }} />
-                    <Text style={[styles.cardTitle, { color: colors.text }]}>Select Bunk Dates</Text>
+                    <Text style={[styles.cardTitle, { color: colors.text }]}>Plan Your Days</Text>
                 </View>
 
                 <Calendar
                     key={colors.text} // Force re-render on theme change
                     onDayPress={onDayPress}
-                    markedDates={{ ...sundays, ...selectedDates }}
+                    markedDates={getMarkedDates()}
                     markingType={'custom'}
                     enableSwipeMonths={true}
                     hideExtraDays={true}
@@ -119,7 +164,7 @@ export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercent
                         backgroundColor: 'transparent',
                         calendarBackground: 'transparent',
                         textSectionTitleColor: colors.textSecondary,
-                        selectedDayBackgroundColor: colors.error || '#FF3B30',
+                        selectedDayBackgroundColor: colors.primary,
                         selectedDayTextColor: '#ffffff',
                         todayTextColor: colors.primary,
                         dayTextColor: colors.text,
@@ -157,7 +202,7 @@ export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercent
                     }}
                     renderArrow={(direction) => (
                         <View style={{
-                            backgroundColor: colors.cardBorder, // Better contrast in dark mode than 'background'
+                            backgroundColor: colors.cardBorder,
                             padding: 8,
                             borderRadius: 12,
                             opacity: 0.5
@@ -200,16 +245,30 @@ export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercent
                 </View>
             </View>
 
-            {daysBunked > 0 && (
+            {hasSelections && (
                 <View style={[styles.resultCard, {
                     backgroundColor: isSafe ? (colors.success + '15') : (colors.error + '15'),
                     borderColor: isSafe ? colors.success : colors.error,
                     borderWidth: 1
                 }]}>
-                    <View style={{ marginBottom: 8 }}>
-                        <Text style={{ color: colors.text, fontSize: 16 }}>
-                            If you bunk <Text style={{ fontWeight: 'bold' }}>{daysBunked} days</Text> ({classesMissed} classes):
-                        </Text>
+                    {/* Selection Summary */}
+                    <View style={{ marginBottom: 12 }}>
+                        {attendDays > 0 && (
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
+                                <View style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: colors.success, marginRight: 8 }} />
+                                <Text style={{ color: colors.text, fontSize: 14 }}>
+                                    Attend: <Text style={{ fontWeight: 'bold' }}>{attendDays} days</Text> ({attendClasses} classes)
+                                </Text>
+                            </View>
+                        )}
+                        {bunkDays > 0 && (
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <View style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: colors.error, marginRight: 8 }} />
+                                <Text style={{ color: colors.text, fontSize: 14 }}>
+                                    Bunk: <Text style={{ fontWeight: 'bold' }}>{bunkDays} days</Text> ({bunkClasses} classes)
+                                </Text>
+                            </View>
+                        )}
                     </View>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -226,10 +285,20 @@ export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercent
 
                         <View style={{ alignItems: 'flex-end' }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
-                                <Ionicons name="arrow-down" size={16} color={colors.error} />
-                                <Text style={{ color: colors.error, fontWeight: 'bold', fontSize: 16 }}>{diff}%</Text>
+                                <Ionicons
+                                    name={percentChange >= 0 ? "arrow-up" : "arrow-down"}
+                                    size={16}
+                                    color={percentChange >= 0 ? colors.success : colors.error}
+                                />
+                                <Text style={{
+                                    color: percentChange >= 0 ? colors.success : colors.error,
+                                    fontWeight: 'bold',
+                                    fontSize: 16
+                                }}>{percentChange >= 0 ? '+' : ''}{percentChange.toFixed(2)}%</Text>
                             </View>
-                            <Text style={{ color: colors.textSecondary, fontSize: 12 }}>Drop</Text>
+                            <Text style={{ color: colors.textSecondary, fontSize: 12 }}>
+                                {percentChange >= 0 ? 'Increase' : 'Drop'}
+                            </Text>
                         </View>
                     </View>
 
@@ -237,6 +306,12 @@ export const SmartBunkPlanner = ({ currentAttended, currentTotal, currentPercent
                         <View style={{ marginTop: 12, flexDirection: 'row', alignItems: 'center' }}>
                             <Ionicons name="warning" size={16} color={colors.error} style={{ marginRight: 6 }} />
                             <Text style={{ color: colors.error, fontSize: 13, fontWeight: '600' }}>Warning: Attendance will fall below 75%!</Text>
+                        </View>
+                    )}
+                    {isSafe && currentPercentage < 75 && futurePercentage >= 75 && (
+                        <View style={{ marginTop: 12, flexDirection: 'row', alignItems: 'center' }}>
+                            <Ionicons name="checkmark-circle" size={16} color={colors.success} style={{ marginRight: 6 }} />
+                            <Text style={{ color: colors.success, fontSize: 13, fontWeight: '600' }}>Great! This will bring you above 75%!</Text>
                         </View>
                     )}
                 </View>

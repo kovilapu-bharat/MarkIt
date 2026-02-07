@@ -184,7 +184,7 @@ export default function LoginScreen() {
                                 <View style={[styles.iconContainer, { backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.2)' }]}>
                                     <Ionicons name="school" size={60} color={isDark ? colors.text : '#fff'} />
                                 </View>
-                                <Text style={[styles.title, { color: isDark ? colors.text : '#fff' }]}>MarkIt</Text>
+                                <Text style={[styles.title, { color: isDark ? colors.text : '#fff' }]}>Clgpo</Text>
                                 <Text style={[styles.subtitle, { color: isDark ? colors.textSecondary : 'rgba(255,255,255,0.8)' }]}>Student Portal Access</Text>
                                 <View style={{ height: 2, width: 50, backgroundColor: isSuccess ? colors.success : colors.primary, marginTop: 10, borderRadius: 1 }} />
                             </Animated.View>

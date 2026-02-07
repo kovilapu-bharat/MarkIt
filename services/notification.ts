@@ -147,5 +147,75 @@ export const NotificationService = {
         } catch (e) {
             console.log('Error sending notification (Expo Go limitation?):', e);
         }
+    },
+
+    getDailyMessage: (percentage: number) => {
+        if (percentage >= 90) {
+            return {
+                title: 'Attendance Star! 🌟',
+                body: `You're crushing it with ${percentage}% attendance! Keep up the great work! 🎓`
+            };
+        } else if (percentage >= 75) {
+            return {
+                title: 'Looking Good! ✅',
+                body: `You're safe at ${percentage}%. Stay consistent to keep that green flag flying! 🚩`
+            };
+        } else if (percentage >= 65) {
+            return {
+                title: 'Caution: Attendance Low ⚠️',
+                body: `You're at ${percentage}%. Try to attend more classes to reach the safe zone! 🛡️`
+            };
+        } else {
+            return {
+                title: 'Attendance Alert! 🚨',
+                body: `Critical: You're at ${percentage}%. You need to attend classes immediately to avoid detention! 📉`
+            };
+        }
+    },
+
+    scheduleDailySummary: async (percentage: number) => {
+        try {
+            // Cancel existing daily summary to update with new percentage
+            const scheduled = await Notifications.getAllScheduledNotificationsAsync();
+
+            // Strategy: Cancel all pending notifications that match our "Daily Summary" title or category
+            for (const notif of scheduled) {
+                // Check if it matches any of our possible titles or the type
+                if (notif.content.data?.type === 'daily_summary' ||
+                    notif.content.title === 'Daily Attendance Summary 📊' ||
+                    notif.content.title?.includes('Attendance')) {
+                    await Notifications.cancelScheduledNotificationAsync(notif.identifier);
+                }
+            }
+
+            const now = new Date();
+            let scheduledTime = new Date();
+            scheduledTime.setHours(18, 0, 0, 0); // 6:00 PM
+
+            // If it's already past 6 PM, schedule for tomorrow
+            if (now > scheduledTime) {
+                scheduledTime.setDate(scheduledTime.getDate() + 1);
+            }
+
+            const message = NotificationService.getDailyMessage(percentage);
+
+            await Notifications.scheduleNotificationAsync({
+                content: {
+                    title: message.title,
+                    body: message.body,
+                    sound: 'default',
+                    data: { type: 'daily_summary' }
+                },
+                trigger: {
+                    type: Notifications.SchedulableTriggerInputTypes.DATE,
+                    date: scheduledTime,
+                }
+            });
+
+            console.log(`[NotificationService] Scheduled daily summary for ${scheduledTime.toLocaleString()} with ${percentage}%`);
+
+        } catch (e) {
+            console.log('Error scheduling daily summary:', e);
+        }
     }
 };

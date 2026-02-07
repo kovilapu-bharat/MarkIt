@@ -2,11 +2,12 @@ import { useTheme } from '@/context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Slider as AwesomeSlider } from 'react-native-awesome-slider';
 import Animated, { FadeInDown, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import DonutChart from '../../components/DonutChart';
+import { ScalePressable } from '../../components/ScalePressable';
 import { AnalyticsService } from '../../services/analytics';
 import { AttendanceService } from '../../services/attendance';
 
@@ -124,18 +125,18 @@ export default function PredictScreen() {
 
                 {/* Main Feature Switcher */}
                 <View style={{ flexDirection: 'row', marginBottom: 20, backgroundColor: colors.card, borderRadius: 12, padding: 4 }}>
-                    <TouchableOpacity
+                    <ScalePressable
                         onPress={() => { setViewMode('calendar'); Haptics.selectionAsync(); }}
                         style={{ flex: 1, paddingVertical: 8, alignItems: 'center', borderRadius: 8, backgroundColor: viewMode === 'calendar' ? colors.primary : 'transparent' }}
                     >
                         <Text style={{ fontWeight: '600', color: viewMode === 'calendar' ? '#fff' : colors.textSecondary }}>Smart Planner</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </ScalePressable>
+                    <ScalePressable
                         onPress={() => { setViewMode('basic'); Haptics.selectionAsync(); }}
                         style={{ flex: 1, paddingVertical: 8, alignItems: 'center', borderRadius: 8, backgroundColor: viewMode === 'basic' ? colors.primary : 'transparent' }}
                     >
                         <Text style={{ fontWeight: '600', color: viewMode === 'basic' ? '#fff' : colors.textSecondary }}>Calculator</Text>
-                    </TouchableOpacity>
+                    </ScalePressable>
                 </View>
 
                 {viewMode === 'basic' ? (
@@ -170,18 +171,18 @@ export default function PredictScreen() {
                                     elevation: 2,
                                 }, pillStyle]} />
 
-                                <TouchableOpacity
+                                <ScalePressable
                                     onPress={() => { setPredictMode('attend'); Haptics.selectionAsync(); }}
                                     style={styles.tabButton}
                                 >
                                     <Text style={{ fontWeight: '600', color: predictMode === 'attend' ? '#FFF' : colors.textSecondary }}>If I Attend</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
+                                </ScalePressable>
+                                <ScalePressable
                                     onPress={() => { setPredictMode('miss'); Haptics.selectionAsync(); }}
                                     style={styles.tabButton}
                                 >
                                     <Text style={{ fontWeight: '600', color: predictMode === 'miss' ? '#FFF' : colors.textSecondary }}>If I Miss</Text>
-                                </TouchableOpacity>
+                                </ScalePressable>
                             </View>
 
                             {/* Slider Controls */}

@@ -28,6 +28,25 @@ export default function RootLayout() {
       const initBackgroundTasks = async () => {
         await NotificationService.registerForPushNotificationsAsync();
         await registerBackgroundFetchAsync();
+
+        // Initialize Daily Notification with cached data
+        const { AttendanceService } = await import('../services/attendance');
+        const { STORAGE_KEYS, loadData } = await import('../utils/storage');
+        const cachedAttendance = await loadData(STORAGE_KEYS.ATTENDANCE);
+
+        if (cachedAttendance?.overallPercentage) {
+          await NotificationService.scheduleDailySummary(cachedAttendance.overallPercentage);
+        } else {
+          // Try to fetch if nothing cached
+          try {
+            const newAtt = await AttendanceService.getAttendance();
+            if (newAtt?.overallPercentage) {
+              await NotificationService.scheduleDailySummary(newAtt.overallPercentage);
+            }
+          } catch (e) {
+            console.log('Failed to init daily notification (no data):', e);
+          }
+        }
       };
 
       initBackgroundTasks();

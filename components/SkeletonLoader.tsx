@@ -20,18 +20,19 @@ export const SkeletonLoader = ({ width, height, borderRadius = 8, style }: Skele
     const shimmer = useSharedValue(0);
 
     useEffect(() => {
+        // Breathing pulse animation
         shimmer.value = withRepeat(
-            withTiming(1, { duration: 1200 }),
+            withTiming(1, { duration: 1500 }),
             -1,
-            false
+            true // Reverse for smooth breathing
         );
-    }, []);
+    }, [shimmer]);
 
     const animatedStyle = useAnimatedStyle(() => {
         const opacity = interpolate(
             shimmer.value,
-            [0, 0.5, 1],
-            [0.3, 0.6, 0.3]
+            [0, 1],
+            [0.3, 0.6] // Subtle lighting change
         );
         return { opacity };
     });

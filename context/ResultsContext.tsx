@@ -11,6 +11,8 @@ type ResultsContextType = {
     setResultsData: (data: ResultsData | null) => void;
     setLoadingState: (loading: boolean) => void;
     setErrorState: (error: string | null) => void;
+    initFetch: () => void;
+    fetchSignal: number;
 };
 
 const ResultsContext = createContext<ResultsContextType>({
@@ -23,6 +25,8 @@ const ResultsContext = createContext<ResultsContextType>({
     setResultsData: () => { },
     setLoadingState: () => { },
     setErrorState: () => { },
+    initFetch: () => { },
+    fetchSignal: 0,
 });
 
 export const ResultsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -30,6 +34,8 @@ export const ResultsProvider: React.FC<{ children: React.ReactNode }> = ({ child
     const [results, setResults] = useState<ResultsData | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    // New: trigger signal for ResultsOverlay to start fetching
+    const [fetchSignal, setFetchSignal] = useState(0);
 
     // Helpers to allow consumers to update state
     const setResultsData = useCallback((data: ResultsData | null) => setResults(data), []);
@@ -51,6 +57,11 @@ export const ResultsProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
     const hideResults = () => setIsVisible(false);
 
+    const initFetch = useCallback(() => {
+        setLoading(true);
+        setFetchSignal(prev => prev + 1);
+    }, []);
+
     return (
         <ResultsContext.Provider value={{
             showResults,
@@ -61,7 +72,9 @@ export const ResultsProvider: React.FC<{ children: React.ReactNode }> = ({ child
             error,
             setResultsData,
             setLoadingState,
-            setErrorState
+            setErrorState,
+            initFetch,
+            fetchSignal
         }}>
             {children}
         </ResultsContext.Provider>

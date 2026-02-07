@@ -1,5 +1,6 @@
 import { API_CONFIG } from '../constants/config';
 import api from './api';
+import { AuthService } from './auth';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const cheerio = require('react-native-cheerio');
 
@@ -17,8 +18,19 @@ export const FeeService = {
     getAcademicYears: async (): Promise<string[]> => {
         try {
             console.log('Fetching fee page to get academic years...');
-            const response = await api.get(API_CONFIG.ENDPOINTS.FEE_RECEIPT);
-            const html = response.data;
+            let response = await api.get(API_CONFIG.ENDPOINTS.FEE_RECEIPT);
+            let html = response.data;
+
+            if (html.includes('login.php') || html.includes('Enter Roll No') || html.includes('Student Login Page')) {
+                console.log('Session expired (fees), re-authenticating...');
+                const credentials = await AuthService.getCredentials();
+                if (credentials) {
+                    await AuthService.login(credentials.studentId, credentials.pass);
+                    response = await api.get(API_CONFIG.ENDPOINTS.FEE_RECEIPT);
+                    html = response.data;
+                }
+            }
+
             const $ = cheerio.load(html);
 
             const years: string[] = [];
@@ -44,13 +56,28 @@ export const FeeService = {
             const params = new URLSearchParams();
             params.append('academic_year', year);
 
-            const response = await api.post(API_CONFIG.ENDPOINTS.FEE_RECEIPT, params, {
+            let response = await api.post(API_CONFIG.ENDPOINTS.FEE_RECEIPT, params, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });
 
-            const html = response.data;
+            let html = response.data;
+
+            if (html.includes('login.php') || html.includes('Enter Roll No') || html.includes('Student Login Page')) {
+                console.log('Session expired (fees receipt), re-authenticating...');
+                const credentials = await AuthService.getCredentials();
+                if (credentials) {
+                    await AuthService.login(credentials.studentId, credentials.pass);
+                    response = await api.post(API_CONFIG.ENDPOINTS.FEE_RECEIPT, params, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    });
+                    html = response.data;
+                }
+            }
+
             const $post = cheerio.load(html);
             const receipts: FeeReceipt[] = [];
 
@@ -61,20 +88,15 @@ export const FeeService = {
             receiptItems.each((i: number, el: any) => {
                 try {
                     const $el = $post(el);
-
-                    // Extract Receipt No
+                    // ... (keep existing logic)
                     const receiptNo = $el.find("strong:contains('Receipt No.:')").next('span').text().trim();
-                    // Extract Date
                     const date = $el.find("strong:contains('Date of Payment:')").next('span').text().trim();
-                    // Extract Total Amount (from valid table row)
                     let amount = $el.find("td:contains('TOTAL')").next('td').text().trim();
                     if (!amount) {
                         amount = $el.find("th:contains('AMOUNT')").parents('table').find('tr:last td:last').text().trim();
                     }
-                    // Extract Academic Year
                     const academicYearText = $el.find("td:contains('Academic Year:')").text().trim();
                     const academicYear = academicYearText.replace('Academic Year:', '').trim();
-                    // Extract Description
                     const particular = $el.find("table tbody tr").eq(1).find('td').eq(1).text().trim();
                     const description = particular || 'Fee Payment';
 
@@ -93,6 +115,18 @@ export const FeeService = {
                     console.error('Error parsing receipt item:', err);
                 }
             });
+
+            if (receipts.length === 0) {
+                const title = $post('title').text();
+                console.log('DEBUG: HTML Title:', title);
+                console.log('DEBUG: HTML Length:', html.length);
+                console.log('DEBUG: HTML Snippet:', html.substring(0, 500).replace(/\s+/g, ' '));
+
+                // Extra check: is it a login page?
+                if (title.toLowerCase().includes('login') || html.includes('Sign In')) {
+                    console.log('DEBUG: Detected potential login page via Title/Content');
+                }
+            }
 
             console.log(`Parsed ${receipts.length} fee receipts.`);
             return receipts;

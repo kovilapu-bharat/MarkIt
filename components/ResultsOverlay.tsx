@@ -4,12 +4,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, BackHandler, RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { GestureHandlerRootView, PanGestureHandler, State } from 'react-native-gesture-handler';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 import { WebView } from 'react-native-webview';
 import { useResults } from '../context/ResultsContext';
 import { useTheme } from '../context/ThemeContext';
 import { ResultsService, SemesterResult, SubjectResult } from '../services/results';
-import { BacklogTracker, GPATrendChart, WhatIfCalculator } from './ResultsEnhancements';
+import { BacklogTracker, GPATrendChart } from './ResultsEnhancements';
 
 const SubjectRow = ({ subject, isDark, colors }: { subject: SubjectResult, isDark: boolean, colors: typeof Colors.light }) => {
     const isFail = subject.result.toUpperCase() === 'F' ||
@@ -95,7 +97,12 @@ const SemesterCard = ({ semester, isDark, colors }: { semester: SemesterResult, 
             {expanded && (
                 <View style={styles.cardContent}>
                     {semester.subjects.map((subject, idx) => (
-                        <SubjectRow key={idx} subject={subject} isDark={isDark} colors={colors} />
+                        <Animated.View
+                            key={idx}
+                            entering={FadeInDown.delay(idx * 50).duration(400).springify()}
+                        >
+                            <SubjectRow subject={subject} isDark={isDark} colors={colors} />
+                        </Animated.View>
                     ))}
                 </View>
             )}
@@ -112,13 +119,38 @@ export default function ResultsOverlay() {
         error,
         setResultsData,
         setLoadingState,
-        setErrorState
+        setErrorState,
+        fetchSignal
     } = useResults();
     const { colors, isDark } = useTheme();
+
+    // Handle Hardware Back Button
+    useEffect(() => {
+        const onBackPress = () => {
+            if (isVisible) {
+                hideResults();
+                return true; // Prevent default behavior (exit app)
+            }
+            return false; // Let default behavior happen
+        };
+
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+        return () => backHandler.remove();
+    }, [isVisible, hideResults]);
+
+    const onGestureEvent = ({ nativeEvent }: any) => {
+        if (nativeEvent.translationX > 50 && nativeEvent.state === State.ACTIVE) {
+            hideResults();
+        }
+    };
 
     const [viewOriginal, setViewOriginal] = useState(false);
     const [credentials, setCredentials] = useState({ username: '', password: '' });
     const [statusText, setStatusText] = useState('Initializing...');
+    const [webViewKey, setWebViewKey] = useState(0);
+
+    // ... (loadCredentials and effects)
 
     const loadCredentials = useCallback(async () => {
         try {
@@ -156,11 +188,21 @@ export default function ResultsOverlay() {
         loadCredentials();
     }, [setResultsData, loadCredentials]);
 
-    const attemptFetch = () => {
+    const attemptFetch = useCallback(() => {
         setLoadingState(true);
         setErrorState(null);
         setStatusText('Checking for results...');
-    };
+        // Force WebView reload/remount
+        setWebViewKey(prev => prev + 1);
+    }, [setLoadingState, setErrorState]);
+
+    // Listen for external fetch triggers
+    useEffect(() => {
+        if (fetchSignal > 0) {
+            console.log('ResultsOverlay: Received fetch signal');
+            attemptFetch();
+        }
+    }, [fetchSignal, attemptFetch]);
 
     const toggleView = () => {
         setViewOriginal(!viewOriginal);
@@ -340,111 +382,129 @@ export default function ResultsOverlay() {
     return (
         <View style={[styles.overlayContainer, !isVisible && styles.hiddenContainer]} pointerEvents={isVisible ? 'auto' : 'none'}>
             <View style={[styles.backdrop, { opacity: isVisible ? 1 : 0 }]} />
-            <SafeAreaView style={[styles.container, { backgroundColor: colors.background, opacity: isVisible ? 1 : 0, transform: [{ translateY: isVisible ? 0 : 1000 }] }]}>
-                {/* Header */}
-                <View style={[styles.header, { borderBottomColor: isDark ? '#333' : '#eee', backgroundColor: colors.card }]}>
-                    <View>
-                        <Text style={[styles.headerTitle, { color: colors.text }]}>Academic Dashboard</Text>
-                        {/* Removed simple CGPA text here as it's now in the dashboard */}
-                    </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <TouchableOpacity onPress={toggleView} style={{ marginRight: 15 }}>
-                            <Ionicons name={viewOriginal ? "list" : "globe-outline"} size={24} color={colors.primary} />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={hideResults} style={styles.closeButton}>
-                            <Ionicons name="close-circle" size={32} color={colors.primary} />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-                {/* Main Content Area */}
-                <View style={{ flex: 1 }}>
-                    <View style={{
-                        flex: viewOriginal ? 1 : 0,
-                        height: viewOriginal ? '100%' : 1,
-                        opacity: viewOriginal ? 1 : 0,
-                        overflow: 'hidden'
-                    }}>
-                        <WebView
-                            key={credentials.username}
-                            source={{ uri: API_CONFIG.ENDPOINTS.RESULTS }}
-                            injectedJavaScript={INJECTED_JAVASCRIPT}
-                            onMessage={handleMessage}
-                            javaScriptEnabled={true}
-                            domStorageEnabled={true}
-                            incognito={true}
-                            cacheEnabled={false}
-                            style={{ flex: 1 }}
-                        />
-                    </View>
-
-                    {!viewOriginal && (
-                        <View style={{ ...StyleSheet.absoluteFillObject }}>
-                            {loading && !results ? (
-                                <View style={styles.centerContainer}>
-                                    <ActivityIndicator size="large" color={colors.primary} />
-                                    <Text style={[styles.loadingText, { color: colors.textSecondary }]}>{statusText}</Text>
-                                    <TouchableOpacity style={[styles.retryButton, { marginTop: 20, backgroundColor: colors.card }]} onPress={() => setViewOriginal(true)}>
-                                        <Text style={[styles.retryText, { color: colors.primary }]}>View Original Page</Text>
-                                    </TouchableOpacity>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <PanGestureHandler
+                    onGestureEvent={onGestureEvent}
+                    activeOffsetX={[0, 50]} // Only activate on right swipe
+                    failOffsetY={[-20, 20]} // Fail if vertical swipe is too large
+                >
+                    <SafeAreaView style={[styles.container, { backgroundColor: colors.background, opacity: isVisible ? 1 : 0, transform: [{ translateY: isVisible ? 0 : 1000 }] }]}>
+                        {/* Header */}
+                        <View style={[styles.header, { borderBottomColor: isDark ? '#333' : '#eee', backgroundColor: colors.card }]}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <TouchableOpacity onPress={hideResults} style={{ marginRight: 10, padding: 4 }}>
+                                    <Ionicons name="chevron-back" size={24} color={colors.text} />
+                                </TouchableOpacity>
+                                <View>
+                                    <Text style={[styles.headerTitle, { color: colors.text }]}>Academic Dashboard</Text>
+                                    {/* Removed simple CGPA text here as it's now in the dashboard */}
                                 </View>
-                            ) : error ? (
-                                <View style={styles.centerContainer}>
-                                    <Ionicons name="alert-circle-outline" size={48} color={colors.error} />
-                                    <Text style={[styles.errorText, { color: colors.text }]}>Failed to load results</Text>
-                                    <View style={{ height: 20 }} />
-                                    <TouchableOpacity style={[styles.retryButton, { backgroundColor: colors.primary }]} onPress={attemptFetch}>
-                                        <Text style={styles.retryText}>Retry</Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={{ marginTop: 20 }} onPress={() => setViewOriginal(true)}>
-                                        <Text style={{ color: colors.primary, textDecorationLine: 'underline' }}>View Original Webpage</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            ) : (
-                                <ScrollView
-                                    style={styles.scrollContainer}
-                                    contentContainerStyle={styles.scrollContent}
-                                    refreshControl={
-                                        <RefreshControl refreshing={loading} onRefresh={attemptFetch} tintColor={colors.primary} />
-                                    }
-                                >
-                                    {results?.semesters.length === 0 ? (
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <TouchableOpacity onPress={toggleView} style={{ marginRight: 15 }}>
+                                    <Ionicons name={viewOriginal ? "list" : "globe-outline"} size={24} color={colors.primary} />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={hideResults} style={styles.closeButton}>
+                                    <Ionicons name="close-circle" size={32} color={colors.primary} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
+                        {/* Main Content Area */}
+                        <View style={{ flex: 1 }}>
+                            <View style={{
+                                flex: viewOriginal ? 1 : 0,
+                                height: viewOriginal ? '100%' : 1,
+                                opacity: viewOriginal ? 1 : 0,
+                                overflow: 'hidden'
+                            }}>
+                                <WebView
+                                    key={`${credentials.username}-${webViewKey}`}
+                                    source={{ uri: API_CONFIG.ENDPOINTS.RESULTS }}
+                                    injectedJavaScript={INJECTED_JAVASCRIPT}
+                                    onMessage={handleMessage}
+                                    javaScriptEnabled={true}
+                                    domStorageEnabled={true}
+                                    incognito={true}
+                                    cacheEnabled={false}
+                                    style={{ flex: 1 }}
+                                />
+                            </View>
+
+                            {!viewOriginal && (
+                                <View style={{ ...StyleSheet.absoluteFillObject }}>
+                                    {loading && !results ? (
                                         <View style={styles.centerContainer}>
-                                            <Text style={[styles.emptyText, { color: colors.textSecondary }]}>No results found.</Text>
-                                            <Text style={{ color: colors.textSecondary, marginBottom: 20, textAlign: 'center', marginTop: 10 }}>
-                                                The parser couldn&apos;t find your marks table.
-                                            </Text>
-                                            <TouchableOpacity style={[styles.retryButton, { backgroundColor: colors.primary }]} onPress={() => setViewOriginal(true)}>
-                                                <Text style={styles.retryText}>View Original Page</Text>
+                                            <ActivityIndicator size="large" color={colors.primary} />
+                                            <Text style={[styles.loadingText, { color: colors.textSecondary }]}>{statusText}</Text>
+                                            <TouchableOpacity style={[styles.retryButton, { marginTop: 20, backgroundColor: colors.card }]} onPress={() => setViewOriginal(true)}>
+                                                <Text style={[styles.retryText, { color: colors.primary }]}>View Original Page</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    ) : error ? (
+                                        <View style={styles.centerContainer}>
+                                            <Ionicons name="alert-circle-outline" size={48} color={colors.error} />
+                                            <Text style={[styles.errorText, { color: colors.text }]}>Failed to load results</Text>
+                                            <View style={{ height: 20 }} />
+                                            <TouchableOpacity style={[styles.retryButton, { backgroundColor: colors.primary }]} onPress={attemptFetch}>
+                                                <Text style={styles.retryText}>Retry</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={{ marginTop: 20 }} onPress={() => setViewOriginal(true)}>
+                                                <Text style={{ color: colors.primary, textDecorationLine: 'underline' }}>View Original Webpage</Text>
                                             </TouchableOpacity>
                                         </View>
                                     ) : (
-                                        <>
-                                            {results && (
+                                        <ScrollView
+                                            style={styles.scrollContainer}
+                                            contentContainerStyle={styles.scrollContent}
+                                            refreshControl={
+                                                <RefreshControl refreshing={loading} onRefresh={attemptFetch} tintColor={colors.primary} />
+                                            }
+                                        >
+                                            {results?.semesters.length === 0 ? (
+                                                <View style={styles.centerContainer}>
+                                                    <Text style={[styles.emptyText, { color: colors.textSecondary }]}>No results found.</Text>
+                                                    <Text style={{ color: colors.textSecondary, marginBottom: 20, textAlign: 'center', marginTop: 10 }}>
+                                                        The parser couldn&apos;t find your marks table.
+                                                    </Text>
+                                                    <TouchableOpacity style={[styles.retryButton, { backgroundColor: colors.primary }]} onPress={() => setViewOriginal(true)}>
+                                                        <Text style={styles.retryText}>View Original Page</Text>
+                                                    </TouchableOpacity>
+                                                </View>
+                                            ) : (
                                                 <>
-                                                    <BacklogTracker semesters={results.semesters} colors={colors} />
-                                                    <GPATrendChart semesters={results.semesters} colors={colors} />
-                                                    <WhatIfCalculator cgpa={results.cgpa} semesters={results.semesters} colors={colors} />
+                                                    {results && (
+                                                        <>
+                                                            <BacklogTracker semesters={results.semesters} colors={colors} />
+                                                            <GPATrendChart semesters={results.semesters} colors={colors} />
 
-                                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
-                                                        <Text style={[styles.sectionTitle, { color: colors.text }]}>SEMESTER DETAILS</Text>
-                                                        <View style={{ height: 1, flex: 1, backgroundColor: colors.textSecondary, marginLeft: 16, opacity: 0.2 }} />
-                                                    </View>
+
+                                                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+                                                                <Text style={[styles.sectionTitle, { color: colors.text }]}>SEMESTER DETAILS</Text>
+                                                                <View style={{ height: 1, flex: 1, backgroundColor: colors.textSecondary, marginLeft: 16, opacity: 0.2 }} />
+                                                            </View>
+                                                        </>
+                                                    )}
+
+                                                    {results?.semesters.map((sem, index) => (
+                                                        <Animated.View
+                                                            key={index}
+                                                            entering={FadeInDown.delay(index * 100).duration(600).springify()}
+                                                        >
+                                                            <SemesterCard semester={sem} isDark={isDark} colors={colors} />
+                                                        </Animated.View>
+                                                    ))}
                                                 </>
                                             )}
-
-                                            {results?.semesters.map((sem, index) => (
-                                                <SemesterCard key={index} semester={sem} isDark={isDark} colors={colors} />
-                                            ))}
-                                        </>
+                                            <View style={{ height: 40 }} />
+                                        </ScrollView>
                                     )}
-                                    <View style={{ height: 40 }} />
-                                </ScrollView>
+                                </View>
                             )}
                         </View>
-                    )}
-                </View>
-            </SafeAreaView>
+                    </SafeAreaView>
+                </PanGestureHandler>
+            </GestureHandlerRootView>
         </View>
     );
 }
@@ -463,9 +523,9 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        marginTop: 50,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+        marginTop: 0,
+        // borderTopLeftRadius: 20, // Removed for full screen
+        // borderTopRightRadius: 20, // Removed for full screen
         overflow: 'hidden',
     },
     header: {

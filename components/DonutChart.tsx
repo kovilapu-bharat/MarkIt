@@ -35,7 +35,7 @@ export default function DonutChart({
         // Clamp between 0 and max
         const target = Math.min(Math.max(percentage, 0), max);
         animatedValue.value = withDelay(500, withTiming(target, { duration: 1500 }));
-    }, [percentage, max]);
+    }, [percentage, max, animatedValue]);
 
     const animatedProps = useAnimatedProps(() => {
         const strokeDashoffset = circumference - (circumference * animatedValue.value) / max;
