@@ -174,46 +174,7 @@ export default function Settings() {
                                     }
                                 />
                             )}
-                            <SettingItem
-                                icon="notifications-circle"
-                                title="Test Notifications"
-                                subtitle="Send a sample notification"
-                                color="#ec4899"
-                                onPress={async () => {
-                                    try {
-                                        const { NotificationService } = await import('../services/notification');
 
-                                        // Send test attendance notification
-                                        await NotificationService.sendLocalNotification(
-                                            'Attendance Updated! 📚',
-                                            'Period 3: Present ✅, Period 5: Absent ❌'
-                                        );
-
-                                        // Send test results notification after 2 seconds
-                                        setTimeout(async () => {
-                                            await NotificationService.sendLocalNotification(
-                                                'SCARY HOURS: New Results Declared! 💀',
-                                                'Results for Semester 4 are out! Check now.'
-                                            );
-                                        }, 2000);
-
-                                        // Send test fee notification after 4 seconds
-                                        setTimeout(async () => {
-                                            await NotificationService.sendLocalNotification(
-                                                'New Fee Receipt! 💰',
-                                                '1 new payment recorded. Latest: ₹50,000'
-                                            );
-                                        }, 4000);
-
-                                        Alert.alert('Test Sent!', '3 notifications will appear over the next few seconds.');
-                                    } catch {
-                                        Alert.alert('Error', 'Could not send test notification. This may be a limitation of Expo Go.');
-                                    }
-                                }}
-                                rightElement={
-                                    <Ionicons name="chevron-forward" size={20} color={colors.textSecondary} />
-                                }
-                            />
                         </View>
                     </Animated.View>
 
