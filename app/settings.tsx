@@ -1,5 +1,6 @@
 
 import { Ionicons } from '@expo/vector-icons';
+import Constants from 'expo-constants';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -45,8 +46,8 @@ export default function Settings() {
                 message: '📚 Check out Clgpo - the best app for tracking your college attendance!\n\nDownload it now and never miss the 75% threshold again! 🎯',
                 title: 'Share Clgpo',
             });
-        } catch (error) {
-            console.log('Error sharing:', error);
+        } catch {
+            // Share cancelled or failed
         }
     };
 
@@ -211,7 +212,7 @@ export default function Settings() {
                             <SettingItem
                                 icon="information-circle"
                                 title="About Clgpo"
-                                subtitle="v1.0.0"
+                                subtitle={`v${Constants.expoConfig?.version || '1.0.0'}`}
                                 color="#6366f1"
                                 onPress={() => setShowAboutModal(true)}
                                 rightElement={
@@ -598,7 +599,7 @@ export default function Settings() {
                                 </View>
                                 <Text style={styles.aboutHeaderTitle}>Clgpo</Text>
                                 <View style={styles.versionBadge}>
-                                    <Text style={styles.versionBadgeText}>Version 1.0.0</Text>
+                                    <Text style={styles.versionBadgeText}>Version {Constants.expoConfig?.version || '1.0.0'}</Text>
                                 </View>
                             </View>
                         </SafeAreaView>

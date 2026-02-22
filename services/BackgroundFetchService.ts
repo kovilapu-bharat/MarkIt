@@ -1,4 +1,4 @@
-import * as BackgroundFetch from 'expo-background-fetch';
+import * as BackgroundTask from 'expo-background-task';
 import * as TaskManager from 'expo-task-manager';
 import { loadData, STORAGE_KEYS } from '../utils/storage';
 import { AttendanceService } from './attendance';
@@ -9,10 +9,6 @@ import { ResultsService } from './results';
 const TASK_NAME = 'BACKGROUND_ATTENDANCE_CHECK';
 
 export const checkAttendanceInBackground = async () => {
-    const now = new Date();
-    // Simple log to show it ran (in development you'd use console.log)
-    console.log(`[BackgroundFetch] Task running at ${now.toISOString()}`);
-
     try {
         // --- 1. ATTENDANCE CHECK ---
         const oldAttendance = await loadData(STORAGE_KEYS.ATTENDANCE);
@@ -55,7 +51,7 @@ export const checkAttendanceInBackground = async () => {
                         `Attendance Updated! 📚`,
                         changes.join(', ')
                     );
-                    return BackgroundFetch.BackgroundFetchResult.NewData;
+                    return BackgroundTask.BackgroundTaskResult.Success;
                 }
             }
             // --- END ENHANCED ---
@@ -75,10 +71,9 @@ export const checkAttendanceInBackground = async () => {
                     `${diff} class${diff > 1 ? 'es' : ''} marked while you were away. Attendance: ${newAttendance.overallPercentage}%`
                 );
             } else {
-                console.log('[BackgroundFetch] No attendance changes detected.');
             }
         } else {
-            console.log('[BackgroundFetch] First run or no old attendance data, saving baseline.');
+            // First run or no old attendance data, saving baseline.
         }
 
         // Update Daily Summary 6PM Notification with latest %
@@ -90,7 +85,6 @@ export const checkAttendanceInBackground = async () => {
         // Only run if we have cached results to compare against
         const oldResults = await loadData(STORAGE_KEYS.EXAM_RESULTS);
         if (oldResults) {
-            console.log('[BackgroundFetch] Checking for new results...');
             const newResults = await ResultsService.getResults();
 
             if (newResults && newResults.semesters.length > oldResults.semesters.length) {
@@ -113,18 +107,16 @@ export const checkAttendanceInBackground = async () => {
                     'SCARY HOURS: New Results Declared! 💀',
                     message
                 );
-                return BackgroundFetch.BackgroundFetchResult.NewData;
+                return BackgroundTask.BackgroundTaskResult.Success;
             } else {
-                console.log('[BackgroundFetch] No new results detected.');
             }
         } else {
-            console.log('[BackgroundFetch] First run or no old results data, saving baseline.');
+            // First run or no old results data, saving baseline.
         }
 
         // --- 3. FEE RECEIPTS CHECK ---
         const oldFees = await loadData(STORAGE_KEYS.FEE_RECEIPTS);
         if (oldFees && oldFees.length > 0) {
-            console.log('[BackgroundFetch] Checking for new fee receipts...');
             const { FeeService } = await import('./FeeService');
 
             // Get current academic year
@@ -140,19 +132,17 @@ export const checkAttendanceInBackground = async () => {
                     'New Fee Receipt! 💰',
                     `${diff} new payment${diff > 1 ? 's' : ''} recorded. Latest: ₹${latestReceipt?.amount || 'N/A'}`
                 );
-                return BackgroundFetch.BackgroundFetchResult.NewData;
+                return BackgroundTask.BackgroundTaskResult.Success;
             } else {
-                console.log('[BackgroundFetch] No new fee receipts detected.');
             }
         } else {
-            console.log('[BackgroundFetch] First run or no old fee data, saving baseline.');
+            // First run or no old fee data, saving baseline.
         }
 
-        return BackgroundFetch.BackgroundFetchResult.NoData;
+        return BackgroundTask.BackgroundTaskResult.Success;
 
-    } catch (error) {
-        console.error('[BackgroundFetch] Failed:', error);
-        return BackgroundFetch.BackgroundFetchResult.Failed;
+    } catch {
+        return BackgroundTask.BackgroundTaskResult.Failed;
     }
 };
 
@@ -160,18 +150,14 @@ TaskManager.defineTask(TASK_NAME, checkAttendanceInBackground);
 
 export const registerBackgroundFetchAsync = async () => {
     try {
-        console.log('[BackgroundFetch] Registering task...');
-        // This might fail in Expo Go
-        return await BackgroundFetch.registerTaskAsync(TASK_NAME, {
-            minimumInterval: 60 * 15, // 15 minutes
-            stopOnTerminate: false, // Android
-            startOnBoot: true, // Android
+        return await BackgroundTask.registerTaskAsync(TASK_NAME, {
+            minimumInterval: 15, // 15 minutes (in minutes)
         });
-    } catch (err) {
-        console.log('[BackgroundFetch] Registration failed (Expo Go limitation?):', err);
+    } catch {
+        // Registration may fail in Expo Go
     }
 };
 
 export const unregisterBackgroundFetchAsync = async () => {
-    return BackgroundFetch.unregisterTaskAsync(TASK_NAME);
+    return BackgroundTask.unregisterTaskAsync(TASK_NAME);
 };

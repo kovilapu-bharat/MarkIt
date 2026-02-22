@@ -6,11 +6,9 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 import { ResultsProvider } from '../context/ResultsContext';
 import { ThemeProvider as CustomThemeProvider } from '../context/ThemeContext';
-
-import { registerBackgroundFetchAsync } from '../services/BackgroundFetchService';
-import { NotificationService } from '../services/notification';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -21,11 +19,20 @@ export default function RootLayout() {
   const loaded = true;
 
   useEffect(() => {
+    const prepare = async () => {
+      // Small delay so splash logo is visible before fade-out
+      await new Promise(resolve => setTimeout(resolve, 300));
+      await SplashScreen.hideAsync();
+    };
+
     if (loaded) {
-      SplashScreen.hideAsync();
+      prepare();
 
       // Register background tasks and permissions
       const initBackgroundTasks = async () => {
+        const { registerBackgroundFetchAsync } = await import('../services/BackgroundFetchService');
+        const { NotificationService } = await import('../services/notification');
+
         await NotificationService.registerForPushNotificationsAsync();
         await registerBackgroundFetchAsync();
 
@@ -43,8 +50,8 @@ export default function RootLayout() {
             if (newAtt?.overallPercentage) {
               await NotificationService.scheduleDailySummary(newAtt.overallPercentage);
             }
-          } catch (e) {
-            console.log('Failed to init daily notification (no data):', e);
+          } catch {
+            // No data available yet for daily notification
           }
         }
       };
@@ -58,36 +65,38 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <CustomThemeProvider>
-        <ResultsProvider>
-          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-            <Stack>
-              <Stack.Screen name="index" options={{ headerShown: false }} />
-              <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-              <Stack.Screen name="login" options={{ headerShown: false }} />
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen
-                name="student-profile"
-                options={{
-                  presentation: 'transparentModal',
-                  animation: 'fade',
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                name="settings"
-                options={{
-                  headerShown: false,
-                  presentation: 'card',
-                  animation: 'slide_from_right'
-                }}
-              />
-              <Stack.Screen name="+not-found" />
-            </Stack>
-          </ThemeProvider>
-        </ResultsProvider>
-      </CustomThemeProvider>
-    </GestureHandlerRootView>
+    <ErrorBoundary>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <CustomThemeProvider>
+          <ResultsProvider>
+            <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+              <Stack>
+                <Stack.Screen name="index" options={{ headerShown: false }} />
+                <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+                <Stack.Screen name="login" options={{ headerShown: false }} />
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="student-profile"
+                  options={{
+                    presentation: 'transparentModal',
+                    animation: 'fade',
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="settings"
+                  options={{
+                    headerShown: false,
+                    presentation: 'card',
+                    animation: 'slide_from_right'
+                  }}
+                />
+                <Stack.Screen name="+not-found" />
+              </Stack>
+            </ThemeProvider>
+          </ResultsProvider>
+        </CustomThemeProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 }

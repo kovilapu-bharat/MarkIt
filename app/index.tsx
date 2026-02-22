@@ -19,22 +19,19 @@ export default function Index() {
         try {
             // Check onboarding first
             const hasSeenOnboarding = await AsyncStorage.getItem(ONBOARDING_KEY);
-            console.log('[Index] Onboarding key value:', hasSeenOnboarding, 'Type:', typeof hasSeenOnboarding);
 
             if (hasSeenOnboarding !== 'true') {
-                console.log('[Index] Showing onboarding...');
                 setNeedsOnboarding(true);
                 setIsLoading(false);
                 return;
             }
 
-            console.log('[Index] Onboarding already seen, checking login...');
+
 
             // Then check login
             const loggedIn = await AuthService.isLoggedIn();
             setIsLoggedIn(loggedIn);
-        } catch (e) {
-            console.log('Error checking status:', e);
+        } catch {
             setIsLoggedIn(false);
         } finally {
             setIsLoading(false);

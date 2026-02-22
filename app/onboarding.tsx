@@ -65,9 +65,8 @@ export default function Onboarding() {
             // Mark onboarding as complete
             try {
                 await AsyncStorage.setItem(ONBOARDING_KEY, 'true');
-                console.log('[Onboarding] Saved key, navigating to login...');
-            } catch (e) {
-                console.error('[Onboarding] Failed to save key:', e);
+            } catch {
+                // Save failure is non-critical
             }
             router.replace('/login');
         }
@@ -76,9 +75,8 @@ export default function Onboarding() {
     const handleSkip = async () => {
         try {
             await AsyncStorage.setItem(ONBOARDING_KEY, 'true');
-            console.log('[Onboarding] Skipped, saved key...');
-        } catch (e) {
-            console.error('[Onboarding] Failed to save key on skip:', e);
+        } catch {
+            // Save failure is non-critical
         }
         router.replace('/login');
     };

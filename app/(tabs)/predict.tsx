@@ -2,17 +2,79 @@ import { useTheme } from '@/context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Slider as AwesomeSlider } from 'react-native-awesome-slider';
 import Animated, { FadeInDown, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import DonutChart from '../../components/DonutChart';
 import { ScalePressable } from '../../components/ScalePressable';
+import { SkeletonLoader } from '../../components/SkeletonLoader';
 import { AnalyticsService } from '../../services/analytics';
 import { AttendanceService } from '../../services/attendance';
 
 // ... imports
 import { SmartBunkPlanner } from '../../components/SmartBunkPlanner';
+
+const PredictSkeleton = ({ colors, insets }: { colors: any; insets: any }) => (
+    <View style={[styles.container, { backgroundColor: colors.background, paddingTop: insets.top }]}>
+        {/* Header */}
+        <View style={styles.header}>
+            <SkeletonLoader width={200} height={28} borderRadius={8} />
+        </View>
+
+        <View style={styles.content}>
+            {/* Current Status Card */}
+            <View style={[styles.card, { backgroundColor: colors.card, padding: 20, marginBottom: 24 }]}>
+                <SkeletonLoader width={120} height={13} borderRadius={4} style={{ marginBottom: 16 }} />
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+                    {/* Donut chart placeholder */}
+                    <SkeletonLoader width={100} height={100} borderRadius={50} />
+                    {/* Stats */}
+                    <View style={{ justifyContent: 'center' }}>
+                        <SkeletonLoader width={100} height={24} borderRadius={6} />
+                        <SkeletonLoader width={120} height={14} borderRadius={4} style={{ marginTop: 8 }} />
+                        <SkeletonLoader width={90} height={24} borderRadius={12} style={{ marginTop: 10 }} />
+                    </View>
+                </View>
+            </View>
+
+            {/* Tab Switcher */}
+            <View style={{ flexDirection: 'row', marginBottom: 20, backgroundColor: colors.card, borderRadius: 12, padding: 4 }}>
+                <SkeletonLoader width="48%" height={36} borderRadius={8} style={{ marginRight: '4%' }} />
+                <SkeletonLoader width="48%" height={36} borderRadius={8} />
+            </View>
+
+            {/* Section Title */}
+            <SkeletonLoader width={130} height={13} borderRadius={4} style={{ marginBottom: 16 }} />
+
+            {/* Content Card */}
+            <View style={[styles.card, { backgroundColor: colors.card, padding: 20 }]}>
+                {/* Calendar grid placeholder */}
+                <SkeletonLoader width="100%" height={40} borderRadius={8} style={{ marginBottom: 12 }} />
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
+                    {[1, 2, 3, 4, 5, 6, 7].map(i => (
+                        <SkeletonLoader key={i} width={36} height={36} borderRadius={8} />
+                    ))}
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
+                    {[1, 2, 3, 4, 5, 6, 7].map(i => (
+                        <SkeletonLoader key={i} width={36} height={36} borderRadius={8} />
+                    ))}
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
+                    {[1, 2, 3, 4, 5, 6, 7].map(i => (
+                        <SkeletonLoader key={i} width={36} height={36} borderRadius={8} />
+                    ))}
+                </View>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    {[1, 2, 3, 4, 5, 6, 7].map(i => (
+                        <SkeletonLoader key={i} width={36} height={36} borderRadius={8} />
+                    ))}
+                </View>
+            </View>
+        </View>
+    </View>
+);
 
 export default function PredictScreen() {
     const insets = useSafeAreaInsets();
@@ -61,8 +123,7 @@ export default function PredictScreen() {
                     percentage: summaryData.overallPercentage
                 });
             }
-        } catch (e) {
-            console.error(e);
+        } catch {
         } finally {
             setLoading(false);
         }
@@ -80,11 +141,7 @@ export default function PredictScreen() {
         : (stats.percentage - currentPredicted).toFixed(1);
 
     if (loading) {
-        return (
-            <View style={[styles.container, { backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center' }]}>
-                <ActivityIndicator size="large" color={colors.primary} />
-            </View>
-        );
+        return <PredictSkeleton colors={colors} insets={insets} />;
     }
 
     return (

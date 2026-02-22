@@ -74,8 +74,7 @@ export default function FeeReceiptsScreen() {
             } else if (fetchedYears.length === 0) {
                 setLoading(false);
             }
-        } catch (error) {
-            console.error('Error fetching years:', error);
+        } catch {
             Alert.alert('Error', 'Failed to load academic years');
             setLoading(false);
         }
@@ -87,8 +86,7 @@ export default function FeeReceiptsScreen() {
         try {
             const data = await FeeService.getReceipts(year);
             setReceipts(data);
-        } catch (error) {
-            console.error(error);
+        } catch {
             Alert.alert('Error', 'Failed to load fee receipts');
         } finally {
             setLoading(false);

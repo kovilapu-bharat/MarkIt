@@ -34,7 +34,7 @@ import { AuthService } from '../services/auth';
 const { width, height } = Dimensions.get('window');
 
 // Random starting positions for orbs
-const RandomOrb = ({ delay = 0, duration = 10000, size = 200, color = 'rgba(255,255,255,0.1)' }: any) => {
+const RandomOrb = ({ duration = 10000, size = 200, color = 'rgba(255,255,255,0.1)' }: any) => {
     const sv = useSharedValue(0);
 
     useEffect(() => {

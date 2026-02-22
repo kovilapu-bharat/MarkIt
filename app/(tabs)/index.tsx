@@ -128,8 +128,8 @@ export default function HomeScreen() {
       // Trigger Fees Fetch
       fetchFees();
 
-    } catch (error) {
-      console.error(error);
+    } catch {
+      // Fetch error handled silently
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -148,8 +148,8 @@ export default function HomeScreen() {
 
       await FeeService.getReceipts(currentYear);
 
-    } catch (e) {
-      console.log('Error fetching fees in background:', e);
+    } catch {
+      // Fee fetch error handled silently
     } finally {
       setFeeLoading(false);
     }

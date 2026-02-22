@@ -27,12 +27,12 @@
 
 ## 🛠️ Tech Stack
 
-*   **Framework**: [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/) (SDK 50+).
+*   **Framework**: [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/) (SDK 54).
 *   **Language**: TypeScript.
 *   **Storage**: `expo-secure-store` for encrypted credentials, `AsyncStorage` for data caching.
 *   **Background Tasks**: `expo-background-fetch` & `expo-task-manager`.
 *   **Parsing**: `react-native-cheerio` for HTML parsing.
-*   **UI Components**: Custom glassmorphism cards, `react-native-calendars`, `react-native-gifted-charts`.
+*   **UI Components**: Custom glassmorphism cards, `react-native-calendars`, `react-native-awesome-slider`.
 
 ## 🚀 Getting Started
 
@@ -44,7 +44,7 @@
 
 1.  **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/Clgpo.git
+    git clone https://github.com/kovilapu-bharat/Clgpo.git
     cd Clgpo
     ```
 
@@ -66,7 +66,7 @@
 
 | Home Dashboard | Attendance Goals | Results Analysis |
 |:---:|:---:|:---:|
-| *(Add Screenshot)* | *(Add Screenshot)* | *(Add Screenshot)* |
+| *Coming soon* | *Coming soon* | *Coming soon* |
 
 ## 🤝 Contributing
 

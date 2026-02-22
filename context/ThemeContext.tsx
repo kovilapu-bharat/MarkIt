@@ -29,8 +29,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
                 if (savedTheme === 'light' || savedTheme === 'dark' || savedTheme === 'system') {
                     setThemeModeState(savedTheme);
                 }
-            } catch (e) {
-                console.error('Failed to load theme preference', e);
+            } catch {
+                // Theme loading failed, using default
             }
         };
         loadTheme();

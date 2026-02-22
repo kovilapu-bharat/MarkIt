@@ -163,7 +163,6 @@ export default function ResultsOverlay() {
 
                 // Only update if changed or not set
                 if (newUsername !== credentials.username || newPassword !== credentials.password) {
-                    console.log('ResultsOverlay: User changed, resetting...');
                     setResultsData(null); // Clear old results
                     setCredentials({
                         username: newUsername,
@@ -172,8 +171,8 @@ export default function ResultsOverlay() {
                     setStatusText('Pre-loading Results...');
                 }
             }
-        } catch (e) {
-            console.log('Error loading credentials', e);
+        } catch {
+            // Error loading credentials
         }
     }, [credentials, setResultsData]);
 
@@ -200,7 +199,6 @@ export default function ResultsOverlay() {
     // Listen for external fetch triggers
     useEffect(() => {
         if (fetchSignal > 0) {
-            console.log('ResultsOverlay: Received fetch signal');
             attemptFetch();
         }
     }, [fetchSignal, attemptFetch]);
@@ -365,7 +363,6 @@ export default function ResultsOverlay() {
             } else {
                 const data = JSON.parse(msg);
                 if (data.type === 'HTML_SOURCE') {
-                    console.log('Received HTML:', data.html.length);
                     const parsed = await ResultsService.parseResults(data.html);
                     if (parsed) {
                         setResultsData(parsed);

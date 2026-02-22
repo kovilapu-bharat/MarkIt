@@ -21,8 +21,7 @@ export default function NotificationsScreen() {
         try {
             const data = await NotificationService.getNotifications();
             setNotifications(data);
-        } catch (error) {
-            console.error('Failed to load notifications', error);
+        } catch {
         } finally {
             setLoading(false);
             setRefreshing(false);

@@ -37,22 +37,18 @@ export interface DateWiseResponse {
 export const AttendanceService = {
     getAttendance: async (): Promise<AttendanceResponse> => {
         try {
-            console.log('Fetching attendance page...');
             let response = await api.get(API_CONFIG.ENDPOINTS.ATTENDANCE);
             let html = response.data;
 
             // Check if session expired
             if (html.includes('login.php') || html.includes('Enter Roll No') || html.includes('type="password"')) {
-                console.log('Session expired, re-authenticating...');
                 const credentials = await AuthService.getCredentials();
                 if (!credentials) throw new Error('Not logged in');
                 await AuthService.login(credentials.studentId, credentials.pass);
-                console.log('Retrying attendance page fetch...');
                 response = await api.get(API_CONFIG.ENDPOINTS.ATTENDANCE);
                 html = response.data;
             }
 
-            console.log('Parsing attendance HTML, length:', html.length);
             const $ = cheerio.load(html);
 
             const months: MonthlyAttendance[] = [];
@@ -100,11 +96,9 @@ export const AttendanceService = {
             return data;
 
         } catch (error: any) {
-            console.warn('Attendance fetch error (network):', error.message);
             // Try fallback to cache
             const cachedData = await loadData(STORAGE_KEYS.ATTENDANCE);
             if (cachedData) {
-                console.log('Using cached attendance data');
                 return { ...cachedData, isOffline: true };
             }
             throw error;
@@ -113,16 +107,13 @@ export const AttendanceService = {
 
     getDateWiseAttendance: async (): Promise<DateWiseResponse> => {
         try {
-            console.log('Fetching date-wise attendance...');
             let response = await api.get(API_CONFIG.ENDPOINTS.ATTENDANCE);
             let html = response.data;
 
             if (html.includes('login.php') || html.includes('Enter Roll No') || html.includes('type="password"')) {
-                console.log('Session expired (date-wise), re-authenticating...');
                 const credentials = await AuthService.getCredentials();
                 if (!credentials) throw new Error('Not logged in');
                 await AuthService.login(credentials.studentId, credentials.pass);
-                console.log('Retrying date-wise fetch...');
                 response = await api.get(API_CONFIG.ENDPOINTS.ATTENDANCE);
                 html = response.data;
             }
@@ -188,13 +179,11 @@ export const AttendanceService = {
                 });
             });
 
-            console.log('Parsed date-wise days:', days.length);
             const data = { days, isOffline: false };
             await saveData(STORAGE_KEYS.DATE_WISE_ATTENDANCE, data);
             return data;
 
         } catch (error: any) {
-            console.warn('Date-wise fetch error:', error);
             const cachedData = await loadData(STORAGE_KEYS.DATE_WISE_ATTENDANCE);
             if (cachedData) return { ...cachedData, isOffline: true };
             throw error;

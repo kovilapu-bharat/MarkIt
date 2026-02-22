@@ -14,8 +14,7 @@ export const saveData = async (key: string, value: any) => {
         const jsonValue = JSON.stringify(value);
         await AsyncStorage.setItem(key, jsonValue);
         return true;
-    } catch (e) {
-        console.error('Error saving data to storage', e);
+    } catch {
         return false;
     }
 };
@@ -24,8 +23,7 @@ export const loadData = async (key: string) => {
     try {
         const jsonValue = await AsyncStorage.getItem(key);
         return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-        console.error('Error loading data from storage', e);
+    } catch {
         return null;
     }
 };
@@ -34,8 +32,7 @@ export const removeData = async (key: string) => {
     try {
         await AsyncStorage.removeItem(key);
         return true;
-    } catch (e) {
-        console.error('Error removing data from storage', e);
+    } catch {
         return false;
     }
 };
@@ -45,8 +42,7 @@ export const clearAllData = async () => {
         const keys = Object.values(STORAGE_KEYS);
         await AsyncStorage.multiRemove(keys);
         return true;
-    } catch (e) {
-        console.error('Error clearing storage', e);
+    } catch {
         return false;
     }
 };

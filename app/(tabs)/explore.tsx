@@ -9,7 +9,7 @@ import { FlatList, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacit
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ScalePressable } from '../../components/ScalePressable';
-import { ListSkeleton, SkeletonLoader } from '../../components/SkeletonLoader';
+import { SkeletonLoader } from '../../components/SkeletonLoader';
 import { AttendanceService, DailyAttendance } from '../../services/attendance';
 import { AuthService } from '../../services/auth';
 
@@ -40,8 +40,7 @@ export default function DateWiseScreen() {
         return dateB.getTime() - dateA.getTime();
       });
       setDays(sortedDays);
-    } catch (error) {
-      console.error('Date-wise attendance fetch error:', error);
+    } catch {
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -100,16 +99,63 @@ export default function DateWiseScreen() {
           end={{ x: 1, y: 1 }}
           style={StyleSheet.absoluteFill}
         />
-        <View style={styles.header}>
-          <SkeletonLoader width={180} height={24} style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)' }} />
-          <SkeletonLoader width={60} height={16} style={{ backgroundColor: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)' }} />
-        </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterContainer}>
-          {[1, 2, 3, 4].map(i => (
-            <SkeletonLoader key={i} width={80} height={36} borderRadius={20} style={{ marginRight: 12, backgroundColor: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)' }} />
+
+        <View style={{ padding: 16 }}>
+          {/* Header */}
+          <View style={styles.header}>
+            <SkeletonLoader width={180} height={22} borderRadius={6} />
+            <SkeletonLoader width={60} height={14} borderRadius={4} />
+          </View>
+
+          {/* Month Filter Chips */}
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterContainer}>
+            {[1, 2, 3, 4].map(i => (
+              <SkeletonLoader key={i} width={80} height={36} borderRadius={20} style={{ marginRight: 12 }} />
+            ))}
+          </ScrollView>
+
+          {/* Period Legend Card */}
+          <View style={[styles.legendCard, { backgroundColor: colors.card }]}>
+            <SkeletonLoader width={60} height={14} borderRadius={4} style={{ marginBottom: 12 }} />
+            <View style={styles.legendRow}>
+              {[1, 2, 3, 4, 5, 6].map(i => (
+                <SkeletonLoader key={i} width={40} height={32} borderRadius={8} />
+              ))}
+            </View>
+          </View>
+
+          {/* Day Cards */}
+          {[1, 2, 3, 4, 5].map(i => (
+            <View key={i} style={[styles.dayCard, { shadowColor: isDark ? '#000' : '#888', backgroundColor: 'transparent', overflow: 'hidden' }]}>
+              <BlurView
+                intensity={isDark ? 40 : 80}
+                tint={isDark ? 'dark' : 'light'}
+                style={[StyleSheet.absoluteFill, { backgroundColor: isDark ? 'rgba(40,40,40,0.5)' : 'rgba(255,255,255,0.7)' }]}
+              />
+              {/* Accent Bar */}
+              <View style={[styles.dayAccent, { backgroundColor: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)' }]} />
+              <View style={styles.dayContent}>
+                {/* Date + Day header */}
+                <View style={styles.dayHeader}>
+                  <View>
+                    <SkeletonLoader width={90} height={16} borderRadius={4} />
+                    <SkeletonLoader width={60} height={14} borderRadius={4} style={{ marginTop: 4 }} />
+                  </View>
+                  <View style={{ flexDirection: 'row', gap: 6 }}>
+                    <SkeletonLoader width={44} height={24} borderRadius={8} />
+                    <SkeletonLoader width={44} height={24} borderRadius={8} />
+                  </View>
+                </View>
+                {/* Period Cells */}
+                <View style={styles.periodsRow}>
+                  {[1, 2, 3, 4, 5, 6].map(j => (
+                    <SkeletonLoader key={j} width={44} height={36} borderRadius={8} />
+                  ))}
+                </View>
+              </View>
+            </View>
           ))}
-        </ScrollView>
-        <ListSkeleton count={6} colors={colors} />
+        </View>
       </View>
     );
   }
@@ -147,7 +193,6 @@ export default function DateWiseScreen() {
       >
         <ScalePressable
           style={[styles.dayCard, { shadowColor: isDark ? '#000' : '#888', backgroundColor: 'transparent' }]}
-          activeOpacity={0.9} // Slight fade
         >
           <BlurView
             intensity={isDark ? 40 : 80}

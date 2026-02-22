@@ -21,7 +21,6 @@ export const AuthService = {
     login: async (studentId: string, pass: string) => {
         try {
             // Step 1: GET request to initialize session
-            console.log('Fetching login page...');
             await api.get(API_CONFIG.ENDPOINTS.LOGIN);
 
             // Step 2: POST login credentials
@@ -29,7 +28,6 @@ export const AuthService = {
             formData.append('roll_no', studentId);
             formData.append('password', pass);
 
-            console.log('Posting credentials...');
             const loginResponse = await api.post(API_CONFIG.ENDPOINTS.LOGIN, formData.toString(), {
                 maxRedirects: 5,
                 validateStatus: (status: number) => status >= 200 && status < 400,
@@ -39,7 +37,6 @@ export const AuthService = {
             const setCookie = loginResponse.headers['set-cookie'];
             if (setCookie) {
                 const cookieStr = Array.isArray(setCookie) ? setCookie.join('; ') : setCookie;
-                console.log('Saving auth cookie...');
                 await SecureStore.setItemAsync('auth_cookie', cookieStr);
             }
 
@@ -88,7 +85,7 @@ export const AuthService = {
                     profileImage
                 };
 
-                console.log('Profile extracted:', profile);
+
 
                 // Store credentials and profile
                 await SecureStore.setItemAsync(CREDENTIALS_KEY, JSON.stringify({ studentId, pass }));
@@ -102,22 +99,18 @@ export const AuthService = {
             }
 
         } catch (error: any) {
-            console.error('Login error:', error.message || error);
             throw error;
         }
     },
 
     logout: async () => {
-        console.log('AuthService: Logging out...');
         try {
             await SecureStore.deleteItemAsync(CREDENTIALS_KEY);
             await SecureStore.deleteItemAsync(PROFILE_KEY);
             // Clear auth cookie
             await SecureStore.deleteItemAsync('auth_cookie');
-            console.log('AuthService: SecureStore cleared');
-        } catch (error) {
-            console.error('Error clearing secure store:', error);
-            // Even if delete fails, we should probably proceed to let the user "logout" locally
+        } catch {
+            // Even if delete fails, proceed to let the user "logout" locally
         }
     },
 

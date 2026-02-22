@@ -42,8 +42,7 @@ export const GPATrendChart = ({ semesters, colors }: { semesters: SemesterResult
                     label: label.length > 5 ? label.substring(0, 4) + '..' : label, // Fallback truncate
                     value: isNaN(sgpa) ? 0 : sgpa
                 };
-            })
-            .reverse();
+            });
     }, [semesters]);
 
     if (data.length < 2) return null;

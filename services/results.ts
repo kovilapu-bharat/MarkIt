@@ -33,14 +33,10 @@ export interface ResultsData {
 export const ResultsService = {
     getResults: async (): Promise<ResultsData> => {
         try {
-            console.log('Fetching results page...');
-            console.log(`Fetching results from: ${API_CONFIG.ENDPOINTS.RESULTS}`);
-
             let response = await api.get(API_CONFIG.ENDPOINTS.RESULTS);
             let html = response.data;
 
             if (html.includes('login.php') || html.includes('Enter Roll No')) {
-                console.log('Session expired (results), re-authenticating...');
                 const credentials = await AuthService.getCredentials();
                 if (!credentials) throw new Error('Not logged in');
                 await AuthService.login(credentials.studentId, credentials.pass);
@@ -51,7 +47,6 @@ export const ResultsService = {
             return await ResultsService.parseResults(html);
 
         } catch (error: any) {
-            console.warn('Results fetch error:', error.message);
             throw error;
         }
     },
@@ -63,7 +58,7 @@ export const ResultsService = {
             const semesters: SemesterResult[] = [];
             let cgpa = 'N/A';
 
-            console.log(`[Parser] Starting Stateful Row Scan. HTML length: ${html.length}`);
+
 
             const allRows = $('tr');
             const headerIndices: number[] = [];
@@ -76,7 +71,7 @@ export const ResultsService = {
                 }
             });
 
-            console.log(`[Parser] Found ${headerIndices.length} header rows: ${headerIndices.join(', ')}`);
+
 
             // 2. Process chunks
             for (let k = 0; k < headerIndices.length; k++) {
@@ -214,11 +209,9 @@ export const ResultsService = {
                 isOffline: false
             };
 
-            console.log(`[Parser] Row Scan Complete. Extracted ${semesters.length} semesters. CGPA: ${cgpa}`);
             await saveData(STORAGE_KEYS.EXAM_RESULTS, data);
             return data;
         } catch (error: any) {
-            console.warn('Results parsing error:', error.message);
             throw error;
         }
     },

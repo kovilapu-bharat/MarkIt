@@ -1,0 +1,22 @@
+node_modules/
+.expo/
+dist/
+web-build/
+.git/
+.vscode/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# debug files
+*.html
+cookies.txt
+debug_output.txt
+tsc_error*.txt
+eslint_error*.txt
+*lint*.json
+lint*.txt
+results_files/
+test/

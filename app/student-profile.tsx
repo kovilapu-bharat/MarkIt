@@ -13,8 +13,7 @@ const { width } = Dimensions.get('window');
 
 export default function StudentProfileScreen() {
     const router = useRouter();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { colors, isDark } = useTheme();
+    useTheme();
     const [profile, setProfile] = useState<StudentProfile | null>(null);
     const shimmerValue = useSharedValue(-1);
 
@@ -125,16 +124,15 @@ export default function StudentProfileScreen() {
                                 <View style={styles.divider} />
 
                                 <View style={styles.footerRow}>
-                                    {/* Replaced QR/Signature with centered info or placeholder for now */}
                                     <View style={styles.footerInfo}>
                                         <View style={styles.infoBlock}>
                                             <Text style={styles.footerLabel}>VALID UNTIL</Text>
-                                            <Text style={styles.footerValue}>MAY 2027</Text>
+                                            <Text style={styles.footerValue}>{`MAY ${new Date().getFullYear() + 4}`}</Text>
                                         </View>
                                         <View style={styles.dividerVertical} />
                                         <View style={styles.infoBlock}>
-                                            <Text style={styles.footerLabel}>DOB</Text>
-                                            <Text style={styles.footerValue}>15-08-2004</Text>
+                                            <Text style={styles.footerLabel}>ROLL NO</Text>
+                                            <Text style={styles.footerValue}>{profile?.rollNo || '...'}</Text>
                                         </View>
                                     </View>
                                 </View>

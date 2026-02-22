@@ -17,12 +17,10 @@ export interface FeeReceipt {
 export const FeeService = {
     getAcademicYears: async (): Promise<string[]> => {
         try {
-            console.log('Fetching fee page to get academic years...');
             let response = await api.get(API_CONFIG.ENDPOINTS.FEE_RECEIPT);
             let html = response.data;
 
             if (html.includes('login.php') || html.includes('Enter Roll No') || html.includes('Student Login Page')) {
-                console.log('Session expired (fees), re-authenticating...');
                 const credentials = await AuthService.getCredentials();
                 if (credentials) {
                     await AuthService.login(credentials.studentId, credentials.pass);
@@ -42,8 +40,7 @@ export const FeeService = {
             });
 
             return years;
-        } catch (error) {
-            console.error('Error fetching academic years:', error);
+        } catch {
             // Return defaults if fetch fails
             return ['2025-26', '2024-25'];
         }
@@ -51,7 +48,6 @@ export const FeeService = {
 
     getReceipts: async (year: string): Promise<FeeReceipt[]> => {
         try {
-            console.log(`Fetching receipts for Academic Year: ${year}`);
 
             const params = new URLSearchParams();
             params.append('academic_year', year);
@@ -65,7 +61,6 @@ export const FeeService = {
             let html = response.data;
 
             if (html.includes('login.php') || html.includes('Enter Roll No') || html.includes('Student Login Page')) {
-                console.log('Session expired (fees receipt), re-authenticating...');
                 const credentials = await AuthService.getCredentials();
                 if (credentials) {
                     await AuthService.login(credentials.studentId, credentials.pass);
@@ -83,7 +78,7 @@ export const FeeService = {
 
             // 3. Parse specific .receipt-item cards
             const receiptItems = $post('.receipt-item');
-            console.log(`Found ${receiptItems.length} receipt items.`);
+
 
             receiptItems.each((i: number, el: any) => {
                 try {
@@ -111,28 +106,18 @@ export const FeeService = {
                             downloadLink: undefined
                         });
                     }
-                } catch (err) {
-                    console.error('Error parsing receipt item:', err);
+                } catch {
+                    // Skip malformed receipt items
                 }
             });
 
             if (receipts.length === 0) {
-                const title = $post('title').text();
-                console.log('DEBUG: HTML Title:', title);
-                console.log('DEBUG: HTML Length:', html.length);
-                console.log('DEBUG: HTML Snippet:', html.substring(0, 500).replace(/\s+/g, ' '));
-
-                // Extra check: is it a login page?
-                if (title.toLowerCase().includes('login') || html.includes('Sign In')) {
-                    console.log('DEBUG: Detected potential login page via Title/Content');
-                }
+                // No receipts found for selected year
             }
 
-            console.log(`Parsed ${receipts.length} fee receipts.`);
             return receipts;
 
         } catch (error) {
-            console.error('Error fetching fee receipts:', error);
             throw error;
         }
     }

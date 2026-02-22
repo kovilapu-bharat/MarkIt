@@ -30,6 +30,12 @@ debug_*.html
 debug*.js
 *lint*.json
 lint*.txt
+*.html
+cookies.txt
+debug_output.txt
+tsc_error*.txt
+eslint_error*.txt
+results_files/
 
 # macOS
 .DS_Store

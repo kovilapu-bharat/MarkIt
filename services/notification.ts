@@ -1,6 +1,7 @@
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
+import { API_CONFIG } from '../constants/config';
 import { loadData, saveData, STORAGE_KEYS } from '../utils/storage';
 import api from './api';
 import { AuthService } from './auth';
@@ -9,14 +10,15 @@ import { AuthService } from './auth';
 try {
     Notifications.setNotificationHandler({
         handleNotification: async () => ({
+            shouldShowAlert: true,
             shouldPlaySound: true,
             shouldSetBadge: false,
             shouldShowBanner: true,
             shouldShowList: true,
         }),
     });
-} catch (e) {
-    console.log('Error setting notification handler (likely Expo Go limitation):', e);
+} catch {
+    // Notification handler setup may fail in Expo Go
 }
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -34,8 +36,7 @@ export interface AppNotification {
 export const NotificationService = {
     getNotifications: async (): Promise<AppNotification[]> => {
         try {
-            console.log('Fetching notifications (attendance page)...');
-            let response = await api.get('/Student/Date_wise_attendance.php'); // Notifications are here based on user file
+            let response = await api.get(API_CONFIG.ENDPOINTS.ATTENDANCE);
             let html = response.data;
 
             // Session check
@@ -43,7 +44,7 @@ export const NotificationService = {
                 const credentials = await AuthService.getCredentials();
                 if (credentials) {
                     await AuthService.login(credentials.studentId, credentials.pass);
-                    response = await api.get('/Student/Date_wise_attendance.php');
+                    response = await api.get(API_CONFIG.ENDPOINTS.ATTENDANCE);
                     html = response.data;
                 }
             }
@@ -69,15 +70,14 @@ export const NotificationService = {
                 }
             });
 
-            console.log(`Parsed ${notifications.length} notifications`);
+
 
             // Cache
             await saveData(STORAGE_KEYS.NOTIFICATIONS, notifications);
 
             return notifications;
 
-        } catch (error) {
-            console.warn('Notification fetch error:', error);
+        } catch {
             const cached = await loadData(STORAGE_KEYS.NOTIFICATIONS);
             if (cached) {
                 return cached.map((n: AppNotification) => ({ ...n, isOffline: true }));
@@ -107,7 +107,6 @@ export const NotificationService = {
         }
 
         if (finalStatus !== 'granted') {
-            console.log('Failed to get push token for push notification!');
             return;
         }
 
@@ -119,18 +118,16 @@ export const NotificationService = {
 
             if (!projectId) {
                 // For development/Expo Go, we can start without it, but real push needs it.
-                console.log('Project ID not found. Ensure you have synced with EAS.');
             }
 
             token = (await Notifications.getExpoPushTokenAsync({
                 projectId: projectId,
             })).data;
 
-            console.log('Expo Push Token (Share with Backend/Firebase):', token);
             return token;
 
-        } catch (e) {
-            console.log('Error registering for notifications:', e);
+        } catch {
+            // Registration may fail in Expo Go
         }
     },
 
@@ -144,8 +141,8 @@ export const NotificationService = {
                 },
                 trigger: null, // Send immediately
             });
-        } catch (e) {
-            console.log('Error sending notification (Expo Go limitation?):', e);
+        } catch {
+            // Notification scheduling may fail in Expo Go
         }
     },
 
@@ -212,10 +209,10 @@ export const NotificationService = {
                 }
             });
 
-            console.log(`[NotificationService] Scheduled daily summary for ${scheduledTime.toLocaleString()} with ${percentage}%`);
 
-        } catch (e) {
-            console.log('Error scheduling daily summary:', e);
+
+        } catch {
+            // Scheduling may fail in Expo Go
         }
     }
 };
