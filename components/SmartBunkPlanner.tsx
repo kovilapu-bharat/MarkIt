@@ -1,7 +1,8 @@
+import { Text } from './ThemedText';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet,  View } from 'react-native';
 import { Slider } from 'react-native-awesome-slider';
 import { Calendar, DateData } from 'react-native-calendars';
 import { useSharedValue } from 'react-native-reanimated';

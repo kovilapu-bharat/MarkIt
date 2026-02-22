@@ -1,6 +1,9 @@
+import { Text } from '@/components/ThemedText';
 import { useTheme } from '@/context/ThemeContext';
+import { AuthService } from '@/services/auth';
 import { Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -13,11 +16,11 @@ import {
     KeyboardAvoidingView,
     Platform,
     StyleSheet,
-    Text,
+
     TextInput,
     TouchableOpacity,
     TouchableWithoutFeedback,
-    View,
+    View
 } from 'react-native';
 import Animated, {
     FadeInDown,
@@ -29,7 +32,6 @@ import Animated, {
     withTiming
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { AuthService } from '../services/auth';
 
 const { width, height } = Dimensions.get('window');
 
@@ -118,8 +120,11 @@ export default function LoginScreen() {
     });
 
     const handleLogin = async () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
         if (!studentId || !password) {
             triggerShake();
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
             Alert.alert('Missing Info', 'Please enter your Roll Number and Password.');
             return;
         }
@@ -135,12 +140,13 @@ export default function LoginScreen() {
 
             // Delay navigation to show "SYSTEM ONLINE"
             setTimeout(() => {
-                router.replace('/(tabs)');
+                router.replace('/(app)/(tabs)');
             }, 1500);
 
         } catch (error: any) {
             setLoading(false);
             triggerShake();
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
             Alert.alert('Access Denied', error.message || 'Invalid credentials.');
         }
     };

@@ -1,11 +1,12 @@
+import { Text } from '@/components/ThemedText';
 import { useTheme } from '@/context/ThemeContext';
+import { FeeReceipt, FeeService } from '@/services/FeeService';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Alert, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, RefreshControl, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated';
-import { FeeReceipt, FeeService } from '../services/FeeService';
 
 // Skeleton Loader Component
 const SkeletonLoader = ({ colors, isDark }: { colors: any; isDark: boolean }) => (

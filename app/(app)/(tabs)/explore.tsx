@@ -1,17 +1,18 @@
+import { ScalePressable } from '@/components/ScalePressable';
+import { SkeletonLoader } from '@/components/SkeletonLoader';
+import { Text } from '@/components/ThemedText';
 import { useTheme } from '@/context/ThemeContext';
+import { AttendanceService, DailyAttendance } from '@/services/attendance';
+import { AuthService } from '@/services/auth';
 import { BlurView } from 'expo-blur';
 import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { FlatList, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, RefreshControl, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ScalePressable } from '../../components/ScalePressable';
-import { SkeletonLoader } from '../../components/SkeletonLoader';
-import { AttendanceService, DailyAttendance } from '../../services/attendance';
-import { AuthService } from '../../services/auth';
 
 export default function DateWiseScreen() {
   const [days, setDays] = useState<DailyAttendance[]>([]);
@@ -26,7 +27,7 @@ export default function DateWiseScreen() {
     try {
       const isLoggedIn = await AuthService.isLoggedIn();
       if (!isLoggedIn) {
-        router.replace('/login');
+        router.replace('/(auth)/login');
         return;
       }
 

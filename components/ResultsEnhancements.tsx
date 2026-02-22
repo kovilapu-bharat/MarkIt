@@ -1,7 +1,8 @@
+import { Text } from './ThemedText';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useMemo, useState } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet,  View } from 'react-native';
 import { Slider } from 'react-native-awesome-slider';
 import { useSharedValue } from 'react-native-reanimated';
 import { Circle, Defs, Line, Path, Stop, Svg, LinearGradient as SvgGradient, Text as SvgText } from 'react-native-svg';

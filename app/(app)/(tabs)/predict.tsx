@@ -1,19 +1,20 @@
+import DonutChart from '@/components/DonutChart';
+import { ScalePressable } from '@/components/ScalePressable';
+import { SkeletonLoader } from '@/components/SkeletonLoader';
+import { Text } from '@/components/ThemedText';
 import { useTheme } from '@/context/ThemeContext';
+import { AnalyticsService } from '@/services/analytics';
+import { AttendanceService } from '@/services/attendance';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { Slider as AwesomeSlider } from 'react-native-awesome-slider';
 import Animated, { FadeInDown, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import DonutChart from '../../components/DonutChart';
-import { ScalePressable } from '../../components/ScalePressable';
-import { SkeletonLoader } from '../../components/SkeletonLoader';
-import { AnalyticsService } from '../../services/analytics';
-import { AttendanceService } from '../../services/attendance';
 
 // ... imports
-import { SmartBunkPlanner } from '../../components/SmartBunkPlanner';
+import { SmartBunkPlanner } from '@/components/SmartBunkPlanner';
 
 const PredictSkeleton = ({ colors, insets }: { colors: any; insets: any }) => (
     <View style={[styles.container, { backgroundColor: colors.background, paddingTop: insets.top }]}>

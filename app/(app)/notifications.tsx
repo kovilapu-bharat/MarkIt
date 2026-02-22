@@ -1,3 +1,4 @@
+import { Text } from '@/components/ThemedText';
 import { useTheme } from '@/context/ThemeContext';
 import { AppNotification, NotificationService } from '@/services/notification';
 import { Ionicons } from '@expo/vector-icons';
@@ -5,7 +6,7 @@ import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 import { ScalePressable } from '@/components/ScalePressable';

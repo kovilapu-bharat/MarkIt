@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react-native';
 import { API_CONFIG } from '../constants/config';
 import { loadData, saveData, STORAGE_KEYS } from '../utils/storage';
 import api from './api';
@@ -212,6 +213,7 @@ export const ResultsService = {
             await saveData(STORAGE_KEYS.EXAM_RESULTS, data);
             return data;
         } catch (error: any) {
+            Sentry.captureException(error);
             throw error;
         }
     },

@@ -1,18 +1,20 @@
+import { AnimatedNumber } from '@/components/AnimatedNumber';
+import { ScalePressable } from '@/components/ScalePressable';
+import { SkeletonLoader } from '@/components/SkeletonLoader';
+import { Text } from '@/components/ThemedText';
 import { useResults } from '@/context/ResultsContext';
 import { useTheme } from '@/context/ThemeContext';
+import { AttendanceResponse, AttendanceService, MonthlyAttendance } from '@/services/attendance';
+import { AuthService, StudentProfile } from '@/services/auth';
 import { Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
+import * as Haptics from 'expo-haptics';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, Image, Modal, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Modal, RefreshControl, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Animated, { Easing, FadeInDown, useAnimatedStyle, useSharedValue, withRepeat, withSequence, withTiming } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { AnimatedNumber } from '../../components/AnimatedNumber';
-import { ScalePressable } from '../../components/ScalePressable';
-import { SkeletonLoader } from '../../components/SkeletonLoader';
-import { AttendanceResponse, AttendanceService, MonthlyAttendance } from '../../services/attendance';
-import { AuthService, StudentProfile } from '../../services/auth';
 
 // --- Premium Sync Component ---
 const SyncedCard = ({ title, subtitle, icon, loading, loadingText, loadingSubtitle, onPress, isDark, colors, color, subtitleValue }: any) => {
@@ -109,7 +111,7 @@ export default function HomeScreen() {
     try {
       const isLoggedIn = await AuthService.isLoggedIn();
       if (!isLoggedIn) {
-        router.replace('/login');
+        router.replace('/(auth)/login');
         return;
       }
 
@@ -140,7 +142,7 @@ export default function HomeScreen() {
     setFeeLoading(true);
     try {
       // Dynamic import to avoid circular dependencies if any
-      const { FeeService } = await import('../../services/FeeService');
+      const { FeeService } = await import('@/services/FeeService');
 
       // Get current academic year first
       const years = await FeeService.getAcademicYears();
@@ -566,7 +568,10 @@ export default function HomeScreen() {
 
             <TouchableOpacity
               style={[styles.modalButton, { backgroundColor: colors.primary }]}
-              onPress={() => setShowInfoModal(false)}
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setShowInfoModal(false);
+              }}
             >
               <Text style={styles.modalButtonText}>Got it</Text>
             </TouchableOpacity>
@@ -618,7 +623,10 @@ export default function HomeScreen() {
 
             <TouchableOpacity
               style={[styles.modalButton, { backgroundColor: colors.primary, marginTop: 28, shadowColor: colors.primary, shadowOpacity: 0.3, shadowRadius: 8, elevation: 4 }]}
-              onPress={() => setShowPhotoModal(false)}
+              onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                setShowPhotoModal(false);
+              }}
               activeOpacity={0.8}
             >
               <Text style={styles.modalButtonText}>Understood</Text>

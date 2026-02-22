@@ -1,6 +1,9 @@
+import * as Sentry from '@sentry/react-native';
 import { API_CONFIG } from '../constants/config';
 import api from './api';
 import { AuthService } from './auth';
+import { ConfigService } from './ConfigService';
+
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const cheerio = require('react-native-cheerio');
 
@@ -39,10 +42,18 @@ export const FeeService = {
                 }
             });
 
-            return years;
-        } catch {
-            // Return defaults if fetch fails
-            return ['2025-26', '2024-25'];
+            if (years.length > 0) return years;
+            throw new Error('No academic years scraped');
+        } catch (error: any) {
+            Sentry.captureException(error);
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            // In typical academic calendars, if month is before June, the academic year started last year.
+            const startYear = now.getMonth() < 5 ? currentYear - 1 : currentYear;
+
+            const formatYear = (yr: number) => `${yr}-${String(yr + 1).slice(-2)}`;
+
+            return [formatYear(startYear), formatYear(startYear - 1)];
         }
     },
 
@@ -77,7 +88,8 @@ export const FeeService = {
             const receipts: FeeReceipt[] = [];
 
             // 3. Parse specific .receipt-item cards
-            const receiptItems = $post('.receipt-item');
+            const config = ConfigService.get();
+            const receiptItems = $post(config.SELECTORS.FEE_RECEIPT_ITEM || '.receipt-item');
 
 
             receiptItems.each((i: number, el: any) => {
@@ -117,7 +129,8 @@ export const FeeService = {
 
             return receipts;
 
-        } catch (error) {
+        } catch (error: any) {
+            Sentry.captureException(error);
             throw error;
         }
     }

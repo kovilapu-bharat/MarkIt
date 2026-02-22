@@ -1,5 +1,6 @@
+import { Text } from './ThemedText';
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet,  TouchableOpacity, View } from 'react-native';
 
 interface Props {
     children: ReactNode;

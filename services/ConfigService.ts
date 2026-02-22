@@ -12,8 +12,19 @@ export interface RemoteConfig {
         LOGIN: string;
         ATTENDANCE: string;
         RESULTS: string;
+        FEE_RECEIPT: string;
     };
     TIMEOUT: number;
+    SELECTORS?: {
+        ATTENDANCE_SUMMARY_TABLE?: string;
+        ATTENDANCE_TABLE?: string;
+        PRESENT_CLASS?: string;
+        ABSENT_CLASS?: string;
+        NOT_POSTED_CLASS?: string;
+        FEE_RECEIPT_ITEM?: string;
+        LOGIN_ERROR_INVALID?: string;
+        LOGIN_ERROR_INCORRECT?: string;
+    };
 }
 
 export const ConfigService = {

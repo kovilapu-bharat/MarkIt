@@ -1,5 +1,6 @@
+import { Text } from './ThemedText';
 import React, { useEffect, useState } from 'react';
-import { Text, TextProps, TextStyle } from 'react-native';
+import {  TextProps, TextStyle } from 'react-native';
 import {
     Easing,
     runOnJS,

@@ -11,4 +11,14 @@ export const API_CONFIG = {
         CONTENT_TYPE: 'application/x-www-form-urlencoded',
     },
     TIMEOUT: 30000,
+    SELECTORS: {
+        ATTENDANCE_SUMMARY_TABLE: '.summary-table',
+        ATTENDANCE_TABLE: 'table',
+        PRESENT_CLASS: 'present',
+        ABSENT_CLASS: 'absent',
+        NOT_POSTED_CLASS: 'not-posted',
+        FEE_RECEIPT_ITEM: '.receipt-item',
+        LOGIN_ERROR_INVALID: 'Invalid Credentials',
+        LOGIN_ERROR_INCORRECT: 'incorrect',
+    }
 };

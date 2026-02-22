@@ -1,22 +1,59 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import * as Sentry from '@sentry/react-native';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { ResultsProvider } from '@/context/ResultsContext';
+import { ThemeProvider as CustomThemeProvider } from '@/context/ThemeContext';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { ErrorBoundary } from '../components/ErrorBoundary';
-import { ResultsProvider } from '../context/ResultsContext';
-import { ThemeProvider as CustomThemeProvider } from '../context/ThemeContext';
+
+import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold, Inter_800ExtraBold } from '@expo-google-fonts/inter';
+import { useFonts } from 'expo-font';
+
+Sentry.init({
+  dsn: 'https://17b997ef256c0a52c45c7291ef485053@o4510928382525440.ingest.us.sentry.io/4510928392683520',
+  debug: false,
+  integrations: [
+    Sentry.reactNavigationIntegration({
+      enableTimeToInitialDisplay: true,
+    }),
+  ],
+});
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function RootLayoutNav() {
   const colorScheme = useColorScheme();
-  /* Font loading removed as assets/fonts/SpaceMono-Regular.ttf is missing */
-  const loaded = true;
+
+  return (
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <ResultsProvider>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(app)" />
+          <Stack.Screen name="+not-found" options={{ title: 'Oops!' }} />
+        </Stack>
+      </ResultsProvider>
+      <StatusBar style="auto" />
+    </ThemeProvider>
+  );
+}
+
+function App() {
+  const [loaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
+    Inter_800ExtraBold,
+  });
 
   useEffect(() => {
     const prepare = async () => {
@@ -30,31 +67,12 @@ export default function RootLayout() {
 
       // Register background tasks and permissions
       const initBackgroundTasks = async () => {
-        const { registerBackgroundFetchAsync } = await import('../services/BackgroundFetchService');
-        const { NotificationService } = await import('../services/notification');
+        const { registerBackgroundFetchAsync } = await import('@/services/BackgroundFetchService');
+        const { NotificationService } = await import('@/services/notification');
 
         await NotificationService.registerForPushNotificationsAsync();
         await registerBackgroundFetchAsync();
-
-        // Initialize Daily Notification with cached data
-        const { AttendanceService } = await import('../services/attendance');
-        const { STORAGE_KEYS, loadData } = await import('../utils/storage');
-        const cachedAttendance = await loadData(STORAGE_KEYS.ATTENDANCE);
-
-        if (cachedAttendance?.overallPercentage) {
-          await NotificationService.scheduleDailySummary(cachedAttendance.overallPercentage);
-        } else {
-          // Try to fetch if nothing cached
-          try {
-            const newAtt = await AttendanceService.getAttendance();
-            if (newAtt?.overallPercentage) {
-              await NotificationService.scheduleDailySummary(newAtt.overallPercentage);
-            }
-          } catch {
-            // No data available yet for daily notification
-          }
-        }
-      };
+      }
 
       initBackgroundTasks();
     }
@@ -69,34 +87,12 @@ export default function RootLayout() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <CustomThemeProvider>
           <ResultsProvider>
-            <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-              <Stack>
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-                <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-                <Stack.Screen name="login" options={{ headerShown: false }} />
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="student-profile"
-                  options={{
-                    presentation: 'transparentModal',
-                    animation: 'fade',
-                    headerShown: false,
-                  }}
-                />
-                <Stack.Screen
-                  name="settings"
-                  options={{
-                    headerShown: false,
-                    presentation: 'card',
-                    animation: 'slide_from_right'
-                  }}
-                />
-                <Stack.Screen name="+not-found" />
-              </Stack>
-            </ThemeProvider>
+            <RootLayoutNav />
           </ResultsProvider>
         </CustomThemeProvider>
       </GestureHandlerRootView>
     </ErrorBoundary>
   );
 }
+
+export default Sentry.wrap(App);

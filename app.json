@@ -5,7 +5,7 @@
     "description": "College ERP companion app for attendance, results, and analytics",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/App-logo.png",
+    "icon": "./assets/images/Clgpo.png",
     "scheme": "clgpo",
     "userInterfaceStyle": "automatic",
     "ios": {
@@ -15,7 +15,7 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/App-logo.png",
+        "foregroundImage": "./assets/images/Clgpo.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "permissions": [
@@ -28,14 +28,14 @@
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/App-logo.png"
+      "favicon": "./assets/images/Clgpo.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/App-logo.png",
+          "image": "./assets/images/Clgpo.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
@@ -46,7 +46,14 @@
       ],
       "expo-secure-store",
       "expo-background-task",
-      "expo-font"
+      "expo-font",
+      [
+        "@sentry/react-native",
+        {
+          "organization": "o4510928382525440",
+          "project": "react-native"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

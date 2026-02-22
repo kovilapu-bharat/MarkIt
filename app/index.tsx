@@ -1,6 +1,6 @@
 import { AuthService } from '@/services/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Redirect } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 
@@ -9,7 +9,6 @@ const ONBOARDING_KEY = 'has_seen_onboarding';
 export default function Index() {
     const [isLoading, setIsLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [needsOnboarding, setNeedsOnboarding] = useState(false);
 
     useEffect(() => {
         checkStatus();
@@ -21,12 +20,9 @@ export default function Index() {
             const hasSeenOnboarding = await AsyncStorage.getItem(ONBOARDING_KEY);
 
             if (hasSeenOnboarding !== 'true') {
-                setNeedsOnboarding(true);
-                setIsLoading(false);
+                router.replace('/(auth)/onboarding');
                 return;
             }
-
-
 
             // Then check login
             const loggedIn = await AuthService.isLoggedIn();
@@ -46,14 +42,9 @@ export default function Index() {
         );
     }
 
-    if (needsOnboarding) {
-        return <Redirect href="/onboarding" />;
-    }
-
     if (isLoggedIn) {
-        return <Redirect href="/(tabs)" />;
+        return <Redirect href="/(app)/(tabs)" />;
     }
 
-    return <Redirect href="/login" />;
+    return <Redirect href="/(auth)/login" />;
 }
-

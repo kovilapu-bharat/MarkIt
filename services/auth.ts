@@ -2,6 +2,7 @@ import * as LocalAuthentication from 'expo-local-authentication';
 import * as SecureStore from 'expo-secure-store';
 import { API_CONFIG } from '../constants/config';
 import api from './api';
+import { ConfigService } from './ConfigService';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const cheerio = require('react-native-cheerio');
@@ -40,10 +41,11 @@ export const AuthService = {
                 await SecureStore.setItemAsync('auth_cookie', cookieStr);
             }
 
+            const config = ConfigService.get();
             const responseText = loginResponse.data || '';
             const isLoginPage = responseText.includes('login-form') ||
                 responseText.includes('Enter your Roll Number') ||
-                responseText.includes('Invalid Credentials');
+                responseText.includes(config.SELECTORS?.LOGIN_ERROR_INVALID || 'Invalid Credentials');
 
             const isSuccessPage = responseText.includes('Dashboard') ||
                 responseText.includes('Welcome') ||
@@ -92,7 +94,7 @@ export const AuthService = {
                 await SecureStore.setItemAsync(PROFILE_KEY, JSON.stringify(profile));
 
                 return profile;
-            } else if (responseText.includes('Invalid Credentials') || responseText.includes('incorrect')) {
+            } else if (responseText.includes(config.SELECTORS?.LOGIN_ERROR_INVALID || 'Invalid Credentials') || responseText.includes(config.SELECTORS?.LOGIN_ERROR_INCORRECT || 'incorrect')) {
                 throw new Error('Invalid credentials. Please check your Roll Number and Password.');
             } else {
                 throw new Error('Login failed. Please verify your credentials.');

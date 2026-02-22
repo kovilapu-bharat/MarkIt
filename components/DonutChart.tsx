@@ -1,6 +1,7 @@
+import { Text } from './ThemedText';
 import { useTheme } from '@/context/ThemeContext';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet,  View } from 'react-native';
 import Animated, { useAnimatedProps, useSharedValue, withDelay, withTiming } from 'react-native-reanimated';
 import Svg, { Circle, G } from 'react-native-svg';
 

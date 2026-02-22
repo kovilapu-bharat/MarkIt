@@ -1,7 +1,7 @@
+import { AuthService } from '@/services/auth';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { AuthService } from '../services/auth';
 
 export default function LogoutScreen() {
     const router = useRouter();
@@ -9,7 +9,7 @@ export default function LogoutScreen() {
     useEffect(() => {
         const performLogout = async () => {
             await AuthService.logout();
-            router.replace('/login');
+            router.replace('/(auth)/login');
         };
 
         performLogout();

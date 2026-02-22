@@ -1,7 +1,9 @@
+import * as Sentry from '@sentry/react-native';
 import { API_CONFIG } from '../constants/config';
 import { loadData, saveData, STORAGE_KEYS } from '../utils/storage';
 import api from './api';
 import { AuthService } from './auth';
+import { ConfigService } from './ConfigService';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const cheerio = require('react-native-cheerio');
@@ -55,10 +57,11 @@ export const AttendanceService = {
             let semesterTotal = { attended: 0, total: 0 };
             let overallPercentage = 0;
 
+            const config = ConfigService.get();
             // 1. Parse Summary Table
-            let summaryTable = $('.summary-table');
+            let summaryTable = $(config.SELECTORS?.ATTENDANCE_SUMMARY_TABLE || '.summary-table');
             if (summaryTable.length === 0) {
-                summaryTable = $('table').filter((i: number, el: any) => {
+                summaryTable = $(config.SELECTORS?.ATTENDANCE_TABLE || 'table').filter((i: number, el: any) => {
                     const text = $(el).text();
                     return text.includes('Month') && text.includes('Classes Attended');
                 });
@@ -96,6 +99,7 @@ export const AttendanceService = {
             return data;
 
         } catch (error: any) {
+            Sentry.captureException(error);
             // Try fallback to cache
             const cachedData = await loadData(STORAGE_KEYS.ATTENDANCE);
             if (cachedData) {
@@ -121,8 +125,9 @@ export const AttendanceService = {
             const $ = cheerio.load(html);
             const days: DailyAttendance[] = [];
 
+            const config = ConfigService.get();
             // Robust parsing: Scan all tables for date rows
-            $('table').each((tIdx: number, table: any) => {
+            $(config.SELECTORS?.ATTENDANCE_TABLE || 'table').each((tIdx: number, table: any) => {
                 const rows = $(table).find('tr');
                 rows.each((rIdx: number, row: any) => {
                     const tds = $(row).find('td');
@@ -160,9 +165,9 @@ export const AttendanceService = {
                             const cellClass = ($(tds[p]).attr('class') || '').toLowerCase();
 
                             let status = '-';
-                            if (cellClass.includes('present')) status = 'P';
-                            else if (cellClass.includes('absent')) status = 'A';
-                            else if (cellClass.includes('not-posted') || !cellText || cellText.toLowerCase() === 'null') status = '-';
+                            if (cellClass.includes(config.SELECTORS?.PRESENT_CLASS || 'present')) status = 'P';
+                            else if (cellClass.includes(config.SELECTORS?.ABSENT_CLASS || 'absent')) status = 'A';
+                            else if (cellClass.includes(config.SELECTORS?.NOT_POSTED_CLASS || 'not-posted') || !cellText || cellText.toLowerCase() === 'null') status = '-';
                             else if (cellText.length > 0 && cellText.length <= 2) status = cellText;
 
                             periods.push(status);
@@ -184,6 +189,7 @@ export const AttendanceService = {
             return data;
 
         } catch (error: any) {
+            Sentry.captureException(error);
             const cachedData = await loadData(STORAGE_KEYS.DATE_WISE_ATTENDANCE);
             if (cachedData) return { ...cachedData, isOffline: true };
             throw error;

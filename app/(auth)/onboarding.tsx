@@ -1,13 +1,14 @@
+import { Text } from '@/components/ThemedText';
 
+import { ScalePressable } from '@/components/ScalePressable';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown, FadeInUp, useSharedValue, withSpring } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScalePressable } from '../components/ScalePressable';
 
 const { width } = Dimensions.get('window');
 
@@ -68,7 +69,7 @@ export default function Onboarding() {
             } catch {
                 // Save failure is non-critical
             }
-            router.replace('/login');
+            router.replace('/(auth)/login');
         }
     };
 
@@ -78,7 +79,7 @@ export default function Onboarding() {
         } catch {
             // Save failure is non-critical
         }
-        router.replace('/login');
+        router.replace('/(auth)/login');
     };
 
     const currentSlide = slides[currentIndex];
